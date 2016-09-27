@@ -1,7 +1,7 @@
 module Constant
-  ACCESS_TOKEN_HEADER  = 'X-AUTH-HEADER'
-  DEFAULT_API_BASE_URL = 'api.polyseer.io/polyseer'
-  DEFAULT_API_PROTOCOL = 'http://'
-  DEFAULT_API_VERSION  = 'v1'
-  DEFAULT_ENV          = 'RAILS_ENV'
+  ACCESS_TOKEN_HEADER  = 'X-AUTH-HEADER'.freeze
+  DEFAULT_API_BASE_URL = 'api.polyseer.io/polyseer'.freeze
+  DEFAULT_API_PROTOCOL = 'http://'.freeze
+  DEFAULT_API_VERSION  = 'v1'.freeze
+  DEFAULT_ENV          = 'RAILS_ENV'.freeze
 end

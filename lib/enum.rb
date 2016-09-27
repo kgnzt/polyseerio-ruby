@@ -1,30 +1,30 @@
 module Enum
   module Color
-    BLUE   = 'blue'
-    BROWN  = 'brown'
-    GREEN  = 'green'
-    ORANGE = 'orange'
-    PURPLE = 'purple'
-    RED    = 'red'
-    TEAL   = 'teal'
-    WHITE  = 'white'
-    YELLOW = 'yellow'
+    BLUE   = 'blue'.freeze
+    BROWN  = 'brown'.freeze
+    GREEN  = 'green'.freeze
+    ORANGE = 'orange'.freeze
+    PURPLE = 'purple'.freeze
+    RED    = 'red'.freeze
+    TEAL   = 'teal'.freeze
+    WHITE  = 'white'.freeze
+    YELLOW = 'yellow'.freeze
     NONE   = nil
   end
-  
+
   module Icon
-    THUMBS_UP    = 'thumbs-up'
-    CALENDAR     = 'calendar'
-    SERVER       = 'server'
-    SIGNAL       = 'wifi'
-    GIT          = 'git'
-    CODE         = 'code'
-    CHECK        = 'check'
-    ERROR        = 'exclamation-triangle'
-    PENCIL       = 'pencil'
-    CHAIN        = 'chain'
-    CHAIN_BROKEN = 'chain-broken'
-    NONE         =  nil
+    THUMBS_UP    = 'thumbs-up'.freeze
+    CALENDAR     = 'calendar'.freeze
+    SERVER       = 'server'.freeze
+    SIGNAL       = 'wifi'.freeze
+    GIT          = 'git'.freeze
+    CODE         = 'code'.freeze
+    CHECK        = 'check'.freeze
+    ERROR        = 'exclamation-triangle'.freeze
+    PENCIL       = 'pencil'.freeze
+    CHAIN        = 'chain'.freeze
+    CHAIN_BROKEN = 'chain-broken'.freeze
+    NONE         = nil
   end
 
   module Strategy

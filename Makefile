@@ -7,9 +7,9 @@ install:
 
 lint:
 ifeq ($(BUILD_ENV),ci)
-	grunt jshint:file
+	rubocop
 else
-	grunt jshint:stdout
+	rubocop
 endif
 
 unit-test:

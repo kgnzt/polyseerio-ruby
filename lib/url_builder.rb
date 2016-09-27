@@ -2,6 +2,7 @@ require 'functional'
 require 'constant'
 require 'resource'
 
+# Functions and constants used for formatting and building resource URIs.
 module UrlBuilder
   include Functional::Memo
 
@@ -12,17 +13,17 @@ module UrlBuilder
     Resource::EXPECTATION,
     Resource::INSTANCE,
     Resource::TASK
-  ]
+  ].freeze
 
   # Determine if a resource is routable to an environment.
-  def self.is_routable_resource(resource)
+  def self.routable_resource?(resource)
     RoutableResources.include? resource
   end
 
   # Generate a base API url.
   def self.get_base_url(
-    base     = Constant::DEFAULT_API_BASE_URL, 
-    protocol = Constant::DEFAULT_API_PROTOCOL, 
+    base     = Constant::DEFAULT_API_BASE_URL,
+    protocol = Constant::DEFAULT_API_PROTOCOL,
     version  = Constant::DEFAULT_API_VERSION
   )
     "#{protocol}#{base}/#{version}"
@@ -32,19 +33,20 @@ module UrlBuilder
   def self.get_resource_path(resource, options = {})
     environment = ''
 
-    if is_routable_resource resource
-      if !options.include? :eid
-        raise ArgumentError, "Cannot get routable resource path for #{resource} without passing an eid to options."
+    if routable_resource? resource
+      unless options.include? :eid
+        raise ArgumentError, 'Cannot get routable resource path for'\
+          " #{resource} without passing an eid to options."
       end
 
-      environment = "environments/%{eid}/" % options
+      environment = format('environments/%s/', options[:eid])
     end
 
-    id = (options.include? :id) ? ("/%{id}" % options) : '';
+    id = options.include?(:id) ? format('/%s', options[:id]) : ''
 
-    "/#{environment}#{resource}#{id}"
+    format('/%s%s%s', environment, resource, id)
   end
 
-  memoize(:is_routable_resource)
+  memoize(:routable_resource?)
   memoize(:get_resource_path)
 end

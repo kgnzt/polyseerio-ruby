@@ -3,6 +3,6 @@ class Client
   def initialize(options = {})
   end
 
-  def getCurrentEnvironment()
+  def current_environment
   end
 end

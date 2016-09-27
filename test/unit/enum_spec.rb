@@ -7,39 +7,39 @@ RSpec.describe Enum do
     it 'defines BLUE' do
       expect(Color::BLUE).to eq('blue')
     end
-  
+
     it 'defines BROWN' do
       expect(Color::BROWN).to eq('brown')
     end
-  
+
     it 'defines GREEN' do
       expect(Color::GREEN).to eq('green')
     end
-  
+
     it 'defines ORANGE' do
       expect(Color::ORANGE).to eq('orange')
     end
-  
+
     it 'defines PURPLE' do
       expect(Color::PURPLE).to eq('purple')
     end
-  
+
     it 'defines RED' do
       expect(Color::RED).to eq('red')
     end
-  
+
     it 'defines TEAL' do
       expect(Color::TEAL).to eq('teal')
     end
-  
+
     it 'defines WHITE' do
       expect(Color::WHITE).to eq('white')
     end
-  
+
     it 'defines YELLOW' do
       expect(Color::YELLOW).to eq('yellow')
     end
-  
+
     it 'defines NONE' do
       expect(Color::NONE).to equal(nil)
     end
