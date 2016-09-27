@@ -96,4 +96,16 @@ RSpec.describe Enum do
       expect(Icon::NONE).to equal(nil)
     end
   end
+
+  describe Enum::Strategy do
+    Strategy = Enum::Strategy
+
+    it 'defines FALLBACK' do
+      expect(Strategy::FALLBACK).to eq(:fallback)
+    end
+
+    it 'defines ID' do
+      expect(Strategy::ID).to eq(:id)
+    end
+  end
 end

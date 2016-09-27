@@ -26,4 +26,9 @@ module Enum
     CHAIN_BROKEN = 'chain-broken'
     NONE         =  nil
   end
+
+  module Strategy
+    FALLBACK = :fallback
+    ID       = :id
+  end
 end
