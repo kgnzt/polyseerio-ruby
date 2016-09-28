@@ -13,4 +13,22 @@ module ResourceFactory
       define_method(name, &method)
     end
   end
+
+  # Add a collection of static methods to a Class
+  def self.add_statics(resource, statics = [])
+    return resource if statics.empty?
+
+    statics.reduce(resource, &add_static)
+  end
+
+  # Add a collection of instance methods to a Class
+  def self.add_methods(resource, methods = [])
+    return resource if methods.empty?
+
+    methods.reduce(resource, &add_method)
+  end
+
+  # Create a resource
+  def.self.factory (resource, request, cid, options = {})
+  end
 end

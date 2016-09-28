@@ -27,4 +27,26 @@ RSpec.describe ResourceFactory do
       expect(Dork.foo(2)).to eql(4)
     end
   end
+
+  describe 'add_statics' do
+    it 'simply returns the resource if no statics' do
+      ResourceFactory.add_statics(Dork)
+
+      expect(Dork).to equal(Dork)
+    end
+
+    it 'adds all statics passed onto the resource' do
+    end
+  end
+
+  describe 'add_methods' do
+    it 'simply returns the resource if no methods' do
+      ResourceFactory.add_methods(Dork)
+
+      expect(Dork).to equal(Dork)
+    end
+
+    it 'adds all methods passed onto the resource' do
+    end
+  end
 end
