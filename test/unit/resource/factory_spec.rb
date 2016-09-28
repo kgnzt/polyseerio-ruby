@@ -49,4 +49,20 @@ RSpec.describe ResourceFactory do
     it 'adds all methods passed onto the resource' do
     end
   end
+
+  describe 'get_memoize_key' do
+    it 'returns the correct key' do
+      resource = 'alerts'
+      cid = 2
+
+      key = ResourceFactory.get_memoize_key(resource, nil, cid, nil)
+
+      expect(key).to eq('alerts.2')
+    end
+  end
+
+  describe 'factory' do
+    it 'test' do
+    end
+  end
 end

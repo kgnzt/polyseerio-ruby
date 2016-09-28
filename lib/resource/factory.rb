@@ -29,6 +29,16 @@ module ResourceFactory
   end
 
   # Create a resource
-  def.self.factory (resource, request, cid, options = {})
+  # def self.factory(resource, request, cid, options = {})
+  #   check for def
+  #
+  # end
+  # end
+
+  # Generate a memoize key based on factory arguments
+  def self.get_memoize_key(resource, _, cid, _)
+    "#{resource}.#{cid}"
   end
+
+  # memoize(:factory?)
 end
