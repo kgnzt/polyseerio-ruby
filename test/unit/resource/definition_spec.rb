@@ -188,5 +188,98 @@ RSpec.describe ResourceDefinition do
         )
       end
     end
+
+    describe 'instances' do
+      instances = DEFINITION['instances']
+
+      it 'has the correct statics' do
+        statics = instances[:statics]
+
+        expect(statics).to contain_exactly(
+          :create,
+          :find,
+          :find_by_id,
+          :find_by_name,
+          :update,
+          :remove,
+          :attach
+        )
+      end
+    end
+
+    describe 'logic-blocks' do
+      logic_blocks = DEFINITION['logic-blocks']
+
+      it 'has the correct statics' do
+        statics = logic_blocks[:statics]
+
+        expect(statics).to contain_exactly(
+          :create,
+          :find,
+          :find_by_id,
+          :update,
+          :remove,
+          :execute
+        )
+      end
+    end
+
+    describe 'members' do
+      members = DEFINITION['members']
+
+      it 'has the correct statics' do
+        statics = members[:statics]
+
+        expect(statics).to contain_exactly(
+          :create,
+          :find,
+          :find_by_id,
+          :update,
+          :remove
+        )
+      end
+    end
+
+    describe 'messages' do
+      messages = DEFINITION['messages']
+
+      it 'has the correct statics' do
+        statics = messages[:statics]
+
+        expect(statics).to contain_exactly(
+          :create,
+          :find,
+          :find_by_id,
+          :update,
+          :remove
+        )
+      end
+    end
+
+    describe 'settings' do
+      settings = DEFINITION['settings']
+
+      it 'has the correct statics' do
+        statics = settings[:statics]
+
+        expect(statics).to be_empty
+      end
+    end
+
+    describe 'tasks' do
+      tasks = DEFINITION['tasks']
+
+      it 'has the correct statics' do
+        statics = tasks[:statics]
+
+        expect(statics).to contain_exactly(
+          :create,
+          :find,
+          :find_by_id,
+          :update,
+          :remove
+        )
+      end
+    end
   end
 end

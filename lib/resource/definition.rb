@@ -79,28 +79,47 @@ module ResourceDefinition
       ]
     },
     Resource::INSTANCE => {
-      STATICS => [],
-      METHODS => []
+      STATICS => [
+        *CRUD_STATICS,
+        :find_by_name,
+        :attach
+      ],
+      METHODS => [
+      ]
     },
     Resource::LOGIC_BLOCK => {
-      STATICS => [],
-      METHODS => []
+      STATICS => [
+        *CRUD_STATICS,
+        :execute
+      ],
+      METHODS => [
+      ]
     },
     Resource::MEMBER => {
-      STATICS => [],
-      METHODS => []
+      STATICS => [
+        *CRUD_STATICS
+      ],
+      METHODS => [
+      ]
     },
     Resource::MESSAGE => {
-      STATICS => [],
-      METHODS => []
+      STATICS => [
+        *CRUD_STATICS
+      ],
+      METHODS => [
+      ]
     },
     Resource::SETTING => {
       STATICS => [],
-      METHODS => []
+      METHODS => [
+      ]
     },
     Resource::TASK => {
-      STATICS => [],
-      METHODS => []
+      STATICS => [
+        *CRUD_STATICS
+      ],
+      METHODS => [
+      ]
     }
   }.freeze
 end

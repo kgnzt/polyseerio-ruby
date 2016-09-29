@@ -1,2 +1,4 @@
 Style/ExtraSpacing:
   AllowForAlignment: true
+Metrics/MethodLength:
+    Enabled: false
