@@ -11,6 +11,12 @@ module ResourceHelper
     result[1]
   end
 
+  # True if the response is a resource based response
+  def self.resource_response?(response)
+    response.key?(:data) &&
+      (response[:data].is_a?(Array) || response[:data].is_a?(Hash))
+  end
+
   # True if the response data is a resource collection
   def self.resource_collection?(data)
     data.is_a? Array

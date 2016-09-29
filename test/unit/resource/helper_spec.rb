@@ -36,4 +36,38 @@ RSpec.describe ResourceHelper do
       expect(result).to be false
     end
   end
+
+  describe 'resource_response?' do
+    it 'true if response has data and data is an array' do
+      response = { data: [] }
+
+      result = ResourceHelper.resource_response? response
+
+      expect(result).to be true
+    end
+
+    it 'true if response has data and data is a hash' do
+      response = { data: {} }
+
+      result = ResourceHelper.resource_response? response
+
+      expect(result).to be true
+    end
+
+    it 'false if no data in response' do
+      response = { foo: {} }
+
+      result = ResourceHelper.resource_response? response
+
+      expect(result).to be false
+    end
+
+    it 'false if data in not an array or hash' do
+      response = { data: 'bar' }
+
+      result = ResourceHelper.resource_response? response
+
+      expect(result).to be false
+    end
+  end
 end
