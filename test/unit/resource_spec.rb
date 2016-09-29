@@ -1,4 +1,4 @@
-require_relative '../../lib/resource.rb'
+require 'resource'
 
 RSpec.describe Resource do
   it 'defines ALERT' do

@@ -1,4 +1,4 @@
-require_relative '../../lib/constant.rb'
+require 'constant'
 
 RSpec.describe Constant do
   it 'defines ACCESS_TOKEN_HEADER' do

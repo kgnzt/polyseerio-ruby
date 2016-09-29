@@ -1,4 +1,4 @@
-require_relative '../../lib/enum.rb'
+require 'enum'
 
 RSpec.describe Enum do
   describe Enum::Color do
