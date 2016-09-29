@@ -1,5 +1,10 @@
 # Functions and factory for building resources
 module ResourceFactory
+  # Determine if a resource definition represents a singleton
+  def self.singleton_definition?(definition)
+    !definition.key?(:methods) || definition[:methods].empty?
+  end
+
   # Add a static method to a Class
   def self.add_static(resource, method, name)
     resource.class_eval do

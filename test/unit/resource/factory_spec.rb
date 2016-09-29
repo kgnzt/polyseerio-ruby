@@ -4,6 +4,32 @@ class Dork
 end
 
 RSpec.describe ResourceFactory do
+  describe 'singleton_definition?' do
+    it 'true when no methods defined' do
+      definition = { statics: [] }
+
+      result = ResourceFactory.singleton_definition? definition
+
+      expect(result).to eql(true)
+    end
+
+    it 'true when no methods are empty' do
+      definition = { methods: [] }
+
+      result = ResourceFactory.singleton_definition? definition
+
+      expect(result).to eql(true)
+    end
+
+    it 'false when methods are in definition' do
+      definition = { methods: [:find] }
+
+      result = ResourceFactory.singleton_definition? definition
+
+      expect(result).to eql(false)
+    end
+  end
+
   describe 'add_method' do
     it 'adds a named instance method to passed Class' do
       method = -> (x) { x * 2 }
@@ -62,7 +88,7 @@ RSpec.describe ResourceFactory do
   end
 
   describe 'factory' do
-    it 'test' do
+    it 'raises if resource not defined' do
     end
   end
 end
