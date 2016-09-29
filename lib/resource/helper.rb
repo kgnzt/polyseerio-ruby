@@ -14,11 +14,33 @@ module ResourceHelper
   # True if the response is a resource based response
   def self.resource_response?(response)
     response.key?(:data) &&
-      (response[:data].is_a?(Array) || response[:data].is_a?(Hash))
+      (resource?(response[:data]) || resource_collection?(response[:data]))
   end
 
-  # True if the response data is a resource collection
+  # True if response data is a resource collection (alias)
   def self.resource_collection?(data)
     data.is_a? Array
+  end
+
+  # True if response data is a resource collection (alias)
+  def self.resource?(data)
+    data.is_a? Hash
+  end
+
+  # Convert parsed response data into an instance
+  def to_instance(data, meta, included, cid)
+    nil
+  end
+
+  # Parse a resource response
+  def parse_resource_response(response, cid)
+    nil
+  end
+
+  # Parse a response
+  def self.parse_response(response, cid)
+    return parse_resource_response(response, cid) if resource_response? response
+
+    response
   end
 end

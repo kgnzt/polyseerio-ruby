@@ -37,6 +37,24 @@ RSpec.describe ResourceHelper do
     end
   end
 
+  describe 'resource?' do
+    it 'true if hash' do
+      data = {}
+
+      result = ResourceHelper.resource? data
+
+      expect(result).to be true
+    end
+
+    it 'false if not a hash' do
+      data = 'hello'
+
+      result = ResourceHelper.resource? data
+
+      expect(result).to be false
+    end
+  end
+
   describe 'resource_response?' do
     it 'true if response has data and data is an array' do
       response = { data: [] }
@@ -68,6 +86,17 @@ RSpec.describe ResourceHelper do
       result = ResourceHelper.resource_response? response
 
       expect(result).to be false
+    end
+  end
+
+  describe 'parse_response' do
+    it 'returns the response if the response is not a resource response' do
+      response = { data: 'zoo' }
+      cid = 0
+
+      result = ResourceHelper.parse_response(response, cid)
+
+      expect(result).to equal(response)
     end
   end
 end
