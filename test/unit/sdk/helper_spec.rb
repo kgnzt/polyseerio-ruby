@@ -8,7 +8,7 @@ RSpec.describe SdkHelper do
       result = SdkHelper.reduce_options options
 
       expect(result).to eq({ 
-        foo: 'bar' 
+        foo: 'bar'
       })
     end
 
@@ -16,12 +16,12 @@ RSpec.describe SdkHelper do
       options = { foo: 'bar', alpha: 'beta' }
       copts = { foo: 'zing', dork: 'duck' }
 
-      result = SdkHelper.reduce_options(options, copts);
+      result = SdkHelper.reduce_options(options, copts)
 
       expect(result).to eq({ 
-        foo: 'bar', 
-        alpha: 'beta', 
-        dork: 'duck' 
+        foo: 'bar',
+        alpha: 'beta',
+        dork: 'duck'
       })
     end
 
@@ -30,14 +30,14 @@ RSpec.describe SdkHelper do
       copts = { foo: 'zing', dork: 'duck', pop: 'bam' }
       defaults = { foo: 'wow', dork: 'cork', pork: 'chop' }
 
-      result = SdkHelper.reduce_options(options, copts, defaults);
+      result = SdkHelper.reduce_options(options, copts, defaults)
 
-      expect(result).to eq({ 
-        foo: 'bar', 
-        alpha: 'beta', 
-        pop: 'bam', 
-        dork: 'duck', 
-        pork: 'chop' 
+      expect(result).to eq({
+        foo: 'bar',
+        alpha: 'beta',
+        pop: 'bam',
+        dork: 'duck',
+        pork: 'chop'
       })
     end
   end
