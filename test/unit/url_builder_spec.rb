@@ -1,4 +1,4 @@
-require_relative '../../lib/url_builder.rb'
+require 'url_builder'
 
 RSpec.describe UrlBuilder do
   describe 'RoutableResources' do
