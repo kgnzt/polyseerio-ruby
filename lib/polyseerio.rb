@@ -1,7 +1,9 @@
 require 'resource'
 require 'constant'
 
+# Default options
 module Defaults
+  # Default client options
   COPTS = {
     env: Constant::DEFAULT_ENV,
     version: Constant::DEFAULT_API_VERSION,
