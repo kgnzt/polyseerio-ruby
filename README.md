@@ -13,3 +13,27 @@ The official Polyseer.io SDK for Ruby. Detailed API information can be found at 
 To install inside a project, run:
 
     gem install polyseerio
+
+## Testing
+
+Testing requires:
+
+  - Make
+
+Install gems locally by running:
+
+    make install
+
+Then run a command below based on what test suite you need to run.
+
+### Lint
+
+    make lint
+
+### Unit
+
+    make unit-test
+
+### All
+
+    make test
