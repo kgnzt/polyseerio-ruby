@@ -21,16 +21,12 @@ endif
 
 integration-test:
 ifeq ($(BUILD_ENV),ci)
-	grunt mochaTest:integration_file
 else
-	grunt mochaTest:integration_stdout
 endif
 
 validation-test:
 ifeq ($(BUILD_ENV),ci)
-	grunt mochaTest:validation_file
 else
-	grunt mochaTest:validation_stdout
 endif
 
 test: lint unit-test integration-test validation-test

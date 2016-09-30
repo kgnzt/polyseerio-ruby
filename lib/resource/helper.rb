@@ -28,14 +28,14 @@ module ResourceHelper
   end
 
   # Convert parsed response data into an instance
-  def to_instance(data, meta, included, cid)
-    nil
-  end
+  # def to_instance(data, meta, included, cid)
+  #   nil
+  # end
 
   # Parse a resource response
-  def parse_resource_response(response, cid)
-    nil
-  end
+  # def parse_resource_response(response, cid)
+  #  nil
+  # end
 
   # Parse a response
   def self.parse_response(response, cid)

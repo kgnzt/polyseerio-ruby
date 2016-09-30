@@ -3,7 +3,7 @@ require 'helper'
 RSpec.describe Helper do
   describe 'format_payload' do
     it 'correctly formats a data payload' do
-      payload = { 
+      payload = {
         foo: 'bar',
         alpha: {
           beta: 'something'
@@ -12,7 +12,7 @@ RSpec.describe Helper do
 
       result = Helper.format_payload payload
 
-      expect(result).to eq({
+      expect(result).to eq(
         data: {
           attributes: {
             foo: 'bar',
@@ -21,7 +21,7 @@ RSpec.describe Helper do
             }
           }
         }
-      })
+      )
     end
 
     it 'copies the payload hash' do

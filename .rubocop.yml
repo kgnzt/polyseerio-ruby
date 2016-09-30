@@ -1,4 +1,4 @@
 Style/ExtraSpacing:
   AllowForAlignment: true
-Metrics/MethodLength:
+Metrics/ModuleLength:
     Enabled: false

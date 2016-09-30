@@ -7,9 +7,9 @@ RSpec.describe SdkHelper do
 
       result = SdkHelper.reduce_options options
 
-      expect(result).to eq({ 
+      expect(result).to eq(
         foo: 'bar'
-      })
+      )
     end
 
     it 'passed arguments trump copts' do
@@ -18,11 +18,11 @@ RSpec.describe SdkHelper do
 
       result = SdkHelper.reduce_options(options, copts)
 
-      expect(result).to eq({ 
+      expect(result).to eq(
         foo: 'bar',
         alpha: 'beta',
         dork: 'duck'
-      })
+      )
     end
 
     it 'passed arguments trump copts and copts trump defaults ' do
@@ -32,13 +32,13 @@ RSpec.describe SdkHelper do
 
       result = SdkHelper.reduce_options(options, copts, defaults)
 
-      expect(result).to eq({
+      expect(result).to eq(
         foo: 'bar',
         alpha: 'beta',
         pop: 'bam',
         dork: 'duck',
         pork: 'chop'
-      })
+      )
     end
   end
 
