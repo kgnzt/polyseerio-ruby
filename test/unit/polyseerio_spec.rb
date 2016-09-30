@@ -1,6 +1,20 @@
 require 'polyseerio'
 
 RSpec.describe ClientResourcePaths do
+  describe Defaults do
+    describe Defaults::COPTS do
+      COPTS = Defaults::COPTS
+
+      it 'includes the correct resources' do
+        expect(COPTS).to eq(
+          env: 'RAILS_ENV',
+          version: 'v1',
+          deduce: true
+        )
+      end
+    end
+  end
+
   describe RequiredResources do
     Resources = RequiredResources::RESOURCES
 

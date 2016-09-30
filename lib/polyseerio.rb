@@ -1,4 +1,13 @@
 require 'resource'
+require 'constant'
+
+module Defaults
+  COPTS = {
+    env: Constant::DEFAULT_ENV,
+    version: Constant::DEFAULT_API_VERSION,
+    deduce: true
+  }.freeze
+end
 
 # Resources required for a ruby polyseer.io Client
 module RequiredResources
