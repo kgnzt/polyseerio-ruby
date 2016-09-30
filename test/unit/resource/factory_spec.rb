@@ -4,6 +4,19 @@ class Dork
 end
 
 RSpec.describe ResourceFactory do
+  describe 'factory' do
+    it 'raises if resource not defined' do
+      resource = 'unknown-foo'
+      request = {}
+      cid = 1
+
+      expect { ResourceFactory.make(resource, request, cid) }.to raise_error(
+        ArgumentError,
+        /Could not find definition for resource: unknown-foo/
+      )
+    end
+  end
+
   describe 'singleton_definition?' do
     it 'true when no methods defined' do
       definition = { statics: [] }
@@ -84,11 +97,6 @@ RSpec.describe ResourceFactory do
       key = ResourceFactory.get_memoize_key(resource, nil, cid, nil)
 
       expect(key).to eq('alerts.2')
-    end
-  end
-
-  describe 'factory' do
-    it 'raises if resource not defined' do
     end
   end
 end

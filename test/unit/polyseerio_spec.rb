@@ -1,6 +1,20 @@
 require 'polyseerio'
 
 RSpec.describe ClientResourcePaths do
+  describe Factory do
+    it 'includes the correct resources' do
+      token = 'dork.duck'
+
+      result = Factory.make(token)
+
+      expect(result).to be nil
+    end
+
+    it 'raises without a token' do
+      expect { Factory.make() }.to raise_error(ArgumentError)
+    end
+  end
+
   describe Defaults do
     describe Defaults::COPTS do
       COPTS = Defaults::COPTS

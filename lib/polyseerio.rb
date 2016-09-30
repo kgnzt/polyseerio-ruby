@@ -42,3 +42,13 @@ module ClientResourcePaths
     Resource::TASK        => :Task
   }.freeze
 end
+
+module Factory
+  def self.make(token, options = Defaults::COPTS)
+    headers = {
+      Constant::ACCESS_TOKEN_HEADER => token
+    }
+
+    nil
+  end
+end

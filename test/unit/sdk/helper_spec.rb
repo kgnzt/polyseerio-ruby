@@ -43,7 +43,7 @@ RSpec.describe SdkHelper do
   end
 
   describe 'resolve_eid' do
-    it 'returns the environment if in options has' do
+    it 'returns the environment if in options hash' do
       options = { environment: 'alpha' }
 
       result = SdkHelper.resolve_eid options

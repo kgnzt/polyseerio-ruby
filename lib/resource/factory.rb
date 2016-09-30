@@ -1,3 +1,7 @@
+require 'resource/definition'
+
+DEFINTION = ResourceDefinition::DEFINITION
+
 # Functions and factory for building resources
 module ResourceFactory
   # Determine if a resource definition represents a singleton
@@ -34,11 +38,9 @@ module ResourceFactory
   end
 
   # Create a resource
-  # def self.factory(resource, request, cid, options = {})
-  #   check for def
-  #
-  # end
-  # end
+  def self.make(resource, request, cid, options = {})
+    raise ArgumentError, "Could not find definition for resource: #{resource}" if !DEFINITION.key? resource
+  end
 
   # Generate a memoize key based on factory arguments
   def self.get_memoize_key(resource, _, cid, _)
