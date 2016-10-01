@@ -15,6 +15,14 @@ RSpec.describe ResourceFactory do
         /Could not find definition for resource: unknown-foo/
       )
     end
+
+    it 'will not raise for a known resource' do
+      resource = 'alerts'
+      request = {}
+      cid = 1
+
+      expect { ResourceFactory.make(resource, request, cid) }.not_to raise_error
+    end
   end
 
   describe 'singleton_definition?' do
