@@ -10,7 +10,7 @@ RSpec.describe Constant do
   end
 
   it 'defines DEFAULT_API_PROTOCOL' do
-    expect(Constant::DEFAULT_API_PROTOCOL).to eq('http://')
+    expect(Constant::DEFAULT_API_PROTOCOL).to eq('https://')
   end
 
   it 'defines DEFAULT_API_VERSION' do

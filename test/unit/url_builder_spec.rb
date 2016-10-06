@@ -67,13 +67,13 @@ RSpec.describe UrlBuilder do
     it 'has the correct default value' do
       result = UrlBuilder.get_base_url
 
-      expect(result).to eq('http://api.polyseer.io/polyseer/v1')
+      expect(result).to eq('https://api.polyseer.io/polyseer/v1')
     end
 
     it 'can override base' do
       result = UrlBuilder.get_base_url('ping.pong.io')
 
-      expect(result).to eq('http://ping.pong.io/v1')
+      expect(result).to eq('https://ping.pong.io/v1')
     end
 
     it 'can override protocol' do
