@@ -1,4 +1,19 @@
 module Enum
+  module Determiner
+    ONE  = 'one'.freeze
+    SOME = 'some'.freeze
+  end
+
+  module Direction
+    INBOUND  = 'inbound'.freeze
+    OUTBOUND = 'outbound'.freeze
+  end
+
+  module Subtype
+    LONG_RUNNING = 'long_running'.freeze
+    PERIODIC     = 'periodic'.freeze
+  end
+
   module Color
     BLUE   = 'blue'.freeze
     BROWN  = 'brown'.freeze

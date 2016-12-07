@@ -1,6 +1,42 @@
 require 'enum'
 
 RSpec.describe Enum do
+  describe Enum::Determiner do
+    Determiner = Enum::Determiner
+
+    it 'defines ONE' do
+      expect(Color::ONE).to eq('one')
+    end
+
+    it 'defines SOME' do
+      expect(Color::SOME).to eq('some')
+    end
+  end
+
+  describe Enum::Direction do
+    Direction = Enum::Direction
+
+    it 'defines INBOUND' do
+      expect(Color::INBOUND).to eq('inbound')
+    end
+
+    it 'defines OUTBOUND' do
+      expect(Color::OUTBOUND).to eq('outbound')
+    end
+  end
+
+  describe Enum::Subtype do
+    Subtype = Enum::Subtype
+
+    it 'defines LONG_RUNNING' do
+      expect(Color::LONG_RUNNING).to eq('long_running')
+    end
+
+    it 'defines OUTBOUND' do
+      expect(Color::PERIODIC).to eq('periodic')
+    end
+  end
+
   describe Enum::Color do
     Color = Enum::Color
 

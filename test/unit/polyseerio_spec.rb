@@ -21,9 +21,14 @@ RSpec.describe ClientResourcePaths do
 
       it 'includes the correct resources' do
         expect(COPTS).to eq(
+          agent: {},
+          deduce: true,
           env: 'RAILS_ENV',
-          version: 'v1',
-          deduce: true
+          timeout: 10000,
+          token: nil,
+          token_env: 'POLYSEERIO_TOKEN',
+          upsert_env: true,
+          version: 'v1'
         )
       end
     end

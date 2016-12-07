@@ -5,9 +5,14 @@ require 'constant'
 module Defaults
   # Default client options
   COPTS = {
-    env: Constant::DEFAULT_ENV,
-    version: Constant::DEFAULT_API_VERSION,
-    deduce: true
+    agent:      {},
+    deduce:     true,
+    env:        Constant::DEFAULT_ENV,
+    timeout:    Constant::DEFAULT_TIMEOUT,
+    token:      nil,
+    token_env:  Constant::DEFAULT_TOKEN_ENV,
+    upsert_env: true,
+    version:    Constant::DEFAULT_API_VERSION
   }.freeze
 end
 
@@ -45,6 +50,14 @@ end
 
 module Factory
   def self.make(token, options = Defaults::COPTS)
+    # generate default options from passed an copts
+    # resolve token, if unresolved raise
+    # get base url and setup headers
+    # create request object
+    # create, pre, post, reject middle and wrap
+    # create resources
+    # generate client
+    # return client
     headers = {
       Constant::ACCESS_TOKEN_HEADER => token
     }

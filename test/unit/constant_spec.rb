@@ -20,4 +20,16 @@ RSpec.describe Constant do
   it 'defines DEFAULT_ENV' do
     expect(Constant::DEFAULT_ENV).to eq('RAILS_ENV')
   end
+
+  it 'defines DEFAULT_ENVIRONMENT' do
+    expect(Constant::DEFAULT_ENVIRONMENT).to eq('production')
+  end
+
+  it 'defines DEFAULT_TIMEOUT' do
+    expect(Constant::DEFAULT_TIMEOUT).to eq(10000)
+  end
+
+  it 'defines DEFAULT_ENV' do
+    expect(Constant::DEFAULT_TOKEN_ENV).to eq('POLYSEERIO_TOKEN')
+  end
 end

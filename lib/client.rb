@@ -3,6 +3,6 @@ class Client
   def initialize(options = {})
   end
 
-  def current_environment
+  def start_agent
   end
 end
