@@ -7,16 +7,16 @@ module Helper
 
   # Attempt to geta token.
   def self.resolve_token(options)
-    return options.token unless options.token.nil?
+    return options[:token] unless options[:token].nil?
   
-    if ENV.key? options.token_env
-      value = ENV.fetch(options.token_env, nil)
+    if ENV.key? options[:token_env]
+      value = ENV.fetch(options[:token_env], nil)
 
       unless value.nil?
-        return value;
+       return value
       end
     end
   
-    return nil;
+    nil
   end
 end

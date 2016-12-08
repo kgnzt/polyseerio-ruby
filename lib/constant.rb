@@ -5,6 +5,6 @@ module Constant
   DEFAULT_API_VERSION  = 'v1'.freeze
   DEFAULT_ENV          = 'RAILS_ENV'.freeze
   DEFAULT_ENVIRONMENT  = 'production'.freeze
-  DEFAULT_TIMEOUT      = 10000,
+  DEFAULT_TIMEOUT      = 10000.freeze
   DEFAULT_TOKEN_ENV    = 'POLYSEERIO_TOKEN'.freeze
 end

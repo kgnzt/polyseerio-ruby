@@ -5,11 +5,11 @@ RSpec.describe Enum do
     Determiner = Enum::Determiner
 
     it 'defines ONE' do
-      expect(Color::ONE).to eq('one')
+      expect(Determiner::ONE).to eq('one')
     end
 
     it 'defines SOME' do
-      expect(Color::SOME).to eq('some')
+      expect(Determiner::SOME).to eq('some')
     end
   end
 
@@ -17,11 +17,11 @@ RSpec.describe Enum do
     Direction = Enum::Direction
 
     it 'defines INBOUND' do
-      expect(Color::INBOUND).to eq('inbound')
+      expect(Direction::INBOUND).to eq('inbound')
     end
 
     it 'defines OUTBOUND' do
-      expect(Color::OUTBOUND).to eq('outbound')
+      expect(Direction::OUTBOUND).to eq('outbound')
     end
   end
 
@@ -29,11 +29,11 @@ RSpec.describe Enum do
     Subtype = Enum::Subtype
 
     it 'defines LONG_RUNNING' do
-      expect(Color::LONG_RUNNING).to eq('long_running')
+      expect(Subtype::LONG_RUNNING).to eq('long_running')
     end
 
     it 'defines OUTBOUND' do
-      expect(Color::PERIODIC).to eq('periodic')
+      expect(Subtype::PERIODIC).to eq('periodic')
     end
   end
 

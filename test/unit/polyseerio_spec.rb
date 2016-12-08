@@ -1,7 +1,7 @@
 require 'polyseerio'
 
-RSpec.describe ClientResourcePaths do
-  describe Factory do
+RSpec.describe Polyseerio do
+  describe 'methods' do
     it 'includes the correct resources' do
       token = 'dork.duck'
 
@@ -15,7 +15,9 @@ RSpec.describe ClientResourcePaths do
     end
   end
 
-  describe Defaults do
+  describe Polyseerio::Defaults do
+    Defaults = Polyseerio::Defaults
+
     describe Defaults::COPTS do
       COPTS = Defaults::COPTS
 
@@ -34,8 +36,8 @@ RSpec.describe ClientResourcePaths do
     end
   end
 
-  describe RequiredResources do
-    Resources = RequiredResources::RESOURCES
+  describe Polyseerio::RequiredResources do
+    Resources = Polyseerio::RequiredResources::RESOURCES
 
     it 'includes the correct resources' do
       expect(Resources).to contain_exactly(
@@ -53,8 +55,8 @@ RSpec.describe ClientResourcePaths do
     end
   end
 
-  describe ClientResourcePaths do
-    PATHS = ClientResourcePaths::PATHS
+  describe Polyseerio::ClientResourcePaths do
+    PATHS = Polyseerio::ClientResourcePaths::PATHS
 
     it 'defines alerts' do
       expect(PATHS['alerts']).to eq(:Alert)

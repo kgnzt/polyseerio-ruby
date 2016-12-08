@@ -25,14 +25,24 @@ Example: (SDK)
 
 ## Design
 
-  * Configurable agent mode or SDK only modes available.
-  * All client SDK calls return a Promise.
+All Polyseer.io SDK's make use of Promises for async calls. Promises allow for 
+delaying and chaining async work.
+
+Example:
+
+    get_event = client.Event.findByName('some-name')
+
+    // do something else
+
+    get_event.execute.then{ |event| puts event.name }
+
+  * Provides direct platform calls as well as a Polyseer.io Ruby agent.
+  * All client SDK calls return a Concurrent::Promise.
   * Supports functional style programming.
   * Supports object-oriented style programming.
     * ORM style instances. E.g. environment.save(), alert.trigger();
   * A resources environment can be deduced or explicitly passed to SDK calls through the options param.
   * API calls made using the https:// protocol.
-
 
 ## Example
 

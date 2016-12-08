@@ -1,3 +1,4 @@
+# Default agent configuration.
 module DefaultConfig
   config = {
     attach: true,

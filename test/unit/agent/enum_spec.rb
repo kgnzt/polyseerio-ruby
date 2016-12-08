@@ -18,18 +18,18 @@ RSpec.describe Enum do
   end
 
   describe Enum::Signal do
-    Signal = Enum::Signal
+    Sig = Enum::Signal
 
     it 'defines SIGHUP' do
-      expect(Signal::SIGHUP).to eq('HUP')
+      expect(Sig::SIGHUP).to eq('HUP')
     end
 
     it 'defines SIGINT' do
-      expect(Signal::SIGINT).to eq('INT')
+      expect(Sig::SIGINT).to eq('INT')
     end
 
     it 'defines SIGTERM' do
-      expect(Signal::SIGTERM).to eq('TERM')
+      expect(Sig::SIGTERM).to eq('TERM')
     end
   end
 
