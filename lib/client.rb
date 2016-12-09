@@ -1,16 +1,19 @@
 # Polyseer.io client
 class Client
-  attr_reader :cid
+  attr_accessor :cid, :agent
 
   def initialize(cid, options = {})
     # check for cid
     # check for request
 
-    unless options.key? :request || options[:request].nil?
+    unless (options.key? :request) && !options[:request].nil?
+      raise ArgumentError, 'Cannot create an instance of Client without' \
+        'passing a request instance.'
     end
 
     self.cid = cid
-    @request = options[:request]
+    self.agent = nil
+    self.request = options[:request]
   end
 
   def start_agent(**args)
@@ -24,6 +27,5 @@ class Client
 
   private
 
-  attr_reader :_request
-  attr_writer :cid
+  attr_accessor :request
 end

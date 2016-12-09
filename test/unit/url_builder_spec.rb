@@ -64,28 +64,16 @@ RSpec.describe UrlBuilder do
   end
 
   describe 'get_base_url' do
-    it 'has the correct default value' do
-      result = UrlBuilder.get_base_url
+    it 'has the correct default version' do
+      result = UrlBuilder.get_base_url 'api.polyseer.io', 'http://', nil
 
-      expect(result).to eq('https://api.polyseer.io/polyseer/v1')
+      expect(result).to eq('http://api.polyseer.io/v1')
     end
 
-    it 'can override base' do
-      result = UrlBuilder.get_base_url('ping.pong.io')
+    it 'will generate the correct url' do
+      result = UrlBuilder.get_base_url('api.polyseer.io', 'ws://', 'v2')
 
-      expect(result).to eq('https://ping.pong.io/v1')
-    end
-
-    it 'can override protocol' do
-      result = UrlBuilder.get_base_url('alpha.io', 'ws://')
-
-      expect(result).to eq('ws://alpha.io/v1')
-    end
-
-    it 'can override version' do
-      result = UrlBuilder.get_base_url('alpha.io', 'ws://', 'v2')
-
-      expect(result).to eq('ws://alpha.io/v2')
+      expect(result).to eq('ws://api.polyseer.io/v2')
     end
   end
 

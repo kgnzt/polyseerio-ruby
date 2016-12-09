@@ -21,11 +21,9 @@ module UrlBuilder
   end
 
   # Generate a base API url.
-  def self.get_base_url(
-    base     = Constant::DEFAULT_API_BASE_URL,
-    protocol = Constant::DEFAULT_API_PROTOCOL,
-    version  = Constant::DEFAULT_API_VERSION
-  )
+  def self.get_base_url(base, protocol, version)
+    version ||= Constant::DEFAULT_API_VERSION
+
     "#{protocol}#{base}/#{version}"
   end
 

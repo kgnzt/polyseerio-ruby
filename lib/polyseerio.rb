@@ -58,16 +58,18 @@ module Polyseerio
     config
   end
 
-  @@make_call_count = 0
+  @make_call_count = 0
 
   def self.make(options = Defaults::COPTS)
-    cid = @@make_call_count
+    cid = @make_call_count
 
-    puts cid
     token = Helper.resolve_token options
 
-    base_url = UrlBuilder.get_base_url()
-    puts base_url
+    base_url = UrlBuilder.get_base_url(
+      Constant::DEFAULT_API_BASE_URL,
+      DEFAULT_API_PROTOCOL,
+      options[:version]
+    )
 
     if token.nil?
       raise ArgumentError, 'Could not find an access token. None was passed' \
@@ -86,7 +88,7 @@ module Polyseerio
       timeout: options[:timeout]
     )
 
-    dork = request['environments'].get
+    # dork = request['environments'].get
 
     client = Client.new(cid, request: request, resource: {})
 
@@ -99,8 +101,8 @@ module Polyseerio
     # generate client
     # return client
 
-    @@make_call_count += 1
+    @make_call_count += 1
 
-    headers
+    client
   end
 end
