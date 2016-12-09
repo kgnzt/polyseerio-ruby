@@ -26,7 +26,7 @@ RSpec.describe Constant do
   end
 
   it 'defines DEFAULT_TIMEOUT' do
-    expect(Constant::DEFAULT_TIMEOUT).to eq(10000)
+    expect(Constant::DEFAULT_TIMEOUT).to eq(10_000)
   end
 
   it 'defines DEFAULT_ENV' do

@@ -2,6 +2,7 @@ require 'resource'
 require 'constant'
 require 'helper'
 
+# Main Polyseerio module.
 module Polyseerio
   # Default options
   module Defaults
@@ -17,7 +18,7 @@ module Polyseerio
       version:    Constant::DEFAULT_API_VERSION
     }.freeze
   end
-  
+
   # Resources required for a ruby polyseer.io Client
   module RequiredResources
     RESOURCES = [
@@ -33,7 +34,7 @@ module Polyseerio
       Resource::TASK
     ].freeze
   end
-  
+
   # Maps resources to paths within a Client
   module ClientResourcePaths
     PATHS = {
@@ -50,11 +51,12 @@ module Polyseerio
     }.freeze
   end
 
-  def self.start()
+  def self.start(config)
+    config
   end
 
   def self.make(options = Defaults::COPTS)
-    token = Helper::resolve_token options
+    token = Helper.resolve_token options
 
     # generate default options from passed an copts
     # resolve token, if unresolved raise
@@ -68,6 +70,6 @@ module Polyseerio
       Constant::ACCESS_TOKEN_HEADER => token
     }
 
-    nil
+    headers
   end
 end

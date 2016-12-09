@@ -5,32 +5,37 @@ require 'agent/handler/interface'
 # Helper functions for Agent
 module Helper
   # Returns an iteration function for a handler item.
-  private_class_method def self.create_handler_iteratee (handlers, iteratee, **args)
-    Proc.new { |key, value|
+  private_class_method def self.create_handler_iteratee(
+    handlers,
+    iteratee,
+    *args
+  )
+    proc do |key, value|
       if handlers.key? key
         iteratee.call(handlers, key, value, *args)
       else
         Concurrent::Promise.reject("Could not find a handler subtype: #{key}.")
       end
-    }
+    end
   end
 
   # Returns a handler function.
-  private_class_method def self.create_handler (iteratee)
-    Proc.new { |handler, type, config, **args|
+  private_class_method def self.create_handler(iteratee)
+    proc do |handler, type, config, **args|
       if handler.key? type
         work = config.map &iteratee.call(handler.fetch(type), *args)
 
-        Concurrent::Promise.zip *work
+        Concurrent::Promise.zip(*work)
       else
-        Concurrent::Promise.reject("Could not find a handler type: #{type}.");
+        Concurrent::Promise.reject("Could not find a handler type: #{type}.")
       end
-    }
+    end
   end
 
+
   # Returns a setup handler function.
-  @setup = Proc.new { |handlers, **args|
-    _setup = Proc.new { |handlers, key, value, **args|
+  @setup = proc do |handlers_outer, *args_outer|
+    create_handler_iteratee(handlers_outer, proc do |handlers, key, _value, *args|
       handler = handlers.fetch(key)
 
       if handler.respond_to? :call
@@ -38,34 +43,33 @@ module Helper
       elsif handler.key? HandlerInterface::SETUP
         handler[HandlerInterface::SETUP].call(*args)
       else
-        Concurrent::Promise.fulfill()
+        Concurrent::Promise.fulfill
       end
-    }
-
-    create_handler_iteratee(handlers, _setup, *args)
-  }
-
-  @teardown = lambda { |handles, **args|
-    _teardown = lambda { |handlers, value, item, **args|
-      if handlers.fetch(item).key? HanlderInterface::TEARDOWN
-        return handlers.fetch(item).fetch(HandlerInterface::Teardown).call(*args)
-      end
-
-      Concurrent::Promise.fulfill()
-    }
-
-    create_handler_iteratee(handlers, _teardown, *args)
-  }
-
-  def self.setup_with_handler(*args)
-    create_handler(@setup).curry().call(*args)
+    end, *args_outer)
   end
 
-  # Performs handler teardown.
-  #self.teardown_with_handler = create_handler(teardown)
+  @teardown = proc do |handlers_outer, *args_outer|
+    create_handler_iteratee(handlers_outer, proc do |handlers, key, _value, *args|
+      if handlers.fetch(key).key? HandlerInterface::TEARDOWN
+        handlers.fetch(key).fetch(HandlerInterface::TEARDOWN).call(*args)
+      else
+        Concurrent::Promise.fulfill
+      end
+    end, *args_outer)
+  end
+
+  # Sets up a handler type.
+  def self.setup_with_handler(*args)
+    create_handler(@setup).curry.call(*args)
+  end
+
+  # Tears down a handler type.
+  def self.teardown_with_handler(*args)
+    create_handler(@teardown).curry.call(*args)
+  end
 
   # Returns a unique name.
-  def self.generate_name()
+  def self.generate_name
     'ruby-instance'
   end
 

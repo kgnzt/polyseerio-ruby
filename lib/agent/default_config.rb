@@ -1,6 +1,6 @@
 # Default agent configuration.
 module DefaultConfig
-  config = {
+  CONFIG = {
     attach: true,
     attach_strategy: Strategy::FALLBACK,
     token: nil,
@@ -37,5 +37,5 @@ module DefaultConfig
       SIGINT: true,
       SIGTERM: true
     }
-  }
+  }.freeze
 end

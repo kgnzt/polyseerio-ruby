@@ -11,7 +11,7 @@ RSpec.describe Polyseerio do
     end
 
     it 'raises without a token' do
-      expect { Factory.make() }.to raise_error(ArgumentError)
+      expect { Factory.make }.to raise_error(ArgumentError)
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Polyseerio do
           agent: {},
           deduce: true,
           env: 'RAILS_ENV',
-          timeout: 10000,
+          timeout: 10_000,
           token: nil,
           token_env: 'POLYSEERIO_TOKEN',
           upsert_env: true,
