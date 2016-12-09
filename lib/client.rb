@@ -18,12 +18,13 @@ class Client
   def initialize(cid, options = {})
     options = Helper.defaults(options, INITIALIZE_DEFAULTS)
 
-    # check for cid
-    # check for request
-
     if options[:request].nil?
       raise ArgumentError, 'Cannot create an instance of Client without' \
         'passing a request instance.'
+    end
+
+    if options.key? :resources
+      options[:resources].each(&Helper.attach_to_instance!(self))
     end
 
     @cid = cid

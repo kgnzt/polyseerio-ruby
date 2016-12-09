@@ -28,4 +28,13 @@ module Helper
 
     result.merge!(options)
   end
+
+  # Used to attach a method to an instance
+  def self.attach_to_instance!(*args)
+    lambda do |instance, (key, value)|
+      instance.instance_eval do
+        define_singleton_method(key, proc { value })
+      end
+    end.curry.call(*args)
+  end
 end

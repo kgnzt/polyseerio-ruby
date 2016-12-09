@@ -27,6 +27,20 @@ RSpec.describe Client do
       expect(client.agent).to be_nil
     end
 
+    it 'will attach resources passed' do
+      resources = {
+        Alpha: double('AlphaDouble'),
+        Beta: double('BetaDouble'),
+        Gamma: double('GammaDouble')
+      }
+
+      client = Client.new(cid, request: request_double, resources: resources)
+
+      expect(client.Alpha). to eq(resources[:Alpha])
+      expect(client.Beta). to eq(resources[:Beta])
+      expect(client.Gamma). to eq(resources[:Gamma])
+    end
+
     it 'raises an error if no request is passed' do
       expect { Client.new(cid, {}) }.to raise_error(
         ArgumentError,

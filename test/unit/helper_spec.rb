@@ -1,6 +1,26 @@
 require 'helper'
 
 RSpec.describe Helper do
+  describe 'attach_to_instance' do
+    let(:instance) { double('instace') }
+    let(:key) { 'Foo' }
+    let(:value) { 'bar' }
+
+    it 'will attach property to instance passed' do
+      Helper.attach_to_instance!(instance, [key, value])
+
+      expect(instance.Foo).to eq('bar')
+    end
+
+    it 'will curry' do
+      attach = Helper.attach_to_instance!(instance)
+
+      attach.call([key, value])
+
+      expect(instance.Foo).to eq('bar')
+    end
+  end
+
   describe 'defaults' do
     it 'correctly returns options if no defaults provided' do
       options = {

@@ -98,8 +98,6 @@ module Polyseerio
       reject: [Middleware.reject]
     )
 
-    # dork = request['environments'].get
-
     client = Client.new(cid, request: request, resources: {})
 
     # generate default options from passed an copts
