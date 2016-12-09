@@ -1,4 +1,6 @@
 require 'resource'
+require 'request'
+require 'middleware'
 require 'constant'
 require 'client'
 require 'url_builder'
@@ -67,7 +69,7 @@ module Polyseerio
 
     base_url = UrlBuilder.get_base_url(
       Constant::DEFAULT_API_BASE_URL,
-      DEFAULT_API_PROTOCOL,
+      Constant::DEFAULT_API_PROTOCOL,
       options[:version]
     )
 
@@ -82,15 +84,23 @@ module Polyseerio
       :content_type => 'application/json'
     }
 
-    request = RestClient::Resource.new(
+    resource = RestClient::Resource.new(
       base_url,
       headers: headers,
       timeout: options[:timeout]
     )
 
+    # Create a request instance that uses middleware.
+    request = Request.new(
+      resource,
+      pre: Middleware.pre_request,
+      post: Middleware.post_request,
+      reject: Middleware.reject
+    )
+
     # dork = request['environments'].get
 
-    client = Client.new(cid, request: request, resource: {})
+    client = Client.new(cid, request: request, resources: {})
 
     # generate default options from passed an copts
     # resolve token, if unresolved raise

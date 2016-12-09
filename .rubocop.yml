@@ -3,4 +3,6 @@ Style/ExtraSpacing:
 Metrics/ModuleLength:
   Enabled: false
 Metrics/MethodLength:
-  Max: 25
+  Max: 100
+Metrics/AbcSize:
+  Max: 50
