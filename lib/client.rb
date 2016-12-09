@@ -7,7 +7,7 @@ class Client
     # check for request
 
     @cid = cid
-    @request = cid
+    @request = options[:request]
   end
 
   def start_agent(**args)
@@ -16,7 +16,7 @@ class Client
     @agent.start(*args)
   end
 
-  def stop_agent()
+  def stop_agent
   end
 
   private

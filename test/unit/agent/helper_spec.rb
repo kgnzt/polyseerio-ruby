@@ -71,7 +71,7 @@ RSpec.describe Helper do
 
       result = promise.execute.value
 
-      expect(result).to eq(['lime'])
+      expect(result).to eq(%w(lime))
     end
 
     it 'correctly calls each handler using config and type' do
@@ -95,7 +95,7 @@ RSpec.describe Helper do
 
       result = promise.execute.value
 
-      expect(result).to eq(['ping', 'pong'])
+      expect(result).to eq(%w(ping pong))
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.describe Helper do
 
       result = promise.execute.value
 
-      expect(result).to eq(['lime'])
+      expect(result).to eq(%w(lime))
     end
 
     it 'correctly calls each handler using config and type' do
@@ -143,7 +143,7 @@ RSpec.describe Helper do
 
       result = promise.execute.value
 
-      expect(result).to eq(['ping', 'pong'])
+      expect(result).to eq(%w(ping pong))
     end
   end
 end

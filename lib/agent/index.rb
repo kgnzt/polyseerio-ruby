@@ -12,7 +12,7 @@ class Agent
     @client
   end
 
-  def stop()
+  def stop
     Executor.teardown(client, instance)
   end
 end

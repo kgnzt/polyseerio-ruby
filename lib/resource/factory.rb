@@ -38,8 +38,12 @@ module ResourceFactory
   end
 
   # Create a resource
-  def self.make(resource, request, cid, options = {})
-    raise ArgumentError, "Could not find definition for resource: #{resource}" unless DEFINITION.key? resource
+  def self.make(resource, _request, _cid, options = {})
+    unless DEFINITION.key? resource
+      raise ArgumentError, "Could not find definition for resource: #{resource}"
+    end
+
+    options
   end
 
   # Generate a memoize key based on factory arguments

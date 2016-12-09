@@ -23,7 +23,7 @@ module Helper
   private_class_method def self.create_handler(iteratee)
     proc do |handler, type, config, **args|
       if handler.key? type
-        work = config.map &iteratee.call(handler.fetch(type), *args)
+        work = config.map(&iteratee.call(handler.fetch(type), *args))
 
         Concurrent::Promise.zip(*work)
       else
@@ -31,7 +31,6 @@ module Helper
       end
     end
   end
-
 
   # Returns a setup handler function.
   @setup = proc do |handlers_outer, *args_outer|
@@ -75,7 +74,7 @@ module Helper
 
   # Determines if a handler configuration should be handled.
   def self.should_handle(value)
-    return value if value === true
+    return value if value == true
 
     if Functional::TypeCheck::Type?(value, Hash) && (value.key? :enabled)
       return value[:enabled]
@@ -86,7 +85,7 @@ module Helper
 
   # Given an agent config a name will be returned.
   def self.resolve_name(config)
-    return config[:name] if (config.key?(:name) && config[:name] != nil)
+    return config[:name] if config.key?(:name) && !config[:name].nil?
 
     generate_name
   end
