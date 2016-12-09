@@ -93,9 +93,9 @@ module Polyseerio
     # Create a request instance that uses middleware.
     request = Request.new(
       resource,
-      pre: Middleware.pre_request,
-      post: Middleware.post_request,
-      reject: Middleware.reject
+      pre: [Middleware.pre_request],
+      post: [Middleware.post_request],
+      reject: [Middleware.reject]
     )
 
     # dork = request['environments'].get

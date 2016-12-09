@@ -1,16 +1,18 @@
 require 'helper'
+require 'json'
 
-# Request middleware.
+# Request middleware. Arity in must match arity [array] out.
 module Middleware
   def self.pre_request
-    proc do |options|
-      options = options.clone
+    proc do |*args|
+      new_args = args
 
-      if options.key? :body
-        options[:body] = Helper.format_payload options[:body]
+      if new_args.size > 1
+        new_args[1] = Helper.format_payload new_args[1]
+        new_args[1] = new_args[1].to_json
       end
 
-      options
+      new_args
     end
   end
 

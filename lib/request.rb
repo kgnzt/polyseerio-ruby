@@ -15,6 +15,7 @@ class Request
   }.freeze
 
   def initialize(resource, options = {})
+    # need to ensure taht pre, post, reject are all arrays otherwise raise
     options = Helper.defaults(options, INITIALIZE_DEFAULTS)
 
     @resource = resource
@@ -54,7 +55,9 @@ class Request
       new_args = middleware.call(*new_args)
     end
 
-    result = @resource.send(method, *new_args)
+    path = new_args.size > 1 ? new_args.shift : ''
+
+    result = @resource[path].send(method, *new_args)
 
     @post_request.each do |middleware|
       result = middleware.call(result)

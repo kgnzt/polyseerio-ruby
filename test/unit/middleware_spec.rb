@@ -1,43 +1,26 @@
 require 'middleware'
 
 RSpec.describe Middleware do
+  let(:route) { '/foo/bar' }
+  let(:payload) { { foo: 'bar' } }
+  let(:options) { { ding: 'bat' } }
+
   describe 'pre_request' do
-    it 'simply returns identical options when no body' do
-      options = {
-        foo: 'bar'
-      }
+    it 'when a route and payload present it correctly formats payload' do
+      result = Middleware.pre_request.call(route, payload)
 
-      result = Middleware.pre_request.call(options)
+      expect(result[0]).to eq(route)
+      expect(result[1]).to eq('{"data":{"attributes":{"foo":"bar"}}}')
 
-      expect(result).to eq(foo: 'bar')
+      expect(result.size).to eq(2)
     end
 
-    it 'formats the body when present' do
-      options = {
-        body: {
-          ping: 'pong',
-          alpha: 'beta',
-          meta: {
-            world: 'peace'
-          }
-        }
-      }
+    it 'when just a route it simply returns that route' do
+      result = Middleware.pre_request.call(route)
 
-      result = Middleware.pre_request.call(options)
+      expect(result[0]).to eq(route)
 
-      expect(result).to eq(
-        body: {
-          data: {
-            attributes: {
-              ping: 'pong',
-              alpha: 'beta',
-              meta: {
-                world: 'peace'
-              }
-            }
-          }
-        }
-      )
+      expect(result.size).to eq(1)
     end
   end
 

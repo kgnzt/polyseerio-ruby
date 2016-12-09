@@ -10,6 +10,11 @@ class Client
 
   attr_accessor :cid, :agent
 
+  def dork
+    @request.get '/environments'
+    # @request.post '/environments', foo: 'bar'
+  end
+
   def initialize(cid, options = {})
     options = Helper.defaults(options, INITIALIZE_DEFAULTS)
 
