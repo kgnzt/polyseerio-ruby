@@ -34,7 +34,7 @@ module Helper
 
   # Returns a setup handler function.
   @setup = proc do |handlers_outer, *args_outer|
-    create_handler_iteratee(handlers_outer, proc do |handlers, key, _value, *args|
+    setup_iterator = proc do |handlers, key, _value, *args|
       handler = handlers.fetch(key)
 
       if handler.respond_to? :call
@@ -44,17 +44,21 @@ module Helper
       else
         Concurrent::Promise.fulfill
       end
-    end, *args_outer)
+    end
+
+    create_handler_iteratee(handlers_outer, setup_iterator, *args_outer)
   end
 
   @teardown = proc do |handlers_outer, *args_outer|
-    create_handler_iteratee(handlers_outer, proc do |handlers, key, _value, *args|
+    teardown_iterator = proc do |handlers, key, _value, *args|
       if handlers.fetch(key).key? HandlerInterface::TEARDOWN
         handlers.fetch(key).fetch(HandlerInterface::TEARDOWN).call(*args)
       else
         Concurrent::Promise.fulfill
       end
-    end, *args_outer)
+    end
+
+    create_handler_iteratee(handlers_outer, teardown_iterator, *args_outer)
   end
 
   # Sets up a handler type.
