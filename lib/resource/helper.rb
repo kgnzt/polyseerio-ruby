@@ -1,6 +1,6 @@
 # Helper methods for building and working with resources
 module ResourceHelper
-  EID_REGEX = Regexp.new('/environments/([a-zA-Z0-9]*)/')
+  EID_REGEX = Regexp.new('/environments/([\da-z\.-]+)/')
 
   # Given a request path an eid is returned or nil
   def self.get_eid_from_resource_path(path)

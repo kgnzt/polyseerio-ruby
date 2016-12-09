@@ -1,20 +1,6 @@
 require 'polyseerio'
 
 RSpec.describe Polyseerio do
-  describe 'methods' do
-    it 'includes the correct resources' do
-      token = 'dork.duck'
-
-      result = Factory.make(token)
-
-      expect(result).to be nil
-    end
-
-    it 'raises without a token' do
-      expect { Factory.make }.to raise_error(ArgumentError)
-    end
-  end
-
   describe Polyseerio::Defaults do
     Defaults = Polyseerio::Defaults
 

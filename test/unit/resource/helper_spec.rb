@@ -17,6 +17,22 @@ RSpec.describe ResourceHelper do
 
       expect(result).to eq('alpha')
     end
+
+    it 'returns correct eid when longer path used' do
+      path = '/v1/environments/development/instances/10000/gauges'
+
+      result = ResourceHelper.get_eid_from_resource_path path
+
+      expect(result).to eq('development')
+    end
+
+    it 'returns correct eid when dash is used' do
+      path = '/polyseer/v1/environments/validation-testing/events'
+
+      result = ResourceHelper.get_eid_from_resource_path path
+
+      expect(result).to eq('validation-testing')
+    end
   end
 
   describe 'resource_collection?' do
