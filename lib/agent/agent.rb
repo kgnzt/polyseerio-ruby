@@ -7,9 +7,9 @@ class Agent
   end
 
   def start(**args)
-    @instance = Executor.setup(client, *args)
+    # @instance = Executor.setup(client, *args)
 
-    @client
+    # @client
   end
 
   def stop

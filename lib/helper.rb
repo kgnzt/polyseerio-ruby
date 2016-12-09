@@ -17,4 +17,15 @@ module Helper
 
     nil
   end
+
+  # Generates default options.
+  def self.defaults(options, *defaults)
+    result = {}
+
+    defaults.reverse_each do |opts|
+      result.merge!(opts)
+    end
+
+    result.merge!(options)
+  end
 end

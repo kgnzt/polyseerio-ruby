@@ -1,6 +1,67 @@
 require 'helper'
 
 RSpec.describe Helper do
+  describe 'defaults' do
+    it 'correctly returns options if no defaults provided' do
+      options = {
+        alpha: 'beta',
+        gamma: 'delta'
+      }
+
+      result = Helper.defaults options
+
+      expect(result).to eq(
+        alpha: 'beta',
+        gamma: 'delta'
+      )
+    end
+
+    it 'merges defaults when provided' do
+      options = {
+        alpha: 'beta',
+        gamma: 'delta'
+      }
+      defaults = {
+        zoo: 'animals',
+        gamma: 'zeta'
+      }
+
+      result = Helper.defaults(options, defaults)
+
+      expect(result).to eq(
+        alpha: 'beta',
+        gamma: 'delta',
+        zoo: 'animals'
+      )
+    end
+
+    it 'can merge multiple defaults' do
+      options = {
+        alpha: 'beta',
+        ding: 'dong'
+      }
+      defaults_one = {
+        alpha: 'zeta',
+        dork: 'duck'
+      }
+      defaults_two = {
+        alpha: 'theta',
+        dork: 'lala',
+        ping: 'pong',
+        ding: 'wow'
+      }
+
+      result = Helper.defaults(options, defaults_one, defaults_two)
+
+      expect(result).to eq(
+        ding: 'dong',
+        alpha: 'beta',
+        dork: 'duck',
+        ping: 'pong'
+      )
+    end
+  end
+
   describe 'resolve_token' do
     it 'returns token if token key is not nil' do
       options = { token: 'my-token' }
