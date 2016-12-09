@@ -55,7 +55,7 @@ class Request
       new_args = middleware.call(*new_args)
     end
 
-    path = new_args.size > 1 ? new_args.shift : ''
+    path = new_args.empty? ? '' : new_args.shift
 
     result = @resource[path].send(method, *new_args)
 

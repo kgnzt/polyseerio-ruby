@@ -6,32 +6,40 @@ RSpec.describe Request do
   let(:result_double) { double('result') }
   let(:resource_path_double) { double('resource_path') }
   let(:route) { '/foo/bar' }
-
-  let(:pre_middleware) do
-    [proc { |_| [{ alpha: 'beta' }] }]
-  end
-
-  let(:post_middleware) do
-    [proc { |_| { zoo: 'animals' } }]
-  end
-
-  describe 'initialize' do
-    it '' do
-    end
-  end
+  let(:payload) { { fat: 'chance' } }
+  let(:options) { { ding: 'dong' } }
 
   describe 'middleware interactions' do
-    before do
+    it 'correctly scopes the resource path when just a path is passed' do
       allow(resource).to receive(:[]).and_return(resource_path_double)
       allow(resource_path_double).to receive(:get).and_return(result_double)
+
+      request = Request.new(resource)
+
+      request.get(route)
+
+      expect(resource).to have_received(:[]).with(route)
+    end
+
+    it 'correctly scopes and forwards arguments when path, payload, options' do
+      allow(resource).to receive(:[]).and_return(resource_path_double)
+      allow(resource_path_double).to receive(:get).and_return(result_double)
+
+      request = Request.new(resource)
+
+      request.get(route, payload, options)
+
+      expect(resource).to have_received(:[]).with(route)
+      expect(resource_path_double).to have_received(:get).with(payload, options)
     end
 
     it 'correctly handles pre middleware' do
-      options = {
-        ding: 'dong'
-      }
+      allow(resource).to receive(:[]).and_return(resource_path_double)
+      allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource, pre: pre_middleware)
+      request = Request.new(resource, pre: [proc do |_, __|
+        ['zoo', { alpha: 'beta' }]
+      end])
 
       request.get(route, options)
 
@@ -39,15 +47,16 @@ RSpec.describe Request do
     end
 
     it 'correctly handles post middleware' do
-      options = {
-        ding: 'dong'
-      }
+      allow(resource).to receive(:[]).and_return(resource_path_double)
+      allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource, post: post_middleware)
+      request = Request.new(resource, post: [proc do |_|
+        { wild: 'wizard' }
+      end])
 
       result = request.get(route, options)
 
-      expect(result).to eq(zoo: 'animals')
+      expect(result).to eq(wild: 'wizard')
     end
   end
 
