@@ -3,4 +3,4 @@ Style/ExtraSpacing:
 Metrics/ModuleLength:
   Enabled: false
 Metrics/MethodLength:
-  Max: 15
+  Max: 25

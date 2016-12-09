@@ -1,6 +1,13 @@
 require 'polyseerio'
 
 RSpec.describe Polyseerio do
+  it 'raises when no token can be found' do
+    expect { Polyseerio.make(token_env: 'ZOOZOO') }.to raise_error(
+      ArgumentError,
+      /Could not find an access token./
+    )
+  end
+
   it 'exports a start method' do
   end
 

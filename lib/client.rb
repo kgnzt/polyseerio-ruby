@@ -6,7 +6,10 @@ class Client
     # check for cid
     # check for request
 
-    @cid = cid
+    unless options.key? :request || options[:request].nil?
+    end
+
+    self.cid = cid
     @request = options[:request]
   end
 
