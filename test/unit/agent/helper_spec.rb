@@ -1,28 +1,28 @@
 require 'agent/helper'
 require 'concurrent'
 
-RSpec.describe Helper do
+RSpec.describe Polyseerio::Agent::Helper do
   describe 'should_handle' do
     it 'returns true if the passed value is true' do
-      result = Helper.should_handle true
+      result = described_class.should_handle true
 
       expect(result).to eq(true)
     end
 
     it 'returns value of enabled if hash with key' do
-      result = Helper.should_handle(enabled: true)
+      result = described_class.should_handle(enabled: true)
 
       expect(result).to eq(true)
     end
 
     it 'returns false if passed hash does not have enabled' do
-      result = Helper.should_handle(foo: true)
+      result = described_class.should_handle(foo: true)
 
       expect(result).to eq(false)
     end
 
     it 'returns false if something other than hash or bool passed' do
-      result = Helper.should_handle 'ding-dong'
+      result = described_class.should_handle 'ding-dong'
 
       expect(result).to eq(false)
     end
@@ -30,7 +30,7 @@ RSpec.describe Helper do
 
   describe 'generate_name' do
     it 'simply returns ruby-instance for now' do
-      result = Helper.generate_name
+      result = described_class.generate_name
 
       expect(result).to eq('ruby-instance')
     end
@@ -38,13 +38,13 @@ RSpec.describe Helper do
 
   describe 'resolve_name' do
     it 'if there is a non nil name in config it is returned' do
-      result = Helper.resolve_name(name: 'king-kong')
+      result = described_class.resolve_name(name: 'king-kong')
 
       expect(result).to eq('king-kong')
     end
 
     it 'generates a name if name is nil' do
-      result = Helper.resolve_name(name: nil)
+      result = described_class.resolve_name(name: nil)
 
       expect(result).to be_kind_of(String)
       expect(result.length).to be > 0
@@ -67,7 +67,7 @@ RSpec.describe Helper do
         }
       }
 
-      promise = Helper.setup_with_handler(handler, type, config)
+      promise = described_class.setup_with_handler(handler, type, config)
 
       result = promise.execute.value
 
@@ -91,7 +91,7 @@ RSpec.describe Helper do
         }
       }
 
-      promise = Helper.setup_with_handler(handler, type, config)
+      promise = described_class.setup_with_handler(handler, type, config)
 
       result = promise.execute.value
 
@@ -115,7 +115,7 @@ RSpec.describe Helper do
         }
       }
 
-      promise = Helper.teardown_with_handler(handler, type, config)
+      promise = described_class.teardown_with_handler(handler, type, config)
 
       result = promise.execute.value
 
@@ -139,7 +139,7 @@ RSpec.describe Helper do
         }
       }
 
-      promise = Helper.setup_with_handler(handler, type, config)
+      promise = described_class.setup_with_handler(handler, type, config)
 
       result = promise.execute.value
 

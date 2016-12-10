@@ -1,11 +1,9 @@
 require 'url_builder'
 
-RSpec.describe UrlBuilder do
+RSpec.describe Polyseerio::UrlBuilder do
   describe 'RoutableResources' do
-    RoutableResources = UrlBuilder::RoutableResources
-
     it 'inludes the correct resources' do
-      expect(RoutableResources).to contain_exactly(
+      expect(described_class::RoutableResources).to contain_exactly(
         'alerts',
         'events',
         'expectations',
@@ -19,8 +17,9 @@ RSpec.describe UrlBuilder do
     it 'raises when routable resource without an eid' do
       resource = 'alerts'
       options = {}
+      args = [resource, options]
 
-      expect { UrlBuilder.get_resource_path(resource, options) }.to raise_error(
+      expect { described_class.get_resource_path(*args) }.to raise_error(
         ArgumentError,
         /for alerts without passing/
       )
@@ -30,7 +29,7 @@ RSpec.describe UrlBuilder do
       resource = 'environments'
       options = {}
 
-      result = UrlBuilder.get_resource_path(resource, options)
+      result = described_class.get_resource_path(resource, options)
 
       expect(result).to eq('/environments')
     end
@@ -39,7 +38,7 @@ RSpec.describe UrlBuilder do
       resource = 'environments'
       options = { id: 3 }
 
-      result = UrlBuilder.get_resource_path(resource, options)
+      result = described_class.get_resource_path(resource, options)
 
       expect(result).to eq('/environments/3')
     end
@@ -48,7 +47,7 @@ RSpec.describe UrlBuilder do
       resource = 'alerts'
       options = { eid: 'test' }
 
-      result = UrlBuilder.get_resource_path(resource, options)
+      result = described_class.get_resource_path(resource, options)
 
       expect(result).to eq('/environments/test/alerts')
     end
@@ -57,7 +56,7 @@ RSpec.describe UrlBuilder do
       resource = 'alerts'
       options = { eid: 'test', id: 3 }
 
-      result = UrlBuilder.get_resource_path(resource, options)
+      result = described_class.get_resource_path(resource, options)
 
       expect(result).to eq('/environments/test/alerts/3')
     end
@@ -65,13 +64,13 @@ RSpec.describe UrlBuilder do
 
   describe 'get_base_url' do
     it 'has the correct default version' do
-      result = UrlBuilder.get_base_url 'api.polyseer.io', 'http://', nil
+      result = described_class.get_base_url 'api.polyseer.io', 'http://', nil
 
       expect(result).to eq('http://api.polyseer.io/v1')
     end
 
     it 'will generate the correct url' do
-      result = UrlBuilder.get_base_url('api.polyseer.io', 'ws://', 'v2')
+      result = described_class.get_base_url('api.polyseer.io', 'ws://', 'v2')
 
       expect(result).to eq('ws://api.polyseer.io/v2')
     end
@@ -79,13 +78,13 @@ RSpec.describe UrlBuilder do
 
   describe 'routable_resource?' do
     it 'returns true for routable resource' do
-      result = UrlBuilder.routable_resource?('alerts')
+      result = described_class.routable_resource?('alerts')
 
       expect(result).to be true
     end
 
     it 'returns false for non-routable resource' do
-      result = UrlBuilder.routable_resource?('environments')
+      result = described_class.routable_resource?('environments')
 
       expect(result).to be false
     end

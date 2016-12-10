@@ -1,147 +1,135 @@
 require 'enum'
 
-RSpec.describe Enum do
-  describe Enum::Determiner do
-    Determiner = Enum::Determiner
-
+RSpec.describe Polyseerio::Enum do
+  describe described_class::Determiner do
     it 'defines ONE' do
-      expect(Determiner::ONE).to eq('one')
+      expect(described_class::ONE).to eq('one')
     end
 
     it 'defines SOME' do
-      expect(Determiner::SOME).to eq('some')
+      expect(described_class::SOME).to eq('some')
     end
   end
 
-  describe Enum::Direction do
-    Direction = Enum::Direction
-
+  describe described_class::Direction do
     it 'defines INBOUND' do
-      expect(Direction::INBOUND).to eq('inbound')
+      expect(described_class::INBOUND).to eq('inbound')
     end
 
     it 'defines OUTBOUND' do
-      expect(Direction::OUTBOUND).to eq('outbound')
+      expect(described_class::OUTBOUND).to eq('outbound')
     end
   end
 
-  describe Enum::Subtype do
-    Subtype = Enum::Subtype
-
+  describe described_class::Subtype do
     it 'defines LONG_RUNNING' do
-      expect(Subtype::LONG_RUNNING).to eq('long_running')
+      expect(described_class::LONG_RUNNING).to eq('long_running')
     end
 
     it 'defines OUTBOUND' do
-      expect(Subtype::PERIODIC).to eq('periodic')
+      expect(described_class::PERIODIC).to eq('periodic')
     end
   end
 
-  describe Enum::Color do
-    Color = Enum::Color
-
+  describe described_class::Color do
     it 'defines BLUE' do
-      expect(Color::BLUE).to eq('blue')
+      expect(described_class::BLUE).to eq('blue')
     end
 
     it 'defines BROWN' do
-      expect(Color::BROWN).to eq('brown')
+      expect(described_class::BROWN).to eq('brown')
     end
 
     it 'defines GREEN' do
-      expect(Color::GREEN).to eq('green')
+      expect(described_class::GREEN).to eq('green')
     end
 
     it 'defines ORANGE' do
-      expect(Color::ORANGE).to eq('orange')
+      expect(described_class::ORANGE).to eq('orange')
     end
 
     it 'defines PURPLE' do
-      expect(Color::PURPLE).to eq('purple')
+      expect(described_class::PURPLE).to eq('purple')
     end
 
     it 'defines RED' do
-      expect(Color::RED).to eq('red')
+      expect(described_class::RED).to eq('red')
     end
 
     it 'defines TEAL' do
-      expect(Color::TEAL).to eq('teal')
+      expect(described_class::TEAL).to eq('teal')
     end
 
     it 'defines WHITE' do
-      expect(Color::WHITE).to eq('white')
+      expect(described_class::WHITE).to eq('white')
     end
 
     it 'defines YELLOW' do
-      expect(Color::YELLOW).to eq('yellow')
+      expect(described_class::YELLOW).to eq('yellow')
     end
 
     it 'defines NONE' do
-      expect(Color::NONE).to equal(nil)
+      expect(described_class::NONE).to equal(nil)
     end
   end
 
-  describe Enum::Icon do
-    Icon = Enum::Icon
-
+  describe described_class::Icon do
     it 'defines THUMBS_UP' do
-      expect(Icon::THUMBS_UP).to eq('thumbs-up')
+      expect(described_class::THUMBS_UP).to eq('thumbs-up')
     end
 
     it 'defines CALENDAR' do
-      expect(Icon::CALENDAR).to eq('calendar')
+      expect(described_class::CALENDAR).to eq('calendar')
     end
 
     it 'defines SERVER' do
-      expect(Icon::SERVER).to eq('server')
+      expect(described_class::SERVER).to eq('server')
     end
 
     it 'defines SIGNAL' do
-      expect(Icon::SIGNAL).to eq('wifi')
+      expect(described_class::SIGNAL).to eq('wifi')
     end
 
     it 'defines GIT' do
-      expect(Icon::GIT).to eq('git')
+      expect(described_class::GIT).to eq('git')
     end
 
     it 'defines CODE' do
-      expect(Icon::CODE).to eq('code')
+      expect(described_class::CODE).to eq('code')
     end
 
     it 'defines CHECK' do
-      expect(Icon::CHECK).to eq('check')
+      expect(described_class::CHECK).to eq('check')
     end
 
     it 'defines ERROR' do
-      expect(Icon::ERROR).to eq('exclamation-triangle')
+      expect(described_class::ERROR).to eq('exclamation-triangle')
     end
 
     it 'defines PENCIL' do
-      expect(Icon::PENCIL).to eq('pencil')
+      expect(described_class::PENCIL).to eq('pencil')
     end
 
     it 'defines CHAIN' do
-      expect(Icon::CHAIN).to eq('chain')
+      expect(described_class::CHAIN).to eq('chain')
     end
 
     it 'defines CHAIN_BROKEN' do
-      expect(Icon::CHAIN_BROKEN).to eq('chain-broken')
+      expect(described_class::CHAIN_BROKEN).to eq('chain-broken')
     end
 
     it 'defines NONE' do
-      expect(Icon::NONE).to equal(nil)
+      expect(described_class::NONE).to equal(nil)
     end
   end
 
-  describe Enum::Strategy do
-    Strategy = Enum::Strategy
-
+  describe described_class::Strategy do
     it 'defines FALLBACK' do
-      expect(Strategy::FALLBACK).to eq(:fallback)
+      expect(described_class::FALLBACK).to eq(:fallback)
     end
 
     it 'defines ID' do
-      expect(Strategy::ID).to eq(:id)
+      expect(described_class::ID).to eq(:id)
     end
   end
 end

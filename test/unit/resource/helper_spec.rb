@@ -1,11 +1,11 @@
 require 'resource/helper'
 
-RSpec.describe ResourceHelper do
+RSpec.describe Polyseerio::Resource::Helper do
   describe 'get_eid_from_resource_path' do
     it 'returns nil if no eid present in path' do
       path = '/members/22'
 
-      result = ResourceHelper.get_eid_from_resource_path path
+      result = described_class.get_eid_from_resource_path path
 
       expect(result).to equal(nil)
     end
@@ -13,7 +13,7 @@ RSpec.describe ResourceHelper do
     it 'correctly returns the eid' do
       path = '/environments/alpha/alerts/33'
 
-      result = ResourceHelper.get_eid_from_resource_path path
+      result = described_class.get_eid_from_resource_path path
 
       expect(result).to eq('alpha')
     end
@@ -21,7 +21,7 @@ RSpec.describe ResourceHelper do
     it 'returns correct eid when longer path used' do
       path = '/v1/environments/development/instances/10000/gauges'
 
-      result = ResourceHelper.get_eid_from_resource_path path
+      result = described_class.get_eid_from_resource_path path
 
       expect(result).to eq('development')
     end
@@ -29,7 +29,7 @@ RSpec.describe ResourceHelper do
     it 'returns correct eid when dash is used' do
       path = '/polyseer/v1/environments/validation-testing/events'
 
-      result = ResourceHelper.get_eid_from_resource_path path
+      result = described_class.get_eid_from_resource_path path
 
       expect(result).to eq('validation-testing')
     end
@@ -39,7 +39,7 @@ RSpec.describe ResourceHelper do
     it 'true if an array' do
       data = ['alpha']
 
-      result = ResourceHelper.resource_collection? data
+      result = described_class.resource_collection? data
 
       expect(result).to be true
     end
@@ -47,7 +47,7 @@ RSpec.describe ResourceHelper do
     it 'false if not an array' do
       data = 'hello'
 
-      result = ResourceHelper.resource_collection? data
+      result = described_class.resource_collection? data
 
       expect(result).to be false
     end
@@ -57,7 +57,7 @@ RSpec.describe ResourceHelper do
     it 'true if hash' do
       data = {}
 
-      result = ResourceHelper.resource? data
+      result = described_class.resource? data
 
       expect(result).to be true
     end
@@ -65,7 +65,7 @@ RSpec.describe ResourceHelper do
     it 'false if not a hash' do
       data = 'hello'
 
-      result = ResourceHelper.resource? data
+      result = described_class.resource? data
 
       expect(result).to be false
     end
@@ -75,7 +75,7 @@ RSpec.describe ResourceHelper do
     it 'true if response has data and data is an array' do
       response = { data: [] }
 
-      result = ResourceHelper.resource_response? response
+      result = described_class.resource_response? response
 
       expect(result).to be true
     end
@@ -83,7 +83,7 @@ RSpec.describe ResourceHelper do
     it 'true if response has data and data is a hash' do
       response = { data: {} }
 
-      result = ResourceHelper.resource_response? response
+      result = described_class.resource_response? response
 
       expect(result).to be true
     end
@@ -91,7 +91,7 @@ RSpec.describe ResourceHelper do
     it 'false if no data in response' do
       response = { foo: {} }
 
-      result = ResourceHelper.resource_response? response
+      result = described_class.resource_response? response
 
       expect(result).to be false
     end
@@ -99,7 +99,7 @@ RSpec.describe ResourceHelper do
     it 'false if data in not an array or hash' do
       response = { data: 'bar' }
 
-      result = ResourceHelper.resource_response? response
+      result = described_class.resource_response? response
 
       expect(result).to be false
     end
@@ -110,7 +110,7 @@ RSpec.describe ResourceHelper do
       response = { data: 'zoo' }
       cid = 0
 
-      result = ResourceHelper.parse_response(response, cid)
+      result = described_class.parse_response(response, cid)
 
       expect(result).to equal(response)
     end

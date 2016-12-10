@@ -1,18 +1,22 @@
 require 'agent/executor'
 
-# Polyseer.io Ruby agent.
-class Agent
-  def initialize(client)
-    @client = client
-  end
+module Polyseerio
+  module Agent
+    # Polyseer.io Ruby agent.
+    class Agent
+      def initialize(client)
+        @client = client
+      end
 
-  def start(**args)
-    # @instance = Executor.setup(client, *args)
+      def start(**args)
+        # @instance = Executor.setup(client, *args)
 
-    # @client
-  end
+        # @client
+      end
 
-  def stop
-    Executor.teardown(client, instance)
+      def stop
+        Executor.teardown(client, instance)
+      end
+    end
   end
 end

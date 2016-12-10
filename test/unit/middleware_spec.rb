@@ -1,13 +1,13 @@
 require 'middleware'
 
-RSpec.describe Middleware do
+RSpec.describe Polyseerio::Middleware do
   let(:route) { '/foo/bar' }
   let(:payload) { { foo: 'bar' } }
   let(:options) { { ding: 'bat' } }
 
   describe 'pre_request' do
     it 'when a route and payload present it correctly formats payload' do
-      result = Middleware.pre_request.call(route, payload)
+      result = described_class.pre_request.call(route, payload)
 
       expect(result[0]).to eq(route)
       expect(result[1]).to eq('{"data":{"attributes":{"foo":"bar"}}}')
@@ -16,7 +16,7 @@ RSpec.describe Middleware do
     end
 
     it 'when just a route it simply returns that route' do
-      result = Middleware.pre_request.call(route)
+      result = described_class.pre_request.call(route)
 
       expect(result[0]).to eq(route)
 
@@ -28,7 +28,7 @@ RSpec.describe Middleware do
     it 'simply returns the response for now' do
       response = double('response')
 
-      result = Middleware.post_request.call(response)
+      result = described_class.post_request.call(response)
 
       expect(result).to equal(response)
     end

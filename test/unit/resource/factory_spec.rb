@@ -1,9 +1,8 @@
 require 'resource/factory.rb'
 
-class Dork
-end
+RSpec.describe Polyseerio::Resource::Factory do
+  let(:resource_double) { Class.new }
 
-RSpec.describe ResourceFactory do
   describe 'create' do
     def class_name_factory
       id = 0
@@ -20,19 +19,19 @@ RSpec.describe ResourceFactory do
     let(:name) { @generate.call }
 
     it 'generates a class with the correct name' do
-      resource = ResourceFactory.create name
+      resource = described_class.create name
 
       expect(resource.name).to eq(name)
     end
 
     it 'generates a class with the correct name' do
-      resource = ResourceFactory.create 'Beta'
+      resource = described_class.create 'Beta'
 
       expect(resource).to be_a(Class)
     end
 
     it 'defaults eid to nil' do
-      resource = ResourceFactory.create name
+      resource = described_class.create name
 
       result = resource.new
 
@@ -40,7 +39,7 @@ RSpec.describe ResourceFactory do
     end
 
     it 'defaults new to true' do
-      resource = ResourceFactory.create name
+      resource = described_class.create name
 
       result = resource.new
 
@@ -48,7 +47,7 @@ RSpec.describe ResourceFactory do
     end
 
     it 'can return the type from the instance' do
-      resource = ResourceFactory.create name
+      resource = described_class.create name
 
       result = resource.new
 
@@ -62,18 +61,10 @@ RSpec.describe ResourceFactory do
       request = {}
       cid = 1
 
-      expect { ResourceFactory.make(resource, request, cid) }.to raise_error(
+      expect { described_class.make(resource, request, cid) }.to raise_error(
         ArgumentError,
         /Could not find definition for resource: unknown-foo/
       )
-    end
-
-    it 'will not raise for a known resource' do
-      resource = 'alerts'
-      request = {}
-      cid = 1
-
-      expect { ResourceFactory.make(resource, request, cid) }.not_to raise_error
     end
   end
 
@@ -81,7 +72,7 @@ RSpec.describe ResourceFactory do
     it 'true when no methods defined' do
       definition = { statics: [] }
 
-      result = ResourceFactory.singleton_definition? definition
+      result = described_class.singleton_definition? definition
 
       expect(result).to eql(true)
     end
@@ -89,7 +80,7 @@ RSpec.describe ResourceFactory do
     it 'true when no methods are empty' do
       definition = { methods: [] }
 
-      result = ResourceFactory.singleton_definition? definition
+      result = described_class.singleton_definition? definition
 
       expect(result).to eql(true)
     end
@@ -97,7 +88,7 @@ RSpec.describe ResourceFactory do
     it 'false when methods are in definition' do
       definition = { methods: [:find] }
 
-      result = ResourceFactory.singleton_definition? definition
+      result = described_class.singleton_definition? definition
 
       expect(result).to eql(false)
     end
@@ -108,9 +99,9 @@ RSpec.describe ResourceFactory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      ResourceFactory.add_method(Dork, method, name)
+      described_class.add_method(resource_double, method, name)
 
-      instance = Dork.new
+      instance = resource_double.new
 
       expect(instance.foo(2)).to eql(4)
     end
@@ -121,17 +112,17 @@ RSpec.describe ResourceFactory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      ResourceFactory.add_static(Dork, method, name)
+      described_class.add_static(resource_double, method, name)
 
-      expect(Dork.foo(2)).to eql(4)
+      expect(resource_double.foo(2)).to eql(4)
     end
   end
 
   describe 'add_statics' do
     it 'simply returns the resource if no statics' do
-      ResourceFactory.add_statics(Dork)
+      described_class.add_statics(resource_double)
 
-      expect(Dork).to equal(Dork)
+      expect(resource_double).to equal(resource_double)
     end
 
     it 'adds all statics passed onto the resource' do
@@ -140,9 +131,9 @@ RSpec.describe ResourceFactory do
 
   describe 'add_methods' do
     it 'simply returns the resource if no methods' do
-      ResourceFactory.add_methods(Dork)
+      described_class.add_methods(resource_double)
 
-      expect(Dork).to equal(Dork)
+      expect(resource_double).to equal(resource_double)
     end
 
     it 'adds all methods passed onto the resource' do
@@ -154,7 +145,7 @@ RSpec.describe ResourceFactory do
       resource = 'alerts'
       cid = 2
 
-      key = ResourceFactory.get_memoize_key(resource, nil, cid, nil)
+      key = described_class.get_memoize_key(resource, nil, cid, nil)
 
       expect(key).to eq('alerts.2')
     end

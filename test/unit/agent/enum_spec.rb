@@ -1,51 +1,41 @@
 require 'agent/enum'
 
-RSpec.describe Enum do
-  describe Enum::Expectation do
-    Expectation = Enum::Expectation
-
+RSpec.describe Polyseerio::Agent::Enum do
+  describe described_class::Expectation do
     it 'defines IS_ALIVE' do
-      expect(Expectation::IS_ALIVE).to eq('is_alive')
+      expect(described_class::IS_ALIVE).to eq('is_alive')
     end
   end
 
-  describe Enum::Event do
-    Event = Enum::Event
-
+  describe described_class::Event do
     it 'defines START' do
-      expect(Event::START).to eq('start')
+      expect(described_class::START).to eq('start')
     end
   end
 
-  describe Enum::Signal do
-    Sig = Enum::Signal
-
+  describe described_class::Signal do
     it 'defines SIGHUP' do
-      expect(Sig::SIGHUP).to eq('HUP')
+      expect(described_class::SIGHUP).to eq('HUP')
     end
 
     it 'defines SIGINT' do
-      expect(Sig::SIGINT).to eq('INT')
+      expect(described_class::SIGINT).to eq('INT')
     end
 
     it 'defines SIGTERM' do
-      expect(Sig::SIGTERM).to eq('TERM')
+      expect(described_class::SIGTERM).to eq('TERM')
     end
   end
 
-  describe Enum::ProcessEvent do
-    ProcessEvent = Enum::ProcessEvent
-
+  describe described_class::ProcessEvent do
     it 'defines EXIT' do
-      expect(ProcessEvent::EXIT).to eq('exit')
+      expect(described_class::EXIT).to eq('exit')
     end
   end
 
-  describe Enum::Metric do
-    Metric = Enum::Metric
-
+  describe described_class::Metric do
     it 'defines MEMORY' do
-      expect(Metric::MEMORY).to eq('memory')
+      expect(described_class::MEMORY).to eq('memory')
     end
   end
 end

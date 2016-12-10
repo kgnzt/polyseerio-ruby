@@ -1,47 +1,47 @@
 require 'resource'
 
-RSpec.describe Resource do
+RSpec.describe Polyseerio::Resource do
   it 'defines ALERT' do
-    expect(Resource::ALERT).to eq('alerts')
+    expect(described_class::ALERT).to eq('alerts')
   end
 
   it 'defines CHANNEL' do
-    expect(Resource::CHANNEL).to eq('channels')
+    expect(described_class::CHANNEL).to eq('channels')
   end
 
   it 'defines ENVIRONMENT' do
-    expect(Resource::ENVIRONMENT).to eq('environments')
+    expect(described_class::ENVIRONMENT).to eq('environments')
   end
 
   it 'defines EVENT' do
-    expect(Resource::EVENT).to eq('events')
+    expect(described_class::EVENT).to eq('events')
   end
 
   it 'defines EXPECTATION' do
-    expect(Resource::EXPECTATION).to eq('expectations')
+    expect(described_class::EXPECTATION).to eq('expectations')
   end
 
   it 'defines INSTANCE' do
-    expect(Resource::INSTANCE).to eq('instances')
+    expect(described_class::INSTANCE).to eq('instances')
   end
 
   it 'defines LOGIC_BLOCK' do
-    expect(Resource::LOGIC_BLOCK).to eq('logic-blocks')
+    expect(described_class::LOGIC_BLOCK).to eq('logic-blocks')
   end
 
   it 'defines MESSAGE' do
-    expect(Resource::MESSAGE).to eq('messages')
+    expect(described_class::MESSAGE).to eq('messages')
   end
 
   it 'defines MEMBER' do
-    expect(Resource::MEMBER).to eq('members')
+    expect(described_class::MEMBER).to eq('members')
   end
 
   it 'defines SETTING' do
-    expect(Resource::SETTING).to eq('settings')
+    expect(described_class::SETTING).to eq('settings')
   end
 
   it 'defines TASK' do
-    expect(Resource::TASK).to eq('tasks')
+    expect(described_class::TASK).to eq('tasks')
   end
 end

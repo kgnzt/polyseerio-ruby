@@ -1,6 +1,6 @@
 require 'helper'
 
-RSpec.describe Helper do
+RSpec.describe Polyseerio::Helper do
   describe 'rekey' do
     it 'converts hash keys based on map' do
       hash = {
@@ -10,7 +10,7 @@ RSpec.describe Helper do
         dog: :foo
       }
 
-      result = Helper.rekey(hash, map)
+      result = described_class.rekey(hash, map)
 
       expect(result).to eq(foo: 'bar')
     end
@@ -22,13 +22,13 @@ RSpec.describe Helper do
     let(:value) { 'bar' }
 
     it 'will attach property to instance passed' do
-      Helper.attach_to_instance!(instance, [key, value])
+      described_class.attach_to_instance!(instance, [key, value])
 
       expect(instance.Foo).to eq('bar')
     end
 
     it 'will curry' do
-      attach = Helper.attach_to_instance!(instance)
+      attach = described_class.attach_to_instance!(instance)
 
       attach.call([key, value])
 
@@ -43,7 +43,7 @@ RSpec.describe Helper do
         gamma: 'delta'
       }
 
-      result = Helper.defaults options
+      result = described_class.defaults options
 
       expect(result).to eq(
         alpha: 'beta',
@@ -61,7 +61,7 @@ RSpec.describe Helper do
         gamma: 'zeta'
       }
 
-      result = Helper.defaults(options, defaults)
+      result = described_class.defaults(options, defaults)
 
       expect(result).to eq(
         alpha: 'beta',
@@ -86,7 +86,7 @@ RSpec.describe Helper do
         ding: 'wow'
       }
 
-      result = Helper.defaults(options, defaults_one, defaults_two)
+      result = described_class.defaults(options, defaults_one, defaults_two)
 
       expect(result).to eq(
         ding: 'dong',
@@ -101,7 +101,7 @@ RSpec.describe Helper do
     it 'returns token if token key is not nil' do
       options = { token: 'my-token' }
 
-      result = Helper.resolve_token options
+      result = described_class.resolve_token options
 
       expect(result).to eq('my-token')
     end
@@ -109,7 +109,7 @@ RSpec.describe Helper do
     it 'returns nil if token key is nil and it cant be pulled from env' do
       options = { token: nil, token_env: 'ZOOZOO' }
 
-      result = Helper.resolve_token options
+      result = described_class.resolve_token options
 
       expect(result).to eq(nil)
     end
@@ -122,7 +122,7 @@ RSpec.describe Helper do
 
       options = { token: nil, token_env: token_env }
 
-      result = Helper.resolve_token options
+      result = described_class.resolve_token options
 
       expect(result).to eq(token)
 
@@ -139,7 +139,7 @@ RSpec.describe Helper do
         }
       }
 
-      result = Helper.format_payload payload
+      result = described_class.format_payload payload
 
       expect(result).to eq(
         data: {
@@ -156,7 +156,7 @@ RSpec.describe Helper do
     it 'copies the payload hash' do
       payload = { foo: 'bar' }
 
-      result = Helper.format_payload payload
+      result = described_class.format_payload payload
 
       payload[:foo] = 'wow'
 

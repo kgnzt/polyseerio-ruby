@@ -97,7 +97,7 @@ module Polyseerio
     )
 
     resources = REQUIRED_RESOURCES.each_with_object({}) do |resource, acc|
-      acc[resource] = ResourceFactory.make(resource, request, cid, options)
+      acc[resource] = Resource::Factory.make(resource, request, cid, options)
 
       acc
     end

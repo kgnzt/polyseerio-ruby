@@ -1,41 +1,41 @@
 require 'resource/definition'
 
-RSpec.describe ResourceDefinition do
+RSpec.describe Polyseerio::Resource::Definition do
   it 'correctly defines STATICS' do
-    expect(ResourceDefinition::STATICS).to equal(:statics)
+    expect(described_class::STATICS).to equal(:statics)
   end
 
   it 'correctly defines METHODS' do
-    expect(ResourceDefinition::METHODS).to equal(:methods)
+    expect(described_class::METHODS).to equal(:methods)
   end
 
   it 'correctly defines CREATABLE_STATICS' do
-    expect(ResourceDefinition::CREATABLE_STATICS).to contain_exactly(
+    expect(described_class::CREATABLE_STATICS).to contain_exactly(
       :create
     )
   end
 
   it 'correctly defines READABLE_STATICS' do
-    expect(ResourceDefinition::READABLE_STATICS).to contain_exactly(
+    expect(described_class::READABLE_STATICS).to contain_exactly(
       :find,
       :find_by_id
     )
   end
 
   it 'correctly defines DELETABLE_STATICS' do
-    expect(ResourceDefinition::DELETABLE_STATICS).to contain_exactly(
+    expect(described_class::DELETABLE_STATICS).to contain_exactly(
       :remove
     )
   end
 
   it 'correctly defines UPDATABLE_STATICS' do
-    expect(ResourceDefinition::UPDATABLE_STATICS).to contain_exactly(
+    expect(described_class::UPDATABLE_STATICS).to contain_exactly(
       :update
     )
   end
 
   it 'correctly defines CRUD_STATICS' do
-    expect(ResourceDefinition::CRUD_STATICS).to contain_exactly(
+    expect(described_class::CRUD_STATICS).to contain_exactly(
       :create,
       :find,
       :find_by_id,
@@ -45,66 +45,64 @@ RSpec.describe ResourceDefinition do
   end
 
   it 'correctly defines SAVABLE_INSTANCE' do
-    expect(ResourceDefinition::SAVABLE_INSTANCE).to contain_exactly(
+    expect(described_class::SAVABLE_INSTANCE).to contain_exactly(
       :save
     )
   end
 
   it 'correctly defines RESOURCE_INSTANCE' do
-    expect(ResourceDefinition::RESOURCE_INSTANCE).to contain_exactly(
+    expect(described_class::RESOURCE_INSTANCE).to contain_exactly(
       :to_json
     )
   end
 
-  describe 'ResourceDefinition' do
-    DEFINITION = ResourceDefinition::DEFINITION
-
+  describe described_class::DEFINITION do
     it 'defines alerts' do
-      expect(DEFINITION).to have_key('alerts')
+      expect(described_class).to have_key('alerts')
     end
 
     it 'defines channels' do
-      expect(DEFINITION).to have_key('channels')
+      expect(described_class).to have_key('channels')
     end
 
     it 'defines environments' do
-      expect(DEFINITION).to have_key('environments')
+      expect(described_class).to have_key('environments')
     end
 
     it 'defines events' do
-      expect(DEFINITION).to have_key('events')
+      expect(described_class).to have_key('events')
     end
 
     it 'defines expectations' do
-      expect(DEFINITION).to have_key('expectations')
+      expect(described_class).to have_key('expectations')
     end
 
     it 'defines instances' do
-      expect(DEFINITION).to have_key('instances')
+      expect(described_class).to have_key('instances')
     end
 
     it 'defines logic-blocks' do
-      expect(DEFINITION).to have_key('logic-blocks')
+      expect(described_class).to have_key('logic-blocks')
     end
 
     it 'defines members' do
-      expect(DEFINITION).to have_key('members')
+      expect(described_class).to have_key('members')
     end
 
     it 'defines messages' do
-      expect(DEFINITION).to have_key('messages')
+      expect(described_class).to have_key('messages')
     end
 
     it 'defines settings' do
-      expect(DEFINITION).to have_key('settings')
+      expect(described_class).to have_key('settings')
     end
 
     it 'defines tasks' do
-      expect(DEFINITION).to have_key('tasks')
+      expect(described_class).to have_key('tasks')
     end
 
     describe 'alerts' do
-      alerts = DEFINITION['alerts']
+      alerts = described_class['alerts']
 
       it 'has the correct statics' do
         statics = alerts[:statics]
@@ -122,7 +120,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'channels' do
-      channels = DEFINITION['channels']
+      channels = described_class['channels']
 
       it 'has the correct statics' do
         statics = channels[:statics]
@@ -140,7 +138,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'environments' do
-      environments = DEFINITION['environments']
+      environments = described_class['environments']
 
       it 'has the correct statics' do
         statics = environments[:statics]
@@ -158,7 +156,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'events' do
-      events = DEFINITION['events']
+      events = described_class['events']
 
       it 'has the correct statics' do
         statics = events[:statics]
@@ -172,7 +170,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'expecations' do
-      expecations = DEFINITION['expectations']
+      expecations = described_class['expectations']
 
       it 'has the correct statics' do
         statics = expecations[:statics]
@@ -190,7 +188,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'instances' do
-      instances = DEFINITION['instances']
+      instances = described_class['instances']
 
       it 'has the correct statics' do
         statics = instances[:statics]
@@ -208,7 +206,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'logic-blocks' do
-      logic_blocks = DEFINITION['logic-blocks']
+      logic_blocks = described_class['logic-blocks']
 
       it 'has the correct statics' do
         statics = logic_blocks[:statics]
@@ -225,7 +223,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'members' do
-      members = DEFINITION['members']
+      members = described_class['members']
 
       it 'has the correct statics' do
         statics = members[:statics]
@@ -241,7 +239,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'messages' do
-      messages = DEFINITION['messages']
+      messages = described_class['messages']
 
       it 'has the correct statics' do
         statics = messages[:statics]
@@ -257,7 +255,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'settings' do
-      settings = DEFINITION['settings']
+      settings = described_class['settings']
 
       it 'has the correct statics' do
         statics = settings[:statics]
@@ -267,7 +265,7 @@ RSpec.describe ResourceDefinition do
     end
 
     describe 'tasks' do
-      tasks = DEFINITION['tasks']
+      tasks = described_class['tasks']
 
       it 'has the correct statics' do
         statics = tasks[:statics]

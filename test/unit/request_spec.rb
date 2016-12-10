@@ -1,8 +1,8 @@
 require 'request'
 
-RSpec.describe Request do
+RSpec.describe Polyseerio::Request do
   let(:resource) { double('resource') }
-  let(:request) { Request.new(resource) }
+  let(:request) { described_class.new(resource) }
   let(:result_double) { double('result') }
   let(:resource_path_double) { double('resource_path') }
   let(:route) { '/foo/bar' }
@@ -14,7 +14,7 @@ RSpec.describe Request do
       allow(resource).to receive(:[]).and_return(resource_path_double)
       allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource)
+      request = described_class.new(resource)
 
       request.get(route)
 
@@ -25,7 +25,7 @@ RSpec.describe Request do
       allow(resource).to receive(:[]).and_return(resource_path_double)
       allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource)
+      request = described_class.new(resource)
 
       request.get(route, payload, options)
 
@@ -37,7 +37,7 @@ RSpec.describe Request do
       allow(resource).to receive(:[]).and_return(resource_path_double)
       allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource, pre: [proc do |_, __|
+      request = described_class.new(resource, pre: [proc do |_, __|
         ['zoo', { alpha: 'beta' }]
       end])
 
@@ -50,7 +50,7 @@ RSpec.describe Request do
       allow(resource).to receive(:[]).and_return(resource_path_double)
       allow(resource_path_double).to receive(:get).and_return(result_double)
 
-      request = Request.new(resource, post: [proc do |_|
+      request = described_class.new(resource, post: [proc do |_|
         { wild: 'wizard' }
       end])
 
@@ -136,17 +136,17 @@ RSpec.describe Request do
     end
   end
 
-  describe Request::Middleware do
+  describe described_class::Middleware do
     it 'defines PRE' do
-      expect(Request::Middleware::PRE).to eq(:pre)
+      expect(described_class::PRE).to eq(:pre)
     end
 
     it 'defines POST' do
-      expect(Request::Middleware::POST).to eq(:post)
+      expect(described_class::POST).to eq(:post)
     end
 
     it 'defines REJECT' do
-      expect(Request::Middleware::REJECT).to eq(:reject)
+      expect(described_class::REJECT).to eq(:reject)
     end
   end
 end

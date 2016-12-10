@@ -1,27 +1,23 @@
 require 'sdk/static/index'
 require 'sdk/method/index'
+require 'sdk/helper'
 
-# Used to create static and instance SDK methods
-module SDKFactory
-  # Accumulator for static functions.
-  def self.accumulate_static(acc, name)
-    unless SDK::Static.key? name
-      raise ArgumentError, "Could not find SDK static function #{name}"
+module Polyseerio
+  module SDK
+    # SDK static module.
+    module Static
+      # Generates static functions.
+      def self.factory(_request, _resource, statics = [], _options = {})
+        statics.each_with_object({}, &Helper.accumulate_procs('static', {}))
+      end
     end
 
-    acc[name] = SDK::Static[name]
-
-    acc
-  end
-
-  # Accumulator for instance methods.
-  def self.accumulate_method(acc, name)
-    unless SDK::Method.key? name
-      raise ArgumentError, "Could not find SDK instance method #{name}"
+    # SDK Method (instance) module.
+    module Method
+      # Generates method (instance) functions.
+      def self.factory(_request, _resource, methods = [], _options = {})
+        methods.each_with_object({}, &Helper.accumulate_procs('method', {}))
+      end
     end
-
-    acc[name] = SDK::Method[name]
-
-    acc
   end
 end

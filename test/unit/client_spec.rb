@@ -1,6 +1,6 @@
 require 'client'
 
-RSpec.describe Client do
+RSpec.describe Polyseerio::Client do
   let(:agent_class) { double('AgentDouble') }
   let(:agent) { double('agent') }
   let(:cid) { 0 }
@@ -9,20 +9,20 @@ RSpec.describe Client do
 
   describe 'initialize' do
     it 'raises an error without a cid' do
-      expect { Client.new }.to raise_error(
+      expect { described_class.new }.to raise_error(
         ArgumentError,
         /wrong number of arguments/
       )
     end
 
     it 'sets the cid to passed cid' do
-      client = Client.new(cid, request: {})
+      client = described_class.new(cid, request: {})
 
       expect(client.cid).to eq(cid)
     end
 
     it 'defaults the agent to nil' do
-      client = Client.new(cid, request: {})
+      client = described_class.new(cid, request: {})
 
       expect(client.agent).to be_nil
     end
@@ -34,7 +34,11 @@ RSpec.describe Client do
         Gamma: double('GammaDouble')
       }
 
-      client = Client.new(cid, request: request_double, resources: resources)
+      client = described_class.new(
+        cid,
+        request: request_double,
+        resources: resources
+      )
 
       expect(client.Alpha). to eq(resources[:Alpha])
       expect(client.Beta). to eq(resources[:Beta])
@@ -42,7 +46,7 @@ RSpec.describe Client do
     end
 
     it 'raises an error if no request is passed' do
-      expect { Client.new(cid, {}) }.to raise_error(
+      expect { described_class.new(cid, {}) }.to raise_error(
         ArgumentError,
         /Cannot create an instance of Client without/
       )
@@ -51,7 +55,7 @@ RSpec.describe Client do
 
   describe 'start_agent' do
     let(:result_double) { double('result') }
-    let(:client) { Client.new(cid, options) }
+    let(:client) { described_class.new(cid, options) }
 
     before do
       allow(agent_class).to receive(:new).and_return(agent)
