@@ -53,4 +53,17 @@ module Helper
       end
     end.curry.call(*args)
   end
+
+  # Rekey a hash using a remapping hash.
+  def self.rekey(hash, map)
+    hash.each_with_object({}) do |(key, value), acc|
+      if map.key? key
+        acc[map[key]] = value
+      else
+        acc[key] = value
+      end
+
+      acc
+    end
+  end
 end

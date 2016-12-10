@@ -1,6 +1,21 @@
 require 'helper'
 
 RSpec.describe Helper do
+  describe 'rekey' do
+    it 'converts hash keys based on map' do
+      hash = {
+        dog: 'bar'
+      }
+      map = {
+        dog: :foo
+      }
+
+      result = Helper.rekey(hash, map)
+
+      expect(result).to eq(foo: 'bar')
+    end
+  end
+
   describe 'attach_to_instance' do
     let(:instance) { double('instace') }
     let(:key) { 'Foo' }

@@ -1,7 +1,5 @@
 require 'resource/definition'
 
-DEFINTION = ResourceDefinition::DEFINITION
-
 # Functions and factory for building resources
 module ResourceFactory
   # Determine if a resource definition represents a singleton
@@ -62,30 +60,17 @@ module ResourceFactory
   end
 
   # Create a resource.
-  def self.make(resource, request, _cid, options = {})
-    unless DEFINITION.key? resource
+  def self.make(resource, _request, _cid, _options = {})
+    unless ResourceDefinition::DEFINITION.key? resource
       raise ArgumentError, "Could not find definition for resource: #{resource}"
     end
 
-    definition = DEFINITION.fetch(resource)
+    definition = ResourceDefinition::DEFINITION.fetch(resource)
 
     resource = singleton_definition?(definition) ? {} : create(resource)
 
-    statics = SDK.static_factory(
-      request,
-      resource,
-      definition[DEFINTION::Statics],
-      options
-    )
-    methods = SDK.method_factory(
-      request,
-      resource,
-      definition[DEFINTION::Methods],
-      options
-    )
-
-    add_statics(resource, statics)
-    add_methods(resource, request, methods)
+    # add_statics(resource, statics)
+    # add_methods(resource, request, methods)
 
     resource
   end

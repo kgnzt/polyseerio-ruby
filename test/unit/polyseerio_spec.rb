@@ -22,8 +22,8 @@ RSpec.describe Polyseerio do
     end
   end
 
-  describe Polyseerio::RequiredResources do
-    Resources = Polyseerio::RequiredResources::RESOURCES
+  describe Polyseerio::REQUIRED_RESOURCES do
+    Resources = Polyseerio::REQUIRED_RESOURCES
 
     it 'includes the correct resources' do
       expect(Resources).to contain_exactly(

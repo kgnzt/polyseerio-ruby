@@ -1,4 +1,5 @@
 require 'resource'
+require 'resource/factory'
 require 'request'
 require 'middleware'
 require 'constant'
@@ -24,21 +25,18 @@ module Polyseerio
     }.freeze
   end
 
-  # Resources required for a ruby polyseer.io Client
-  module RequiredResources
-    RESOURCES = [
-      Resource::ALERT,
-      Resource::CHANNEL,
-      Resource::ENVIRONMENT,
-      Resource::EVENT,
-      Resource::EXPECTATION,
-      Resource::INSTANCE,
-      Resource::LOGIC_BLOCK,
-      Resource::MEMBER,
-      Resource::SETTING,
-      Resource::TASK
-    ].freeze
-  end
+  REQUIRED_RESOURCES = [
+    Resource::ALERT,
+    Resource::CHANNEL,
+    Resource::ENVIRONMENT,
+    Resource::EVENT,
+    Resource::EXPECTATION,
+    Resource::INSTANCE,
+    Resource::LOGIC_BLOCK,
+    Resource::MEMBER,
+    Resource::SETTING,
+    Resource::TASK
+  ].freeze
 
   # Maps resources to paths within a Client
   module ClientResourcePaths
@@ -84,8 +82,6 @@ module Polyseerio
       :content_type => 'application/json'
     }
 
-    resources = {}
-
     rest_resource = RestClient::Resource.new(
       base_url,
       headers: headers,
@@ -99,6 +95,14 @@ module Polyseerio
       post: [Middleware.post_request],
       reject: [Middleware.reject]
     )
+
+    resources = REQUIRED_RESOURCES.each_with_object({}) do |resource, acc|
+      acc[resource] = ResourceFactory.make(resource, request, cid, options)
+
+      acc
+    end
+
+    resources = Helper.rekey(resources, ClientResourcePaths::PATHS)
 
     client = Client.new(cid, request: request, resources: resources)
 
