@@ -1,5 +1,21 @@
 # General helper functions for SDK
 module Helper
+  DEFAULT_REQUIRE_DIRECTORY_OPTIONS = {
+    exclude: ['index.rb'].freeze
+  }.freeze
+
+  # Load an include an entire directory.
+  def self.require_directory(directory, options = {})
+    directory = "#{directory}/*#{options[:extension]}"
+    options = defaults(options, DEFAULT_REQUIRE_DIRECTORY_OPTIONS)
+
+    Dir[directory].select do |file|
+      pathname = Pathname.new(file)
+
+      !options[:exclude].include? pathname.basename
+    end
+  end
+
   # Format a resouce payload for API consumption
   def self.format_payload(payload)
     { data: { attributes: payload.clone } }

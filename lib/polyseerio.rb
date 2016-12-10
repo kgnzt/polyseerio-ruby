@@ -84,7 +84,9 @@ module Polyseerio
       :content_type => 'application/json'
     }
 
-    resource = RestClient::Resource.new(
+    resources = {}
+
+    rest_resource = RestClient::Resource.new(
       base_url,
       headers: headers,
       timeout: options[:timeout]
@@ -92,13 +94,13 @@ module Polyseerio
 
     # Create a request instance that uses middleware.
     request = Request.new(
-      resource,
+      rest_resource,
       pre: [Middleware.pre_request],
       post: [Middleware.post_request],
       reject: [Middleware.reject]
     )
 
-    client = Client.new(cid, request: request, resources: {})
+    client = Client.new(cid, request: request, resources: resources)
 
     # generate default options from passed an copts
     # resolve token, if unresolved raise

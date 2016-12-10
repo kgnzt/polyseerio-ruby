@@ -6,3 +6,5 @@ Metrics/MethodLength:
   Max: 100
 Metrics/AbcSize:
   Max: 50
+Style/AccessModifierIndentation:
+  Enabled: false

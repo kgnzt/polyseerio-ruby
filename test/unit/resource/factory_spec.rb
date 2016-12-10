@@ -4,7 +4,59 @@ class Dork
 end
 
 RSpec.describe ResourceFactory do
-  describe 'factory' do
+  describe 'create' do
+    def class_name_factory
+      id = 0
+      lambda do
+        id += 1
+        "TestClass_#{id}"
+      end
+    end
+
+    before(:all) do
+      @generate = class_name_factory
+    end
+
+    let(:name) { @generate.call }
+
+    it 'generates a class with the correct name' do
+      resource = ResourceFactory.create name
+
+      expect(resource.name).to eq(name)
+    end
+
+    it 'generates a class with the correct name' do
+      resource = ResourceFactory.create 'Beta'
+
+      expect(resource).to be_a(Class)
+    end
+
+    it 'defaults eid to nil' do
+      resource = ResourceFactory.create name
+
+      result = resource.new
+
+      expect(result.eid).to be_nil
+    end
+
+    it 'defaults new to true' do
+      resource = ResourceFactory.create name
+
+      result = resource.new
+
+      expect(result.new?).to equal(true)
+    end
+
+    it 'can return the type from the instance' do
+      resource = ResourceFactory.create name
+
+      result = resource.new
+
+      expect(result.type).to eq(name)
+    end
+  end
+
+  describe 'make' do
     it 'raises if resource not defined' do
       resource = 'unknown-foo'
       request = {}

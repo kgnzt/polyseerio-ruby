@@ -37,13 +37,57 @@ module ResourceFactory
     methods.reduce(resource, &add_method)
   end
 
-  # Create a resource
-  def self.make(resource, _request, _cid, options = {})
+  # Determine if a resource definition represents a singleton
+  def self.create(resource)
+    Object.const_set(resource, Class.new do
+      attr_accessor :eid
+
+      def initialize(attributes = {})
+        @new = true
+        @eid = attributes[:eid] || nil
+      end
+
+      def type
+        self.class.name
+      end
+
+      def new?
+        @new
+      end
+
+      private
+
+      attr_accessor :new, :attributes
+    end)
+  end
+
+  # Create a resource.
+  def self.make(resource, request, _cid, options = {})
     unless DEFINITION.key? resource
       raise ArgumentError, "Could not find definition for resource: #{resource}"
     end
 
-    options
+    definition = DEFINITION.fetch(resource)
+
+    resource = singleton_definition?(definition) ? {} : create(resource)
+
+    statics = SDK.static_factory(
+      request,
+      resource,
+      definition[DEFINTION::Statics],
+      options
+    )
+    methods = SDK.method_factory(
+      request,
+      resource,
+      definition[DEFINTION::Methods],
+      options
+    )
+
+    add_statics(resource, statics)
+    add_methods(resource, request, methods)
+
+    resource
   end
 
   # Generate a memoize key based on factory arguments
