@@ -1,5 +1,10 @@
-require 'helper'
+require 'sdk/helper'
 
-# Static SDK methods.
-module SDK
+module Polyseerio
+  module SDK
+    # Static methods.
+    module Static
+      MAP = Helper.dir_proc_map(File.dirname(__FILE__), self)
+    end
+  end
 end

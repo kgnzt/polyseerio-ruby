@@ -1,5 +1,3 @@
-require 'sdk/helper'
-
 module Polyseerio
   module SDK
     # Static methods.

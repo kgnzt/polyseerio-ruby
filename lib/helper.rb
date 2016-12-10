@@ -2,8 +2,28 @@ module Polyseerio
   # General helper functions for SDK
   module Helper
     DEFAULT_REQUIRE_DIRECTORY_OPTIONS = {
-      exclude: ['index.rb'].freeze
+      exclude: ['index'].freeze
     }.freeze
+
+    # Maps filename to file path
+    def self.dir_to_path_map(directory, options = {})
+      directory = "#{directory}/*#{options[:extension]}"
+      options = defaults(options, DEFAULT_REQUIRE_DIRECTORY_OPTIONS)
+
+      paths = Dir[directory].select do |file|
+        name = File.basename(file, '.*')
+
+        !options[:exclude].include? name
+      end
+
+      paths.each_with_object({}) do |file, acc|
+        name = File.basename(file, '.*')
+
+        acc[name.to_sym] = file
+
+        acc
+      end
+    end
 
     # Load an include an entire directory.
     def self.require_directory(directory, options = {})

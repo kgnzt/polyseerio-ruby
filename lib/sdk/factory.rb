@@ -8,7 +8,7 @@ module Polyseerio
     module Static
       # Generates static functions.
       def self.factory(_request, _resource, statics = [], _options = {})
-        statics.each_with_object({}, &Helper.accumulate_procs('static', {}))
+        statics.each_with_object({}, &Helper.accumulate_procs('static', MAP))
       end
     end
 
@@ -16,7 +16,7 @@ module Polyseerio
     module Method
       # Generates method (instance) functions.
       def self.factory(_request, _resource, methods = [], _options = {})
-        methods.each_with_object({}, &Helper.accumulate_procs('method', {}))
+        methods.each_with_object({}, &Helper.accumulate_procs('method', MAP))
       end
     end
   end
