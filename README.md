@@ -14,14 +14,42 @@ To install inside a project, run:
 
     gem install polyseerio
 
+## Example
+
+Examples are available in /example
+
+## Environment Variables
+
+Certain values can be set in environment variables:
+
+  * POLYSEERIO_TOKEN access-token used for API calls
+  * RAILS_ENV        the current environment
+
+
 ## Usage
 
 The SDK allows for direct platform interactions as well as the use of a 
 configurable agent that allows for immediate integration.
 
-Example: (SDK with Agent)
+Example: (Quick start agent)
+
+    include 'polyseerio'
+
+    client = Polyseerio.start
+
+Example: (Configured quick start)
+
+    include 'polyseerio'
+
+    client = Polyseerio.start token: 'secret-token, environment: 'testing'
 
 Example: (SDK)
+
+    include 'polyseerio'
+
+    client = Polyseerio.make
+
+    client.Event.create name: 'example-event' color: Polyseerio::Enum::Color::RED
 
 ## Design
 
