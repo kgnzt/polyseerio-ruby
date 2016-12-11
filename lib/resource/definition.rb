@@ -43,6 +43,10 @@ module Polyseerio
             :trigger
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'trigger',
+            'remove'
           ]
         },
         Resource::CHANNEL => {
@@ -52,6 +56,10 @@ module Polyseerio
             :message
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'message',
+            'remove'
           ]
         },
         Resource::ENVIRONMENT => {
@@ -61,6 +69,10 @@ module Polyseerio
             :message
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'message',
+            'remove'
           ]
         },
         Resource::EVENT => {
@@ -69,6 +81,8 @@ module Polyseerio
             *READABLE_STATICS
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE
           ]
         },
         Resource::EXPECTATION => {
@@ -78,6 +92,10 @@ module Polyseerio
             :check
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'remove',
+            'check'
           ]
         },
         Resource::INSTANCE => {
@@ -87,6 +105,13 @@ module Polyseerio
             :attach
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'gauge',
+            'add_gauge',
+            'attach',
+            'detach',
+            'remove'
           ]
         },
         Resource::LOGIC_BLOCK => {
@@ -95,6 +120,10 @@ module Polyseerio
             :execute
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'remove',
+            'execute'
           ]
         },
         Resource::MEMBER => {
@@ -102,6 +131,9 @@ module Polyseerio
             *CRUD_STATICS
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'remove'
           ]
         },
         Resource::MESSAGE => {
@@ -109,18 +141,21 @@ module Polyseerio
             *CRUD_STATICS
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE
           ]
         },
         Resource::SETTING => {
-          STATICS => [],
-          METHODS => [
-          ]
+          STATICS => []
         },
         Resource::TASK => {
           STATICS => [
             *CRUD_STATICS
           ],
           METHODS => [
+            *SAVABLE_INSTANCE,
+            *RESOURCE_INSTANCE,
+            'remove'
           ]
         }
       }.freeze
