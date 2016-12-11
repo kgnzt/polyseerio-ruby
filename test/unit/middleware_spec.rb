@@ -5,35 +5,42 @@ RSpec.describe Polyseerio::Middleware do
   let(:payload) { { foo: 'bar' } }
   let(:options) { { ding: 'bat' } }
 
-  describe 'pre_request' do
-    it 'when a route and payload present it correctly formats payload' do
-      result = described_class.pre_request.call(route, payload)
+  describe described_class::Pre do
+    describe 'format_arguments' do
+      it 'when a route and payload present it correctly formats payload' do
+        result = described_class.format_arguments.call(route, payload)
 
-      expect(result[0]).to eq(route)
-      expect(result[1]).to eq('{"data":{"attributes":{"foo":"bar"}}}')
+        expect(result[0]).to eq(route)
+        expect(result[1]).to eq('{"data":{"attributes":{"foo":"bar"}}}')
 
-      expect(result.size).to eq(2)
-    end
+        expect(result.size).to eq(2)
+      end
 
-    it 'when just a route it simply returns that route' do
-      result = described_class.pre_request.call(route)
+      it 'when just a route it simply returns that route' do
+        result = described_class.format_arguments.call(route)
 
-      expect(result[0]).to eq(route)
+        expect(result[0]).to eq(route)
 
-      expect(result.size).to eq(1)
-    end
-  end
-
-  describe 'post_request' do
-    it 'simply returns the response for now' do
-      response = double('response')
-
-      result = described_class.post_request.call(response)
-
-      expect(result).to equal(response)
+        expect(result.size).to eq(1)
+      end
     end
   end
 
-  describe 'reject_request' do
+  describe described_class::Post do
+    describe 'to_response' do
+      it 'takes rest response and convert it to Polyseerio::Response' do
+        response = double('response')
+
+        result = described_class.to_response.call(response)
+
+        expect(result).to be_instance_of(Polyseerio::Response)
+      end
+    end
+
+    describe 'parse_response' do
+    end
+  end
+
+  describe described_class::Reject do
   end
 end

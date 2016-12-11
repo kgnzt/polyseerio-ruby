@@ -64,6 +64,7 @@ module Polyseerio
           def initialize(attributes = {})
             @new = true
             @eid = attributes[:eid] || nil
+            @attributes = attributes
           end
 
           def resource
@@ -72,6 +73,18 @@ module Polyseerio
 
           def new?
             @new
+          end
+
+          def method_missing(name, *args, &block)
+            @attributes.fetch(name) || super
+          end
+
+          def respond_to_missing?(method_name)
+            if @attributes.key? method_name
+              true
+            else
+              super
+            end
           end
 
           private

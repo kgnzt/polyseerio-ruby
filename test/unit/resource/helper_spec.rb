@@ -106,8 +106,10 @@ RSpec.describe Polyseerio::Resource::Helper do
   end
 
   describe 'parse_response' do
+    let(:response) { double('response') }
+
     it 'returns the response if the response is not a resource response' do
-      response = { data: 'zoo' }
+      allow(response).to receive(:body).and_return(data: 'zoo')
       cid = 0
 
       result = described_class.parse_response(response, cid)

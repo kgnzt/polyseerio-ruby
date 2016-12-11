@@ -93,9 +93,8 @@ module Polyseerio
     # Create a request instance that uses middleware.
     request = Request.new(
       rest_resource,
-      pre: [Middleware.pre_request],
-      post: [Middleware.post_request],
-      reject: [Middleware.reject]
+      pre: [Middleware::Pre.format_arguments],
+      post: [Middleware::Post.to_response, Middleware::Post.parse_response]
     )
 
     resources = REQUIRED_RESOURCES.each_with_object({}) do |resource, acc|

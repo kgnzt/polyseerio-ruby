@@ -5,6 +5,11 @@ module Polyseerio
       exclude: ['index'].freeze
     }.freeze
 
+    # Simple identity function.
+    def self.identity(value)
+      proc { |x| x }.call(value)
+    end
+
     # Maps filename to file path
     def self.dir_to_path_map(directory, options = {})
       directory = "#{directory}/*#{options[:extension]}"

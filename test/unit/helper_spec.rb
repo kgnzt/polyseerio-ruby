@@ -1,6 +1,14 @@
 require 'helper'
 
 RSpec.describe Polyseerio::Helper do
+  describe 'identity' do
+    it 'returns what was passed' do
+      result = described_class.identity('alpha')
+
+      expect(result).to eq('alpha')
+    end
+  end
+
   describe 'rekey' do
     it 'converts hash keys based on map' do
       hash = {

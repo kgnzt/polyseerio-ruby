@@ -43,6 +43,14 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     let(:name) { @generate.call }
+    let(:attributes) do
+      {
+        foo: 'bar',
+        ding: 'dong',
+        two: 2,
+        yes: true
+      }
+    end
 
     it 'generates a class with the correct name' do
       resource = described_class.create name
@@ -80,6 +88,17 @@ RSpec.describe Polyseerio::Resource::Factory do
       result = instance.resource
 
       expect(result).to eq(name)
+    end
+
+    it 'will use attributes for method missing' do
+      resource = described_class.create name
+
+      instance = resource.new attributes
+
+      expect(instance.foo).to eq('bar')
+      expect(instance.ding).to eq('dong')
+      expect(instance.two).to eq(2)
+      expect(instance.yes).to eq(true)
     end
   end
 
