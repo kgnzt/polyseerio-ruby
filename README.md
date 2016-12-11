@@ -251,6 +251,16 @@ instance, call the required polyseerio module with an access-token.
       * `.save()`
       * `.remove()`
 
+## Building Locally
+
+To test, build, and install locally:
+
+    make
+
+To build and install:
+
+    make build
+
 ## Testing
 
 Testing requires:
