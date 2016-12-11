@@ -143,7 +143,7 @@ RSpec.describe Polyseerio::Resource::Factory do
 
   describe 'add_method' do
     it 'adds a named instance method to passed Class' do
-      method = -> (x) { x * 2 }
+      method = proc { |x| x * 2 }
       name = 'foo'
 
       described_class.add_method([name, method], resource_double)
@@ -156,7 +156,7 @@ RSpec.describe Polyseerio::Resource::Factory do
 
   describe 'add_static' do
     it 'adds a named static method to passed Class' do
-      method = -> (x) { x * 2 }
+      method = proc { |x| x * 2 }
       name = 'foo'
 
       described_class.add_static([name, method], resource_double)
