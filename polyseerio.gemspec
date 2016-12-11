@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = 'polyseerio'
-  gem.version     = '0.0.0'
+  gem.version     = '0.0.1'
   gem.authors     = ['Nicolas Feigenbaum']
   gem.email       = ['support@kognizant.com']
   gem.description = 'The official Polyseer.io SDK for Ruby.'

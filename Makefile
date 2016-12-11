@@ -36,7 +36,8 @@ endif
 test: lint unit-test integration-test validation-test
 
 build:
+	rm -f polyseerio-*.gem
 	gem build polyseerio.gemspec
-	gem install polyseerio-0.0.0.gem
+	gem install polyseerio-*.gem
 
 .PHONY: install lint unit-test integration-test validation-test build
