@@ -5,16 +5,11 @@ module Polyseerio
   # The Polyseer.io client.
   class Client
     INITIALIZE_DEFAULTS = {
-      agent_class: Agent,
+      agent_class: Agent::Agent,
       request: nil
     }.freeze
 
     attr_accessor :cid, :agent
-
-    def dork
-      @request.get '/environments'
-      # @request.post '/environments', foo: 'bar'
-    end
 
     def initialize(cid, options = {})
       options = Helper.defaults(options, INITIALIZE_DEFAULTS)

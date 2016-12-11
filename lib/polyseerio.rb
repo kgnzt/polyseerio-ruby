@@ -50,12 +50,16 @@ module Polyseerio
     Resource::TASK        => :Task
   }.freeze
 
-  def self.start(config)
-    config
+  # Create a client and start it's agent.
+  def self.start(*args)
+    client = make(*args)
+
+    client.start_agent
   end
 
   @make_call_count = 0
 
+  # Create a client.
   def self.make(options = {})
     options = Helper.defaults(options, DEFAULT_CLIENT_OPTIONS)
 
@@ -103,15 +107,6 @@ module Polyseerio
     resources = Helper.rekey(resources, CLIENT_RESOURCE_PATHS)
 
     client = Client.new(cid, request: request, resources: resources)
-
-    # generate default options from passed an copts
-    # resolve token, if unresolved raise
-    # get base url and setup headers
-    # create request object
-    # create, pre, post, reject middle and wrap
-    # create resources
-    # generate client
-    # return client
 
     @make_call_count += 1
 
