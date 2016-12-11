@@ -10,9 +10,13 @@ The official Polyseer.io SDK for Ruby. Detailed API information can be found at 
 
 ## Installation
 
-To install inside a project, run:
+To install, run:
 
     gem install polyseerio
+
+For a project, add to your Gemfile:
+
+    gem 'polyseerio'
 
 ## Example
 
