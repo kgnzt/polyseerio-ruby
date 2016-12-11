@@ -1,6 +1,6 @@
 BUILD_ENV?=development
 
-all: install test
+all: install test build
 
 install:
 	bundle install
@@ -35,4 +35,8 @@ endif
 
 test: lint unit-test integration-test validation-test
 
-.PHONY: install lint unit-test integration-test validation-test
+build:
+	gem build polyseerio.gemspec
+	gem install polyseerio-0.0.0.gem
+
+.PHONY: install lint unit-test integration-test validation-test build

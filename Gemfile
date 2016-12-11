@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-gem 'functional-ruby'
-gem 'rest-client'
-gem 'inflection'
 gem 'concurrent-ruby', require: 'concurrent'
+gem 'functional-ruby'
+gem 'inflection'
+gem 'rest-client'
 
 group 'dev' do
   gem 'rake'
