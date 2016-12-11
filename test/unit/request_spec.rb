@@ -16,7 +16,7 @@ RSpec.describe Polyseerio::Request do
 
       request = described_class.new(resource)
 
-      request.get(route)
+      request.get(route).execute.value
 
       expect(resource).to have_received(:[]).with(route)
     end
@@ -27,7 +27,7 @@ RSpec.describe Polyseerio::Request do
 
       request = described_class.new(resource)
 
-      request.get(route, payload, options)
+      request.get(route, payload, options).execute.value
 
       expect(resource).to have_received(:[]).with(route)
       expect(resource_path_double).to have_received(:get).with(payload, options)
@@ -41,7 +41,7 @@ RSpec.describe Polyseerio::Request do
         ['zoo', { alpha: 'beta' }]
       end])
 
-      request.get(route, options)
+      request.get(route, options).execute.value
 
       expect(resource_path_double).to have_received(:get).with(alpha: 'beta')
     end
@@ -54,7 +54,7 @@ RSpec.describe Polyseerio::Request do
         { wild: 'wizard' }
       end])
 
-      result = request.get(route, options)
+      result = request.get(route, options).execute.value
 
       expect(result).to eq(wild: 'wizard')
     end
@@ -71,7 +71,7 @@ RSpec.describe Polyseerio::Request do
         ding: 'dong'
       }
 
-      result = request.get(route, options)
+      result = request.get(route, options).execute.value
 
       expect(resource).to have_received(:[]).with(route)
       expect(resource_path_double).to have_received(:get).with(options)
@@ -90,7 +90,7 @@ RSpec.describe Polyseerio::Request do
         ding: 'dong'
       }
 
-      result = request.post(route, options)
+      result = request.post(route, options).execute.value
 
       expect(resource).to have_received(:[]).with(route)
       expect(resource_path_double).to have_received(:post).with(options)
@@ -109,7 +109,7 @@ RSpec.describe Polyseerio::Request do
         ding: 'dong'
       }
 
-      result = request.put(route, options)
+      result = request.put(route, options).execute.value
 
       expect(resource).to have_received(:[]).with(route)
       expect(resource_path_double).to have_received(:put).with(options)
@@ -128,7 +128,7 @@ RSpec.describe Polyseerio::Request do
         ding: 'dong'
       }
 
-      result = request.delete(route, options)
+      result = request.delete(route, options).execute.value
 
       expect(resource).to have_received(:[]).with(route)
       expect(resource_path_double).to have_received(:delete).with(options)

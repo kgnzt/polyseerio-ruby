@@ -256,6 +256,18 @@ Then run a command below based on what test suite you need to run.
 
     make unit-test
 
+### Integration
+
+    make integration-test
+
+### Validation
+
+Requires the environment to have a root level access-token defined as:
+
+    export POLYSEERIO_TOKEN=a-test-root-key
+
+    make validation-test
+
 ### All
 
     make test

@@ -5,6 +5,24 @@ RSpec.describe Polyseerio do
   let(:event) { client.Event }
 
   it 'can create an event' do
-    event.create name: 'alpha'
+    result = event.create(name: 'alpha').execute.value
+
+    expect(result).not_to be_nil
+  end
+
+  it 'can find events' do
+    # arity API bug when all optional
+    result = event.find({}).execute.value
+
+    expect(result).not_to be_nil
+  end
+
+  it 'can find an event by id' do
+  end
+
+  it 'can save an event instance' do
+    result = event.create(name: 'alpha').execute.value
+
+    expect(result).not_to be_nil
   end
 end

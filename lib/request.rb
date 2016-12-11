@@ -1,4 +1,5 @@
 require 'helper'
+require 'concurrent'
 
 module Polyseerio
   # HTTP request wrapper that can use attached middleware.
@@ -49,6 +50,11 @@ module Polyseerio
     private
 
     # Execute a request using pre, post, and reject middleware.
+    #
+    # method - The HTTP method.
+    # ...    - Arguments to forward to execute.
+    #
+    # Returns a promise.
     def execute(method, *args)
       new_args = args
 
@@ -58,13 +64,19 @@ module Polyseerio
 
       path = new_args.empty? ? '' : new_args.shift
 
-      result = @resource[path].send(method, *new_args)
-
-      @post_request.each do |middleware|
-        result = middleware.call(result)
+      req = proc do ||
+        @resource[path].send(method, *new_args)
       end
 
-      result
+      post = proc do |result|
+        @post_request.each do |middleware|
+          result = middleware.call(result)
+        end
+
+        result
+      end
+
+      Concurrent::Promise.new(&req).then(&post)
     end
 
     attr_accessor :resource, :pre_request, :post_request, :reject_request
