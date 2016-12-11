@@ -32,10 +32,10 @@ Certain values can be set in environment variables:
 
 ## Usage
 
-The SDK allows for direct platform interactions as well as the use of a 
-configurable agent that allows for immediate integration.
+The SDK provides an agent that allows for immediate integration as well as
+direct platform interactions.
 
-Example: (Quick start agent)
+Example: (Quick start)
 
     include 'polyseerio'
 
@@ -45,7 +45,19 @@ Example: (Configured quick start)
 
     include 'polyseerio'
 
-    client = Polyseerio.start token: 'secret-token, environment: 'testing'
+    client = Polyseerio.start(
+      token: 'secret-token, 
+      environment: 'production',
+      env: 'RAILS_ENV',
+      agent: {
+        name: 'my-instance',
+        group: 'instances',
+        metric: {
+          memory: true,
+          cpu: false
+        }
+      }
+    )
 
 Example: (SDK)
 
@@ -53,7 +65,10 @@ Example: (SDK)
 
     client = Polyseerio.make
 
-    client.Event.create name: 'example-event' color: Polyseerio::Enum::Color::RED
+    event = client.Event.create(
+      name: 'example-event', 
+      color: Polyseerio::Enum::Color::RED
+    ).execute.value
 
 ## Design
 
