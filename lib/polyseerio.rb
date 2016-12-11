@@ -25,6 +25,7 @@ module Polyseerio
     }.freeze
   end
 
+  # Required resources for constructing a client.
   REQUIRED_RESOURCES = [
     Resource::ALERT,
     Resource::CHANNEL,
@@ -39,20 +40,18 @@ module Polyseerio
   ].freeze
 
   # Maps resources to paths within a Client
-  module ClientResourcePaths
-    PATHS = {
-      Resource::ALERT       => :Alert,
-      Resource::CHANNEL     => :Channel,
-      Resource::ENVIRONMENT => :Environment,
-      Resource::EVENT       => :Event,
-      Resource::EXPECTATION => :Expectation,
-      Resource::INSTANCE    => :Instance,
-      Resource::LOGIC_BLOCK => :LogicBlock,
-      Resource::MEMBER      => :Member,
-      Resource::SETTING     => :Settings,
-      Resource::TASK        => :Task
-    }.freeze
-  end
+  CLIENT_RESOURCE_PATHS = {
+    Resource::ALERT       => :Alert,
+    Resource::CHANNEL     => :Channel,
+    Resource::ENVIRONMENT => :Environment,
+    Resource::EVENT       => :Event,
+    Resource::EXPECTATION => :Expectation,
+    Resource::INSTANCE    => :Instance,
+    Resource::LOGIC_BLOCK => :LogicBlock,
+    Resource::MEMBER      => :Member,
+    Resource::SETTING     => :Settings,
+    Resource::TASK        => :Task
+  }.freeze
 
   def self.start(config)
     config
@@ -65,7 +64,7 @@ module Polyseerio
 
     token = Helper.resolve_token options
 
-    base_url = UrlBuilder.get_base_url(
+    base_url = URL.get_base_url(
       Constant::DEFAULT_API_BASE_URL,
       Constant::DEFAULT_API_PROTOCOL,
       options[:version]
@@ -102,7 +101,7 @@ module Polyseerio
       acc
     end
 
-    resources = Helper.rekey(resources, ClientResourcePaths::PATHS)
+    resources = Helper.rekey(resources, CLIENT_RESOURCE_PATHS)
 
     client = Client.new(cid, request: request, resources: resources)
 

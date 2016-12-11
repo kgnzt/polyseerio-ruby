@@ -13,7 +13,7 @@ module Polyseerio
 
       # Add a static method to a Class.
       def self.add_static(*args)
-        proc do |resource, name, method|
+        proc do |(name, method), resource|
           resource.class_eval do
             define_singleton_method(name, &method)
           end
@@ -22,8 +22,9 @@ module Polyseerio
 
       # Add an instance method to a Class.
       def self.add_method(*args)
-        proc do |resource, name, method|
+        proc do |(name, method), resource|
           resource.class_eval do
+            # TODO: add forward_this aka forward resource? not sure
             define_method(name, &method)
           end
         end.curry.call(*args)
@@ -57,6 +58,7 @@ module Polyseerio
       # Determine if a resource definition represents a singleton
       def self.create(resource, cid = '')
         Object.const_set(to_class_name(resource, cid), Class.new do
+          @@resource = resource # rubocop:disable all
           attr_accessor :eid
 
           def initialize(attributes = {})
@@ -64,8 +66,8 @@ module Polyseerio
             @eid = attributes[:eid] || nil
           end
 
-          def type
-            self.class.name
+          def resource
+            @@resource
           end
 
           def new?
@@ -79,20 +81,22 @@ module Polyseerio
       end
 
       # Create a resource.
-      def self.make(resource, request, cid, options = {})
-        unless Definition::DEFINITION.key? resource
+      def self.make(type, request, cid, options = {})
+        unless Definition::DEFINITION.key? type
           raise ArgumentError, 'Could not find definition for resource: ' \
-            "#{resource}"
+            "#{type}"
         end
 
-        definition = Definition::DEFINITION.fetch(resource)
+        definition = Definition::DEFINITION.fetch(type)
 
-        resource = defines_singleton?(definition) ? {} : create(resource, cid)
+        # Create the resource / class.
+        resource = defines_singleton?(definition) ? {} : create(type, cid)
 
+        # Add statics.
         if definition.key? Definition::STATICS
           statics = SDK::Static.factory(
             request,
-            resource,
+            type,
             definition[Definition::STATICS],
             options
           )
@@ -100,10 +104,11 @@ module Polyseerio
           add_statics(resource, statics)
         end
 
+        # Add methods.
         if definition.key? Definition::METHODS
           methods = SDK::Method.factory(
             request,
-            resource,
+            type,
             definition[Definition::METHODS],
             options
           )

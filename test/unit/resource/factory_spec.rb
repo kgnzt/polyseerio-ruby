@@ -72,12 +72,14 @@ RSpec.describe Polyseerio::Resource::Factory do
       expect(result.new?).to equal(true)
     end
 
-    it 'can return the type from the instance' do
+    it 'correctly has a resource method' do
       resource = described_class.create name
 
-      result = resource.new
+      instance = resource.new
 
-      expect(result.type).to eq('Test4')
+      result = instance.resource
+
+      expect(result).to eq(name)
     end
   end
 
@@ -125,7 +127,7 @@ RSpec.describe Polyseerio::Resource::Factory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      described_class.add_method(resource_double, name, method)
+      described_class.add_method([name, method], resource_double)
 
       instance = resource_double.new
 
@@ -138,7 +140,7 @@ RSpec.describe Polyseerio::Resource::Factory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      described_class.add_static(resource_double, name, method)
+      described_class.add_static([name, method], resource_double)
 
       expect(resource_double.foo(2)).to eql(4)
     end

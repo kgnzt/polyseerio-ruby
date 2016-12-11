@@ -4,7 +4,7 @@ require 'resource'
 
 module Polyseerio
   # Functions and constants used for formatting and building resource URIs.
-  module UrlBuilder
+  module URL
     include Functional::Memo
 
     # Resources that are mapped to environments.

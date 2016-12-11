@@ -41,47 +41,45 @@ RSpec.describe Polyseerio do
     end
   end
 
-  describe Polyseerio::ClientResourcePaths do
-    PATHS = Polyseerio::ClientResourcePaths::PATHS
-
+  describe Polyseerio::CLIENT_RESOURCE_PATHS do
     it 'defines alerts' do
-      expect(PATHS['alerts']).to eq(:Alert)
+      expect(described_class['alerts']).to eq(:Alert)
     end
 
     it 'defines channels' do
-      expect(PATHS['channels']).to eq(:Channel)
+      expect(described_class['channels']).to eq(:Channel)
     end
 
     it 'defines environments' do
-      expect(PATHS['environments']).to eq(:Environment)
+      expect(described_class['environments']).to eq(:Environment)
     end
 
     it 'defines events' do
-      expect(PATHS['events']).to eq(:Event)
+      expect(described_class['events']).to eq(:Event)
     end
 
     it 'defines expectations' do
-      expect(PATHS['expectations']).to eq(:Expectation)
+      expect(described_class['expectations']).to eq(:Expectation)
     end
 
     it 'defines instances' do
-      expect(PATHS['instances']).to eq(:Instance)
+      expect(described_class['instances']).to eq(:Instance)
     end
 
     it 'defines logic_blocks' do
-      expect(PATHS['logic-blocks']).to eq(:LogicBlock)
+      expect(described_class['logic-blocks']).to eq(:LogicBlock)
     end
 
     it 'defines members' do
-      expect(PATHS['members']).to eq(:Member)
+      expect(described_class['members']).to eq(:Member)
     end
 
     it 'defines settings' do
-      expect(PATHS['settings']).to eq(:Settings)
+      expect(described_class['settings']).to eq(:Settings)
     end
 
     it 'defines tasks' do
-      expect(PATHS['tasks']).to eq(:Task)
+      expect(described_class['tasks']).to eq(:Task)
     end
   end
 end

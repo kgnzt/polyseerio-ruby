@@ -1,17 +1,10 @@
 require 'polyseerio'
 
 RSpec.describe Polyseerio do
-  it 'pending' do
-    client = Polyseerio.make
+  let(:client) { Polyseerio.make }
+  let(:event) { client.Event }
 
-    Agent = client.Event
-
-    puts Agent.new
-
-    # client.dork
-
-    # p = client.Event.find_by_name 'ding-dong'
-
-    # p.execute
+  it 'can create an event' do
+    event.create name: 'alpha'
   end
 end

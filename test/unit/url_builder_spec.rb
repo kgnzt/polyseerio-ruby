@@ -1,6 +1,6 @@
 require 'url_builder'
 
-RSpec.describe Polyseerio::UrlBuilder do
+RSpec.describe Polyseerio::URL do
   describe 'RoutableResources' do
     it 'inludes the correct resources' do
       expect(described_class::RoutableResources).to contain_exactly(
