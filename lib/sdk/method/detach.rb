@@ -2,7 +2,7 @@ module Polyseerio
   module SDK
     # Instance methods.
     module Method
-      def self.save
+      def self.detach
         proc do ||
         end
       end

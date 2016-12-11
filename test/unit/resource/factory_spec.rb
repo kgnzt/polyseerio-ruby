@@ -3,12 +3,38 @@ require 'resource/factory.rb'
 RSpec.describe Polyseerio::Resource::Factory do
   let(:resource_double) { Class.new }
 
+  describe 'to_class_name' do
+    it 'takes a resource symbol and returns a class name' do
+      result = described_class.to_class_name :events
+
+      expect(result).to eq('Event')
+    end
+
+    it 'correctly handles names with - in them' do
+      result = described_class.to_class_name 'logic-blocks'
+
+      expect(result).to eq('LogicBlock')
+    end
+
+    it 'correctly handles names with - in them with cid' do
+      result = described_class.to_class_name('logic-blocks', 7)
+
+      expect(result).to eq('LogicBlock7')
+    end
+
+    it 'can take an optional cid to postfix' do
+      result = described_class.to_class_name(:events, 7)
+
+      expect(result).to eq('Event7')
+    end
+  end
+
   describe 'create' do
     def class_name_factory
       id = 0
       lambda do
         id += 1
-        "TestClass_#{id}"
+        "test#{id}"
       end
     end
 
@@ -21,7 +47,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     it 'generates a class with the correct name' do
       resource = described_class.create name
 
-      expect(resource.name).to eq(name)
+      expect(resource.name).to eq('Test1')
     end
 
     it 'generates a class with the correct name' do
@@ -51,7 +77,7 @@ RSpec.describe Polyseerio::Resource::Factory do
 
       result = resource.new
 
-      expect(result.type).to eq(name)
+      expect(result.type).to eq('Test4')
     end
   end
 
@@ -68,11 +94,11 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
   end
 
-  describe 'singleton_definition?' do
+  describe 'defines_singleton?' do
     it 'true when no methods defined' do
       definition = { statics: [] }
 
-      result = described_class.singleton_definition? definition
+      result = described_class.defines_singleton? definition
 
       expect(result).to eql(true)
     end
@@ -80,7 +106,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     it 'true when no methods are empty' do
       definition = { methods: [] }
 
-      result = described_class.singleton_definition? definition
+      result = described_class.defines_singleton? definition
 
       expect(result).to eql(true)
     end
@@ -88,7 +114,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     it 'false when methods are in definition' do
       definition = { methods: [:find] }
 
-      result = described_class.singleton_definition? definition
+      result = described_class.defines_singleton? definition
 
       expect(result).to eql(false)
     end
@@ -99,7 +125,7 @@ RSpec.describe Polyseerio::Resource::Factory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      described_class.add_method(resource_double, method, name)
+      described_class.add_method(resource_double, name, method)
 
       instance = resource_double.new
 
@@ -112,7 +138,7 @@ RSpec.describe Polyseerio::Resource::Factory do
       method = -> (x) { x * 2 }
       name = 'foo'
 
-      described_class.add_static(resource_double, method, name)
+      described_class.add_static(resource_double, name, method)
 
       expect(resource_double.foo(2)).to eql(4)
     end
@@ -131,7 +157,7 @@ RSpec.describe Polyseerio::Resource::Factory do
 
   describe 'add_methods' do
     it 'simply returns the resource if no methods' do
-      described_class.add_methods(resource_double)
+      described_class.add_methods(resource_double, {})
 
       expect(resource_double).to equal(resource_double)
     end

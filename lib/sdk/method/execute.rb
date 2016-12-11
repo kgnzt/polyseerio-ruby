@@ -1,8 +1,8 @@
 module Polyseerio
   module SDK
-    # Instance methods.
+    # Static methods.
     module Method
-      def self.save
+      def self.execute
         proc do ||
         end
       end

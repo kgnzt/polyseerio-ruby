@@ -45,8 +45,8 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'trigger',
-            'remove'
+            :trigger,
+            :remove
           ]
         },
         Resource::CHANNEL => {
@@ -58,8 +58,8 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'message',
-            'remove'
+            :message,
+            :remove
           ]
         },
         Resource::ENVIRONMENT => {
@@ -71,8 +71,8 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'message',
-            'remove'
+            :message,
+            :remove
           ]
         },
         Resource::EVENT => {
@@ -94,8 +94,8 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'remove',
-            'check'
+            :remove,
+            :check
           ]
         },
         Resource::INSTANCE => {
@@ -107,11 +107,11 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'gauge',
-            'add_gauge',
-            'attach',
-            'detach',
-            'remove'
+            :gauge,
+            :add_gauge,
+            :attach,
+            :detach,
+            :remove
           ]
         },
         Resource::LOGIC_BLOCK => {
@@ -122,8 +122,8 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'remove',
-            'execute'
+            :remove,
+            :execute
           ]
         },
         Resource::MEMBER => {
@@ -133,7 +133,7 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'remove'
+            :remove
           ]
         },
         Resource::MESSAGE => {
@@ -155,7 +155,7 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            'remove'
+            :remove
           ]
         }
       }.freeze
