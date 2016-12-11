@@ -10,20 +10,17 @@ require 'helper'
 
 # Main Polyseerio module.
 module Polyseerio
-  # Default options
-  module Defaults
-    # Default client options
-    COPTS = {
-      agent:      {},
-      deduce:     true,
-      env:        Constant::DEFAULT_ENV,
-      timeout:    Constant::DEFAULT_TIMEOUT,
-      token:      nil,
-      token_env:  Constant::DEFAULT_TOKEN_ENV,
-      upsert_env: true,
-      version:    Constant::DEFAULT_API_VERSION
-    }.freeze
-  end
+  # Default client options.
+  DEFAULT_CLIENT_OPTIONS = {
+    agent:      {},
+    deduce:     true,
+    env:        Constant::DEFAULT_ENV,
+    timeout:    Constant::DEFAULT_TIMEOUT,
+    token:      nil,
+    token_env:  Constant::DEFAULT_TOKEN_ENV,
+    upsert_env: true,
+    version:    Constant::DEFAULT_API_VERSION
+  }.freeze
 
   # Required resources for constructing a client.
   REQUIRED_RESOURCES = [
@@ -59,7 +56,9 @@ module Polyseerio
 
   @make_call_count = 0
 
-  def self.make(options = Defaults::COPTS)
+  def self.make(options = {})
+    options = Helper.defaults(options, DEFAULT_CLIENT_OPTIONS)
+
     cid = @make_call_count
 
     token = Helper.resolve_token options

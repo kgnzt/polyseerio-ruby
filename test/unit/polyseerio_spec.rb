@@ -1,24 +1,18 @@
 require 'polyseerio'
 
 RSpec.describe Polyseerio do
-  describe Polyseerio::Defaults do
-    Defaults = Polyseerio::Defaults
-
-    describe Defaults::COPTS do
-      COPTS = Defaults::COPTS
-
-      it 'includes the correct resources' do
-        expect(COPTS).to eq(
-          agent: {},
-          deduce: true,
-          env: 'RAILS_ENV',
-          timeout: 10_000,
-          token: nil,
-          token_env: 'POLYSEERIO_TOKEN',
-          upsert_env: true,
-          version: 'v1'
-        )
-      end
+  describe Polyseerio::DEFAULT_CLIENT_OPTIONS do
+    it 'includes the correct resources' do
+      expect(described_class).to eq(
+        agent: {},
+        deduce: true,
+        env: 'RAILS_ENV',
+        timeout: 10_000,
+        token: nil,
+        token_env: 'POLYSEERIO_TOKEN',
+        upsert_env: true,
+        version: 'v1'
+      )
     end
   end
 
