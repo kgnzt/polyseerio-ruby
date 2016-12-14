@@ -1,11 +1,14 @@
 require 'resource/definition'
 require 'sdk/factory'
 require 'inflection'
+require 'functional'
 
 module Polyseerio
   module Resource
     # Resource building methods.
     module Factory
+      include Functional::Memo
+
       # Determine if a resource definition represents a singleton.
       def self.defines_singleton?(definition)
         !definition.key?(:methods) || definition[:methods].empty?
@@ -137,7 +140,7 @@ module Polyseerio
         "#{resource}.#{cid}"
       end
 
-      # memoize(:factory?)
+      memoize(:make)
     end
   end
 end

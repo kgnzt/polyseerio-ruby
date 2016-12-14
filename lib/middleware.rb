@@ -41,6 +41,11 @@ module Polyseerio
 
     # Request rejection (error) middleware.
     module Reject
+      def self.handle_rejection
+        proc do |error|
+          error
+        end
+      end
     end
   end
 end

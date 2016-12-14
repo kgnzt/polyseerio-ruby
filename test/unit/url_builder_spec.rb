@@ -77,6 +77,12 @@ RSpec.describe Polyseerio::URL do
   end
 
   describe 'routable_resource?' do
+    it 'returns true for routable resource events' do
+      result = described_class.routable_resource?('events')
+
+      expect(result).to be true
+    end
+
     it 'returns true for routable resource' do
       result = described_class.routable_resource?('alerts')
 

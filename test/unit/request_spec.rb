@@ -9,6 +9,23 @@ RSpec.describe Polyseerio::Request do
   let(:payload) { { fat: 'chance' } }
   let(:options) { { ding: 'dong' } }
 
+  describe 'execute design' do
+    let(:error) { double('error') }
+
+    it 'if request raises it will be rejected' do
+      allow(resource).to receive(:[]).and_return(resource_path_double)
+      allow(resource_path_double).to receive(:get).and_raise(error)
+
+      request = described_class.new(resource)
+
+      promise = request.get(route).execute
+
+      promise.value
+
+      expect(promise.rejected?).to be true
+    end
+  end
+
   describe 'middleware interactions' do
     it 'correctly scopes the resource path when just a path is passed' do
       allow(resource).to receive(:[]).and_return(resource_path_double)

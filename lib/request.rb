@@ -76,7 +76,7 @@ module Polyseerio
         result
       end
 
-      Concurrent::Promise.new(&req).then(&post)
+      Concurrent::Promise.new(&req).on_success(&post)
     end
 
     attr_accessor :resource, :pre_request, :post_request, :reject_request
