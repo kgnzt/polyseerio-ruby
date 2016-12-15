@@ -1,3 +1,5 @@
 require 'polyseerio'
 
-Polyseerio.start
+client = Polyseerio.start.execute.value
+
+puts client

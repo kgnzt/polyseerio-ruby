@@ -18,14 +18,6 @@ module Helpers
       upsert_env: false
     }.freeze
 
-    # Assert that a promise has been fulfilled.
-    def self.fulfilled?
-    end
-
-    # Assert that a promise has been rejected.
-    def self.rejected?
-    end
-
     # Ensure that an environment exists given its name.
     def self.ensure_environment(environment, data)
       remove_environment(environment, data).then(proc do |_|

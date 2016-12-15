@@ -12,9 +12,12 @@ module Polyseerio
 
       # Starts the agent.
       def start(*args)
-        @instance = Executor.setup(client, *args)
+        Executor.setup(client, *args)
+                .then do |instance|
+                  @instance = instance
 
-        client
+                  client
+                end
       end
 
       # Stops the agent.
