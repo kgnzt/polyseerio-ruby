@@ -153,8 +153,8 @@ client has been created you may use any of its resources.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.Alert`
-      * `.save`
-      * `.remove`
+      * `.remove()`
+      * `.save()`
       * `.trigger(payload)`
     * `.remove(id, options)`
     * `.trigger(id, payload, options)`
@@ -169,9 +169,9 @@ client has been created you may use any of its resources.
     * `.find_by_name(name, options)`
     * `.message(id, content, options)`
     * `.new(attributes) ⇒ client.Channel`
-      * `.save()`
-      * `.remove()`
       * `.message(content)`
+      * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
@@ -184,9 +184,9 @@ client has been created you may use any of its resources.
     * `.find_by_name(name, options)`
     * `.message(id, content, options)`
     * `.new(attributes) ⇒ client.Environment`
-      * `.save()`
-      * `.remove()`
       * `.message(content)`
+      * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, payload, options)`
 
@@ -208,9 +208,9 @@ client has been created you may use any of its resources.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.Expectation`
-      * `.save()`
-      * `.remove()`
       * `.check()`
+      * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
@@ -223,9 +223,12 @@ client has been created you may use any of its resources.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.Instance`
-      * `.save()`
-      * `.remove()`
+      * `.add_gauge(key, resolver)`
       * `.attach()`
+      * `.detach()`
+      * `.gauge(key, value)`
+      * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
@@ -238,9 +241,9 @@ client has been created you may use any of its resources.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.LogicBlock`
-      * `.save()`
-      * `.remove()`
       * `.execute()`
+      * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
@@ -251,8 +254,8 @@ client has been created you may use any of its resources.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.new(attributes) ⇒ client.Member`
-      * `.save()`
       * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
@@ -269,8 +272,8 @@ client has been created you may use any of its resources.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.new(attributes) ⇒ client.Task`
-      * `.save()`
       * `.remove()`
+      * `.save()`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
 
