@@ -11,7 +11,4 @@ RSpec.describe Polyseerio do
   it 'can construct a client' do
     expect { Polyseerio.make(token: 'alpha') }.not_to raise_error
   end
-
-  it 'has a start method' do
-  end
 end

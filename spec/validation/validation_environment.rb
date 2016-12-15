@@ -1,0 +1,5 @@
+require 'polyseerio'
+require 'validation/helpers'
+require 'validation/spec_helper'
+require 'validation/shared_examples'
+require 'validation/shared_context'

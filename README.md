@@ -97,7 +97,8 @@ Examples are available in /example
 ## SDK Resources
 
 Use of the SDK starts with the creation of a client. To construct a client 
-instance, you may call either Polyseerio.start or Polyseerio.make.
+instance, you may call either Polyseerio.start or Polyseerio.make. Once a
+client has been created you may use any of its resources.
 
 ### Polyseerio
 
