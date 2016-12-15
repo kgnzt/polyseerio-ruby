@@ -103,7 +103,8 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
 ### Polyseerio
 
   * Polyseerio
-    * .`start(options = {}) ⇒ Polyseerio::Client` create a client and start a agent
+    * .`start(options = {}) ⇒ Polyseerio::Client`
+      * Create a client and start an Agent.
       * `options (Hash)`
         - `:env`        environment variable that holds the current environment
         - `:token`      an api token
@@ -113,7 +114,8 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
         - `:version`    api version to use
         - `:timeout`    integer containing number of ms to wait for server responses
         - `:deduce`     if the environment should be deduced when not supplied
-    * .`make(options = {}) ⇒ Polyseerio::Client` create a client
+    * .`make(options = {}) ⇒ Polyseerio::Client`
+      * Create a client.
       * `options (Hash)` see polyseerio.start options
     * `::Enum`
       * `.Color`
