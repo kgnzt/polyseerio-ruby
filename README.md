@@ -103,7 +103,7 @@ instance, call the required polyseerio module with an access-token.
 ### polyseerio
 
   * polyseerio
-    * .`start(options)` create a client and start a agent
+    * .`start(options) ⇒ Polyseerio::Client` create a client and start a agent
       * `options`
         - `:env` environment variable that holds the current environment
         - `:token` an api token
@@ -113,7 +113,7 @@ instance, call the required polyseerio module with an access-token.
         - `:version` api version to use
         - `:timeout` integer containing number of ms to wait for server responses
         - `:deduce` if the environment should be deduced when not supplied
-    * .`make(options)` create a client
+    * .`make(options) ⇒ Polyseerio::Client` create a client
       * `options` see polyseerio.start options from above
     * `::Enum`
       * `.Color`
