@@ -150,13 +150,13 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
-    * `.remove(id, options)`
-    * `.trigger(id, payload, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Alert`
       * `.save`
       * `.remove`
       * `.trigger(payload)`
+    * `.remove(id, options)`
+    * `.trigger(id, payload, options)`
+    * `.update(id, updates, options)`
 
 ### Channel
 
@@ -166,12 +166,12 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.message(id, content, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Channel`
       * `.save()`
       * `.remove()`
       * `.message(content)`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ### Environment
 
@@ -181,12 +181,12 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.message(id, content, options)`
-    * `.remove(id, options)`
-    * `.update(id, payload, options)`
     * `.new(attributes) ⇒ client.Environment`
       * `.save()`
       * `.remove()`
       * `.message(content)`
+    * `.remove(id, options)`
+    * `.update(id, payload, options)`
 
 ### Event
 
@@ -205,12 +205,12 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Expectation`
       * `.save()`
       * `.remove()`
       * `.check()`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ### Instance
 
@@ -220,12 +220,12 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Instance`
       * `.save()`
       * `.remove()`
       * `.attach()`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ### Logic Block
 
@@ -235,12 +235,12 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.find(query, options)`
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.LogicBlock`
       * `.save()`
       * `.remove()`
       * `.execute()`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ### Member
 
@@ -248,11 +248,11 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.create(attributes, options)`
     * `.find(query, options)`
     * `.find_by_id(id, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Member`
       * `.save()`
       * `.remove()`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ### Settings
 
@@ -266,11 +266,11 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
     * `.create(attributes, options)`
     * `.find(query, options)`
     * `.find_by_id(id, options)`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
     * `.new(attributes) ⇒ client.Task`
       * `.save()`
       * `.remove()`
+    * `.remove(id, options)`
+    * `.update(id, updates, options)`
 
 ## Building
 
