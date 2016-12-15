@@ -15,7 +15,7 @@ module Polyseerio
           if options[:attach]
             name = Helper.resolve_name(options)
 
-            instance = client.Instance.find_by_name name: name.execute.value
+            instance = client.Instance.find_by_name(name: name).execute.value
 
             setup_handler('process_event', client)
             setup_handler('metric', client)

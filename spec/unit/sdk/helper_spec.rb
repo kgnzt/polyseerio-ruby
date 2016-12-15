@@ -1,40 +1,6 @@
 require 'sdk/helper'
 
 RSpec.describe Polyseerio::SDK::Helper do
-  describe 'add_to_proc_map' do
-    let(:mod) do
-      Class.new do
-        def self.foo
-          proc { 'a' }
-        end
-      end
-    end
-    let(:item) { [:foo, '_'] }
-    let(:acc) { {} }
-
-    it 'correctly adds' do
-      result = described_class.add_to_proc_map(mod, item, acc)
-
-      expect(result).to have_key(:foo)
-      expect(result.fetch(:foo)).to be_kind_of(Proc)
-    end
-
-    it 'wont add if module does not contain method' do
-      result = described_class.add_to_proc_map(mod, [:bar, '_'], acc)
-
-      expect(result).not_to have_key(:bar)
-    end
-
-    it 'is curried' do
-      accumulator = described_class.add_to_proc_map(mod)
-
-      result = accumulator.call(item, acc)
-
-      expect(result).to have_key(:foo)
-      expect(result.fetch(:foo)).to be_kind_of(Proc)
-    end
-  end
-
   describe 'accumulate_procs' do
     let(:type) { 'foo' }
     let(:map) do

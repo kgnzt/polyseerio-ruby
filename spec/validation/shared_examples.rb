@@ -44,6 +44,7 @@ RSpec.shared_examples 'deletable' do
     found = find_instance.execute.value
 
     expect(find_instance).to be_rejected
+    expect(found).to be_nil
   end
 end
 
@@ -62,10 +63,10 @@ RSpec.shared_examples 'updatable' do
 
     # update the name
     new_name = Helpers::Validation.unique_name
-    instance.name = new_name
+    found.name = new_name
 
     # save it
-    save_instance = instance.save
+    save_instance = found.save
     save_instance.execute.value
     expect(save_instance).to be_fulfilled
 

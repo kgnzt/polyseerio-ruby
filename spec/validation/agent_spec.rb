@@ -9,6 +9,8 @@ RSpec.describe Helpers::Validation.client do
   it 'can start an agent' do
     promise = client.start_agent
 
+    puts promise
+
     promise.execute.value
 
     expect(promise).to be_fulfilled

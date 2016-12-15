@@ -1,7 +1,7 @@
 module Polyseerio
-  # Introduces metric handler.
+  # Introduces fact handler.
   module Handler
-    def self.metric
+    def self.fact
     end
   end
 end

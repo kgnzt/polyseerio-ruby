@@ -7,6 +7,24 @@ module Polyseerio
       exclude: ['index'].freeze
     }.freeze
 
+    # Given directory and module a map of module procs will be created.
+    def self.dir_proc_map(dir, mod)
+      map = Polyseerio::Helper.dir_to_path_map dir
+
+      map.each { |(_, path)| require path }
+
+      map.each_with_object({}, &Helper.add_to_proc_map(mod))
+    end
+
+    # Adds a proc method to an accumulator by its name.
+    def self.add_to_proc_map(*args)
+      proc do |mod, (name, _), acc|
+        acc[name] = mod.send(name) if mod.respond_to? name
+
+        acc
+      end.curry.call(*args)
+    end
+
     # Convert resource string to resource type.
     def self.resource_to_type(resource)
       Inflection.singular(resource)
