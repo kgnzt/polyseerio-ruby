@@ -1,5 +1,31 @@
+require 'helper'
+
 module Polyseerio
   module Enum
+    # Contains resource routes.
+    module Resource
+      ALERT       = 'alerts'.freeze
+      CHANNEL     = 'channels'.freeze
+      ENVIRONMENT = 'environments'.freeze
+      EVENT       = 'events'.freeze
+      EXPECTATION = 'expectations'.freeze
+      INSTANCE    = 'instances'.freeze
+      LOGIC_BLOCK = 'logic-blocks'.freeze
+      MEMBER      = 'members'.freeze
+      MESSAGE     = 'messages'.freeze
+      SETTING     = 'settings'.freeze
+      TASK        = 'tasks'.freeze
+    end
+
+    # Contains type constants for use with API calls.
+    module Type
+      Resource.constants.each do |key|
+        value = Helper.resource_to_type Resource.const_get(key)
+
+        const_set(key, value)
+      end
+    end
+
     module Determiner
       ONE  = 'one'.freeze
       SOME = 'some'.freeze

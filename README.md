@@ -125,6 +125,7 @@ client has been created you may use any of its resources.
       * `.Icon`
       * `.Strategy`
       * `.Subtype`
+      * `.Type`
 
 ### Polyseerio::Client
 

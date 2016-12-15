@@ -1,4 +1,3 @@
-require 'resource'
 require 'resource/factory'
 require 'request'
 require 'middleware'
@@ -25,30 +24,30 @@ module Polyseerio
 
   # Required resources for constructing a client.
   REQUIRED_RESOURCES = [
-    Resource::ALERT,
-    Resource::CHANNEL,
-    Resource::ENVIRONMENT,
-    Resource::EVENT,
-    Resource::EXPECTATION,
-    Resource::INSTANCE,
-    Resource::LOGIC_BLOCK,
-    Resource::MEMBER,
-    Resource::SETTING,
-    Resource::TASK
+    Enum::Resource::ALERT,
+    Enum::Resource::CHANNEL,
+    Enum::Resource::ENVIRONMENT,
+    Enum::Resource::EVENT,
+    Enum::Resource::EXPECTATION,
+    Enum::Resource::INSTANCE,
+    Enum::Resource::LOGIC_BLOCK,
+    Enum::Resource::MEMBER,
+    Enum::Resource::SETTING,
+    Enum::Resource::TASK
   ].freeze
 
   # Maps resources to paths within a Client
   CLIENT_RESOURCE_PATHS = {
-    Resource::ALERT       => :Alert,
-    Resource::CHANNEL     => :Channel,
-    Resource::ENVIRONMENT => :Environment,
-    Resource::EVENT       => :Event,
-    Resource::EXPECTATION => :Expectation,
-    Resource::INSTANCE    => :Instance,
-    Resource::LOGIC_BLOCK => :LogicBlock,
-    Resource::MEMBER      => :Member,
-    Resource::SETTING     => :Settings,
-    Resource::TASK        => :Task
+    Enum::Resource::ALERT       => :Alert,
+    Enum::Resource::CHANNEL     => :Channel,
+    Enum::Resource::ENVIRONMENT => :Environment,
+    Enum::Resource::EVENT       => :Event,
+    Enum::Resource::EXPECTATION => :Expectation,
+    Enum::Resource::INSTANCE    => :Instance,
+    Enum::Resource::LOGIC_BLOCK => :LogicBlock,
+    Enum::Resource::MEMBER      => :Member,
+    Enum::Resource::SETTING     => :Settings,
+    Enum::Resource::TASK        => :Task
   }.freeze
 
   # Create a client and start it's agent.

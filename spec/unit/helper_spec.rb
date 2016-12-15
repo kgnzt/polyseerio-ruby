@@ -1,6 +1,24 @@
 require 'helper'
 
 RSpec.describe Polyseerio::Helper do
+  describe 'resource_to_type' do
+    let(:resource) { 'foos' }
+
+    it 'returns the correct string type' do
+      result = described_class.resource_to_type resource
+
+      expect(result).to eq('foo')
+    end
+
+    it 'handles - types' do
+      resource = 'logic-blocks'
+
+      result = described_class.resource_to_type resource
+
+      expect(result).to eq('logic-block')
+    end
+  end
+
   describe 'memoize_function' do
     let(:func) { double('func') }
     let(:get_key) { proc { |param| param.to_sym } }

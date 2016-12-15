@@ -1,9 +1,16 @@
+require 'inflection'
+
 module Polyseerio
   # General helper functions for SDK
   module Helper
     DEFAULT_REQUIRE_DIRECTORY_OPTIONS = {
       exclude: ['index'].freeze
     }.freeze
+
+    # Convert resource string to resource type.
+    def self.resource_to_type(resource)
+      Inflection.singular(resource)
+    end
 
     # A memoize function that has an optional cache key.
     def self.memoize_function(func, get_key)

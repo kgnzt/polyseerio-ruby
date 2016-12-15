@@ -10,7 +10,7 @@ RSpec.describe Helpers::Validation.client do
       name: name_attribute,
       determiner: Polyseerio::Enum::Determiner::ONE,
       is_on: false,
-      subject: 'instance', # TODO: Enum this
+      subject: Polyseerio::Enum::Type.INSTANCE,
       subjects: [instance.id],
       logic: logic_attribute
     }

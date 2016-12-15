@@ -1,4 +1,4 @@
-require 'resource'
+require 'enum'
 
 module Polyseerio
   module SDK
@@ -11,7 +11,7 @@ module Polyseerio
 
           uri = URL.get_resource_path(resource, eid: eid)
 
-          uri = if resource == Polyseerio::Resource::ENVIRONMENT
+          uri = if resource == Polyseerio::Enum::Resource::ENVIRONMENT
                   "/environments#{name}"
                 else
                   "#{uri}#{name}"

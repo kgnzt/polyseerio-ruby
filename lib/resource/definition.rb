@@ -1,4 +1,4 @@
-require 'resource'
+require 'enum'
 
 module Polyseerio
   # Defines polyseer.io resources
@@ -36,7 +36,7 @@ module Polyseerio
       ].freeze
 
       DEFINITION = {
-        Resource::ALERT => {
+        Enum::Resource::ALERT => {
           STATICS => [
             *CRUD_STATICS,
             :find_by_name,
@@ -49,7 +49,7 @@ module Polyseerio
             :remove
           ]
         },
-        Resource::CHANNEL => {
+        Enum::Resource::CHANNEL => {
           STATICS => [
             *CRUD_STATICS,
             :find_by_name,
@@ -62,7 +62,7 @@ module Polyseerio
             :remove
           ]
         },
-        Resource::ENVIRONMENT => {
+        Enum::Resource::ENVIRONMENT => {
           STATICS => [
             *CRUD_STATICS,
             :find_by_name,
@@ -75,7 +75,7 @@ module Polyseerio
             :remove
           ]
         },
-        Resource::EVENT => {
+        Enum::Resource::EVENT => {
           STATICS => [
             *CREATABLE_STATICS,
             *READABLE_STATICS
@@ -85,7 +85,7 @@ module Polyseerio
             *RESOURCE_INSTANCE
           ]
         },
-        Resource::EXPECTATION => {
+        Enum::Resource::EXPECTATION => {
           STATICS => [
             *CRUD_STATICS,
             :find_by_name,
@@ -98,7 +98,7 @@ module Polyseerio
             :check
           ]
         },
-        Resource::INSTANCE => {
+        Enum::Resource::INSTANCE => {
           STATICS => [
             *CRUD_STATICS,
             :find_by_name,
@@ -114,7 +114,7 @@ module Polyseerio
             :remove
           ]
         },
-        Resource::LOGIC_BLOCK => {
+        Enum::Resource::LOGIC_BLOCK => {
           STATICS => [
             *CRUD_STATICS,
             :execute
@@ -126,7 +126,7 @@ module Polyseerio
             :execute
           ]
         },
-        Resource::MEMBER => {
+        Enum::Resource::MEMBER => {
           STATICS => [
             *CRUD_STATICS
           ],
@@ -136,7 +136,7 @@ module Polyseerio
             :remove
           ]
         },
-        Resource::MESSAGE => {
+        Enum::Resource::MESSAGE => {
           STATICS => [
             *CRUD_STATICS
           ],
@@ -145,10 +145,10 @@ module Polyseerio
             *RESOURCE_INSTANCE
           ]
         },
-        Resource::SETTING => {
+        Enum::Resource::SETTING => {
           STATICS => []
         },
-        Resource::TASK => {
+        Enum::Resource::TASK => {
           STATICS => [
             *CRUD_STATICS
           ],

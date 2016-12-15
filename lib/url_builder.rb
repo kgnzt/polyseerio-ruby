@@ -1,6 +1,5 @@
 require 'functional'
 require 'constant'
-require 'resource'
 
 module Polyseerio
   # Functions and constants used for formatting and building resource URIs.
@@ -9,11 +8,11 @@ module Polyseerio
 
     # Resources that are mapped to environments.
     RoutableResources = [
-      Resource::ALERT,
-      Resource::EVENT,
-      Resource::EXPECTATION,
-      Resource::INSTANCE,
-      Resource::TASK
+      Enum::Resource::ALERT,
+      Enum::Resource::EVENT,
+      Enum::Resource::EXPECTATION,
+      Enum::Resource::INSTANCE,
+      Enum::Resource::TASK
     ].freeze
 
     # Determine if a resource is routable to an environment.
