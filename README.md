@@ -77,7 +77,7 @@ delaying and chaining async work.
 
 Example:
 
-    get_event = client.Event.findByName('some-name')
+    get_event = client.Event.find_by_name('some-name')
 
     // do something else
 
@@ -102,33 +102,47 @@ instance, call the required polyseerio module with an access-token.
 
 ### polyseerio
 
-  * polyseerio(config)
-    * `options`
-      - `.env` environment variable holding current environment
-      - `.token` environment variable holding current environment
-      - `.token_env` if no token is provided this environment variable will be checked
-      - `.agent` an object that will be used when starting the agent
-      - `.upsert_env` if an environment cannot be found it will be created
-      - `.version` api version to use
-      - `.timeout` integer containing number of ms to wait for server responses
-      - `.deduce` if the environment should be deduced if not supplied
+  * polyseerio
+    * .`make(options)` create a client
+      * `options`
+        - `:env` environment variable that holds the current environment
+        - `:token` an api token
+        - `:token_env` if no token is provided, this environment variable will be checked
+        - `:agent` a hash that will be used when starting this client's agent
+        - `:upsert_env` if an environment cannot be found it will be created
+        - `:version` api version to use
+        - `:timeout` integer containing number of ms to wait for server responses
+        - `:deduce` if the environment should be deduced when not supplied
+    * .`start(options)` create a client and start a agent
+      * `options` see polyseerio.make options from above
+    * `::Enum`
+      * `.Color`
+      * `.Icon`
+      * `.Strategy`
 
 ### client
 
   * client
-    * `.getCurrentEnvironment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.startAgent(config)`              Starts the Polyseer.io agent. Will use passed config or config.agent from client construction.
-    * `.Color`
-    * `.Icon`
-    * `.Strategy`
+    * `.current_environment(options)`  Resolves the current environment **IF** it has been deduced.
+    * `.start_agent(config)`           Starts the Polyseer.io agent. Will use passed config or config.agent from client construction.
+    * `.Alert`
+    * `.Channel`
+    * `.Environment`
+    * `.Event`
+    * `.Expectation`
+    * `.Instance`
+    * `.LogicBlock`
+    * `.Member`
+    * `.Settings`
+    * `.Task`
     
 ### Alert
 
   * .Alert
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.remove(id, options)`
     * `.trigger(id, payload, options)`
     * `.update(id, updates, options)`
@@ -142,8 +156,8 @@ instance, call the required polyseerio module with an access-token.
   * .Channel
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.message(id, content, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
@@ -157,8 +171,8 @@ instance, call the required polyseerio module with an access-token.
   * .Environment
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.message(id, content, options)`
     * `.remove(id, options)`
     * `.update(id, payload, options)`
@@ -172,7 +186,7 @@ instance, call the required polyseerio module with an access-token.
   * .Event
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
+    * `.find_by_id(id, options)`
     * new **Event**(attributes)
       * `.save()`
 
@@ -182,8 +196,8 @@ instance, call the required polyseerio module with an access-token.
     * `.check(id, options)`
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **Expectation**(attributes)
@@ -197,8 +211,8 @@ instance, call the required polyseerio module with an access-token.
     * `.attach(options)`
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **Instance**(attributes)
@@ -212,8 +226,8 @@ instance, call the required polyseerio module with an access-token.
     * `.create(attributes, options)`
     * `.execute(id, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
-    * `.findByName(name, options)`
+    * `.find_by_id(id, options)`
+    * `.find_by_name(name, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **LogicBlock**(attributes)
@@ -226,7 +240,7 @@ instance, call the required polyseerio module with an access-token.
   * .Member
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
+    * `.find_by_id(id, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **Member**(attributes)
@@ -244,7 +258,7 @@ instance, call the required polyseerio module with an access-token.
   * .Task
     * `.create(attributes, options)`
     * `.find(query, options)`
-    * `.findById(id, options)`
+    * `.find_by_id(id, options)`
     * `.remove(id, options)`
     * `.update(id, updates, options)`
     * new **Task**(attributes)
