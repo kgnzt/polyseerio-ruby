@@ -43,6 +43,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     let(:name) { @generate.call }
+    let(:request) { double('request') }
     let(:attributes) do
       {
         foo: 'bar',
@@ -53,27 +54,28 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'generates a class with the correct name' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
       expect(resource.name).to eq('Test1')
     end
 
     it 'generates a class with the correct name' do
-      resource = described_class.create 'Beta'
+      resource = described_class.create(name, request)
 
       expect(resource).to be_a(Class)
     end
 
     it 'defaults eid to nil' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
-      result = resource.new
+      instance = resource.new
+      result = instance.eid
 
-      expect(result.eid).to be_nil
+      expect(result).to be_nil
     end
 
     it 'defaults new to true' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
       result = resource.new
 
@@ -81,7 +83,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'correctly has a resource method' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
       instance = resource.new
 
@@ -91,7 +93,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'will use attributes for method missing' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
       instance = resource.new attributes
 
@@ -102,7 +104,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'can update attributes' do
-      resource = described_class.create name
+      resource = described_class.create(name, request)
 
       instance = resource.new attributes
 
@@ -111,6 +113,16 @@ RSpec.describe Polyseerio::Resource::Factory do
 
       expect(instance.foo).to eq('swimming-pool')
       expect(instance.ding).to eq(9)
+    end
+
+    it 'if there is an id passed the instance is not new' do
+      resource = described_class.create(name, request)
+
+      instance = resource.new id: 100
+
+      result = instance.new?
+
+      expect(result).to equal(false)
     end
   end
 
@@ -206,7 +218,7 @@ RSpec.describe Polyseerio::Resource::Factory do
 
       key = described_class.get_memoize_key(resource, nil, cid, nil)
 
-      expect(key).to eq('alerts.2')
+      expect(key).to eq(:alerts_2)
     end
   end
 end

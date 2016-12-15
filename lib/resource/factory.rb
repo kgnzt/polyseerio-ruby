@@ -1,14 +1,11 @@
 require 'resource/definition'
 require 'sdk/factory'
 require 'inflection'
-require 'functional'
 
 module Polyseerio
   module Resource
     # Resource building methods.
     module Factory
-      include Functional::Memo
-
       # Determine if a resource definition represents a singleton.
       def self.defines_singleton?(definition)
         !definition.key?(:methods) || definition[:methods].empty?
@@ -59,9 +56,12 @@ module Polyseerio
       end
 
       # Determine if a resource definition represents a singleton
-      def self.create(resource, cid = '')
-        Object.const_set(to_class_name(resource, cid), Class.new do
-          @@resource = resource # rubocop:disable all
+      # TODO: Make this its own file / class use extend?
+      def self.create(type, request, cid = '')
+        result = Object.const_set(to_class_name(type, cid), Class.new do
+          # TODO: unit-test that this is attached
+          @@resource = type # rubocop:disable all
+          @@request = request # rubocop:disable all
           attr_accessor :eid
 
           def initialize(attributes = {})
@@ -75,10 +75,10 @@ module Polyseerio
           end
 
           def new?
-            @new
+            id.nil?
           end
 
-          def method_missing(name, *args, &block)
+          def method_missing(name, *args) # rubocop:disable all
             # Setter.
             if name =~ /^(\w+)=$/
               name = :"#{$1}" # rubocop:disable all
@@ -87,68 +87,99 @@ module Polyseerio
             end
 
             # Getter.
-            @attributes.fetch(name) || super
+            @attributes.fetch(name, nil)
           end
 
-          def respond_to_missing?(method_name)
-            if @attributes.key? method_name
-              true
-            else
-              super
-            end
+          def respond_to_missing?(_method_name)
+            true
+          end
+
+          # TODO: unit-test
+          def type
+            self.class.type
           end
 
           private
 
+          def request
+            @@request
+          end
+
           attr_accessor :new, :attributes
         end)
+
+        # TODO: unit-test
+        result.define_singleton_method(:type) do
+          type
+        end
+
+        result
       end
 
       # Create a resource.
-      def self.make(type, request, cid, options = {})
-        unless Definition::DEFINITION.key? type
-          raise ArgumentError, 'Could not find definition for resource: ' \
-            "#{type}"
+      def self._make
+        proc do |type, request, cid, options = {}|
+          unless Definition::DEFINITION.key? type
+            raise ArgumentError, 'Could not find definition for resource: ' \
+              "#{type}"
+          end
+
+          definition = Definition::DEFINITION.fetch(type)
+
+          # Create the resource / class.
+          resource = if defines_singleton? definition
+                       {}
+                     else
+                       create(type, request, cid)
+                     end
+
+          # Add statics.
+          if definition.key? Definition::STATICS
+            statics = SDK::Static.factory(
+              request,
+              type,
+              definition[Definition::STATICS],
+              options
+            )
+
+            add_statics(resource, statics)
+          end
+
+          # Add methods.
+          if definition.key? Definition::METHODS
+            methods = SDK::Method.factory(
+              request,
+              type,
+              definition[Definition::METHODS],
+              options
+            )
+
+            add_methods(resource, request, methods)
+          end
+
+          resource
         end
-
-        definition = Definition::DEFINITION.fetch(type)
-
-        # Create the resource / class.
-        resource = defines_singleton?(definition) ? {} : create(type, cid)
-
-        # Add statics.
-        if definition.key? Definition::STATICS
-          statics = SDK::Static.factory(
-            request,
-            type,
-            definition[Definition::STATICS],
-            options
-          )
-
-          add_statics(resource, statics)
-        end
-
-        # Add methods.
-        if definition.key? Definition::METHODS
-          methods = SDK::Method.factory(
-            request,
-            type,
-            definition[Definition::METHODS],
-            options
-          )
-
-          add_methods(resource, request, methods)
-        end
-
-        resource
       end
 
       # Generate a memoize key based on factory arguments
-      def self.get_memoize_key(resource, _, cid, _)
-        "#{resource}.#{cid}"
+      def self.get_memoize_key(resource, _request, cid, _options = {})
+        :"#{resource}_#{cid}"
       end
 
-      memoize(:make)
+      # Convenience for get_memoize_key in proc form.
+      def self.memoize_key
+        proc do |*args|
+          get_memoize_key(*args)
+        end
+      end
+
+      # TODO: ideal API would be memoize(:make, memoize_key) - in future.
+      @make = Polyseerio::Helper.memoize_function(_make, memoize_key)
+
+      # Memoized calls to make. A little ugly, would like a better memoize API.
+      def self.make(*args)
+        @make.call(*args)
+      end
     end
   end
 end

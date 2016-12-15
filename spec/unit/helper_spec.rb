@@ -1,6 +1,62 @@
 require 'helper'
 
 RSpec.describe Polyseerio::Helper do
+  describe 'memoize_function' do
+    let(:func) { double('func') }
+    let(:get_key) { proc { |param| param.to_sym } }
+    let(:result_double) { 'foo' }
+
+    it 'returns the result of func when called' do
+      allow(func).to receive(:call).and_return(result_double)
+
+      memoized = described_class.memoize_function(func, get_key)
+
+      result = memoized.call('a')
+
+      expect(result).to eq(result_double)
+    end
+
+    it 'returns the result of func when called again' do
+      allow(func).to receive(:call).and_return(result_double)
+
+      memoized = described_class.memoize_function(func, get_key)
+
+      result_one = memoized.call('a')
+      result_two = memoized.call('a')
+
+      expect(result_one).to eq(result_double)
+      expect(result_two).to eq(result_double)
+    end
+
+    it 'will only call func once per cached get_key' do
+      allow(func).to receive(:call).and_return(result_double)
+
+      memoized = described_class.memoize_function(func, get_key)
+
+      expect(func).to receive(:call).once
+
+      memoized.call('a')
+      memoized.call('a')
+      memoized.call('a')
+    end
+
+    it 'will correctly handle more complex cache keys' do
+      get_key = proc { |_, b, __, d| :"#{b}-#{d}" }
+
+      allow(func).to receive(:call).and_return(result_double)
+
+      memoized = described_class.memoize_function(func, get_key)
+
+      expect(func).to receive(:call).exactly(3).times
+
+      memoized.call('a', 'b', 'c', 'd')
+      memoized.call('y', 'b', 'c', 'z') # arg b and d the same should memoize
+      memoized.call('a', 'z', 'c', 'd') # arg b differs
+      memoized.call('a', 'b', 'c', 'z') # arg d differs
+      memoized.call('a', 'b', 'c', 'd') # arg b and d the same should memoize
+    end
+  end
+
   describe 'identity' do
     it 'returns what was passed' do
       result = described_class.identity('alpha')

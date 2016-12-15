@@ -5,6 +5,27 @@ module Polyseerio
       exclude: ['index'].freeze
     }.freeze
 
+    # A memoize function that has an optional cache key.
+    def self.memoize_function(func, get_key)
+      lambda do
+        results = {}
+
+        proc do |*args|
+          key = get_key.call(*args) # TODO: assert key is sym?
+
+          if results.key? key
+            results.fetch key
+          else
+            result = func.call(*args)
+
+            results[key] = result
+
+            result
+          end
+        end
+      end.call
+    end
+
     # Simple identity function.
     def self.identity(value)
       proc { |x| x }.call(value)

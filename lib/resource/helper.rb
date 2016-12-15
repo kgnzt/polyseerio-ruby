@@ -38,8 +38,10 @@ module Polyseerio
 
         attributes[:id] = id
 
-        # TODO: make really needs memoization
-        resource = Factory.make(type, nil, nil, cid)
+        # parse_response would only eve be called once the client has been
+        # constructed meaning in order to get the class we simply need to
+        # pass the type and cid. make is memoized on the type and cid args.
+        resource = Factory.make(type, nil, cid)
 
         resource.new(attributes) # TODO: need to include meta
       end

@@ -14,23 +14,23 @@ endif
 
 unit-test:
 ifeq ($(BUILD_ENV),ci)
-	rspec ./test/unit
+	rspec ./spec/unit
 else
-	rspec ./test/unit
+	rspec ./spec/unit
 endif
 
 integration-test:
 ifeq ($(BUILD_ENV),ci)
-	rspec ./test/integration
+	rspec ./spec/integration
 else
-	rspec ./test/integration
+	rspec ./spec/integration
 endif
 
 validation-test:
 ifeq ($(BUILD_ENV),ci)
-	rspec ./test/validation
+	rspec ./spec/validation
 else
-	rspec ./test/validation
+	rspec ./spec/validation
 endif
 
 test: lint unit-test integration-test validation-test

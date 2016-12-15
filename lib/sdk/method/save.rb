@@ -7,17 +7,13 @@ module Polyseerio
     # Instance methods.
     module Method
       def self.save
-        proc do |instance, _|
-          uri = URL.get_resource_path(
-            resource,
-            eid: instance.eid,
-            id: instance.id
-          )
+        proc do ||
+          uri = URL.get_resource_path(type, eid: eid, id: id)
 
-          if instance.new?
-            instance._request.post uri
+          if new?
+            request.post(uri, @attributes)
           else
-            instance._request.put uri
+            request.put(uri, @attributes)
           end
         end
       end
