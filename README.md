@@ -97,24 +97,24 @@ Examples are available in /example
 
 ## SDK Resources
 
-Use of the SDK begins with construction of a client. To construct a client 
-instance, call the required polyseerio module with an access-token.
+Use of the SDK starts with the creation of a client. To construct a client 
+instance, you may call either Polyseerio.start or Polyseerio.make.
 
-### polyseerio
+### Polyseerio
 
-  * polyseerio
-    * .`start(options) ⇒ Polyseerio::Client` create a client and start a agent
+  * Polyseerio
+    * .`start(options = {}) ⇒ Polyseerio::Client` create a client and start a agent
       * `options`
-        - `:env` environment variable that holds the current environment
-        - `:token` an api token
-        - `:token_env` if no token is provided, this environment variable will be checked
-        - `:agent` a hash that will be used when starting this client's agent
+        - `:env`        environment variable that holds the current environment
+        - `:token`      an api token
+        - `:token_env`  if no token is provided, this environment variable will be checked
+        - `:agent`      a hash that will be used when starting this client's agent
         - `:upsert_env` if an environment cannot be found it will be created
-        - `:version` api version to use
-        - `:timeout` integer containing number of ms to wait for server responses
-        - `:deduce` if the environment should be deduced when not supplied
-    * .`make(options) ⇒ Polyseerio::Client` create a client
-      * `options` see polyseerio.start options from above
+        - `:version`    api version to use
+        - `:timeout`    integer containing number of ms to wait for server responses
+        - `:deduce`     if the environment should be deduced when not supplied
+    * .`make(options = {}) ⇒ Polyseerio::Client` create a client
+      * `options` see polyseerio.start options
     * `::Enum`
       * `.Color`
       * `.Determiner`
@@ -124,7 +124,7 @@ instance, call the required polyseerio module with an access-token.
       * `.Strategy`
       * `.Subtype`
 
-### client
+### Polyseerio::Client
 
   * client
     * `.current_environment(options)`  Resolves the current environment **IF** it has been deduced.
