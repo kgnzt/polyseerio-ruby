@@ -1,5 +1,4 @@
 require 'polyseerio'
-require 'enum'
 
 RSpec.describe Polyseerio do
   let(:token) { 'alpha-beta-gamma' }
