@@ -1,13 +1,11 @@
 require 'polyseerio'
+require 'validation/helpers'
+require 'validation/shared_context'
 
-RSpec.describe Polyseerio do
-  let(:client) { Polyseerio.make }
+RSpec.describe Helpers::Validation.client do
+  include_context 'validation environment'
 
-  it 'polyseerio can construct a client and agent at the same time' do
-    expect { described_class.start }.not_to raise_error
-  end
-
-  it 'a client can start an agent' do
-    expect { client.start_agent }.not_to raise_error
+  it 'can start and stop an agent successfuly' do
+    client.start_agent
   end
 end

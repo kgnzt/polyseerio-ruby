@@ -215,6 +215,16 @@ RSpec.describe Polyseerio::Enum do
     end
   end
 
+  describe described_class::Protocol do
+    it 'defines SMTP' do
+      expect(described_class::SMTP).to eq('smtp')
+    end
+
+    it 'defines SMS' do
+      expect(described_class::SMS).to eq('sms')
+    end
+  end
+
   describe described_class::Strategy do
     it 'defines FALLBACK' do
       expect(described_class::FALLBACK).to eq(:fallback)

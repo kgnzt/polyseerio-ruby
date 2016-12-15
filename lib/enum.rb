@@ -69,6 +69,11 @@ module Polyseerio
       NONE         = nil
     end
 
+    module Protocol
+      SMTP = 'smtp'.freeze
+      SMS  = 'sms'.freeze
+    end
+
     module Strategy
       FALLBACK = :fallback
       ID       = :id
