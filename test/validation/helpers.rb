@@ -1,7 +1,10 @@
 require 'polyseerio'
+require 'date'
 
 module Helpers
   module Validation
+    NAME_PREFIX = 'ruby-sdk-validation-'.freeze
+
     # Validation testing environment.
     TEST_ENVIRONMENT = {
       name: 'validaton-testing-ruby',
@@ -14,6 +17,14 @@ module Helpers
       environment: TEST_ENVIRONMENT[:name],
       upsert_env: false
     }.freeze
+
+    # Assert that a promise has been fulfilled.
+    def self.fulfilled?
+    end
+
+    # Assert that a promise has been rejected.
+    def self.rejected?
+    end
 
     # Ensure that an environment exists given its name.
     def self.ensure_environment(environment, data)
@@ -49,8 +60,13 @@ module Helpers
       remove_environment(client.Environment, TEST_ENVIRONMENT).execute.value
     end
 
+    @unique_name_calls = 0
+
     # Generates a unique name.
     def self.unique_name
+      @unique_name_calls += 1
+
+      "#{NAME_PREFIX}#{@unique_name_calls}-#{DateTime.now.strftime('%Q')}"
     end
   end
 end

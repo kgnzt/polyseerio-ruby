@@ -79,6 +79,14 @@ module Polyseerio
           end
 
           def method_missing(name, *args, &block)
+            # Setter.
+            if name =~ /^(\w+)=$/
+              name = :"#{$1}" # rubocop:disable all
+
+              @attributes[:"#{$1}"] = args[0] # rubocop:disable all
+            end
+
+            # Getter.
             @attributes.fetch(name) || super
           end
 

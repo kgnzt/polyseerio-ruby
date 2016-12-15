@@ -100,6 +100,18 @@ RSpec.describe Polyseerio::Resource::Factory do
       expect(instance.two).to eq(2)
       expect(instance.yes).to eq(true)
     end
+
+    it 'can update attributes' do
+      resource = described_class.create name
+
+      instance = resource.new attributes
+
+      instance.foo = 'swimming-pool'
+      instance.ding = 9
+
+      expect(instance.foo).to eq('swimming-pool')
+      expect(instance.ding).to eq(9)
+    end
   end
 
   describe 'make' do

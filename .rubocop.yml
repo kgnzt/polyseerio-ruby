@@ -8,3 +8,5 @@ Metrics/AbcSize:
   Max: 50
 Style/AccessModifierIndentation:
   Enabled: false
+Metrics/BlockLength:
+  Max: 100
