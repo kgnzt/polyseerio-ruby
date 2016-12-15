@@ -14,7 +14,7 @@ To install, run:
 
     gem install polyseerio
 
-For a project, add to your Gemfile:
+To add to your project Gemfile, insert:
 
     gem 'polyseerio'
 
@@ -28,7 +28,6 @@ Certain values can be set in environment variables:
 
   * POLYSEERIO_TOKEN access-token used for API calls
   * RAILS_ENV        the current environment
-
 
 ## Usage
 
@@ -116,7 +115,7 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
         - `:deduce`     if the environment should be deduced when not supplied
     * .`make(options = {}) ⇒ Polyseerio::Client`
       * Create a client.
-      * `options (Hash)` see polyseerio.start options
+      * `options (Hash)` see Polyseerio.start options.
     * `::Enum`
       * `.Color`
       * `.Determiner`
@@ -129,8 +128,10 @@ instance, you may call either Polyseerio.start or Polyseerio.make.
 ### Polyseerio::Client
 
   * client
-    * `.current_environment(options)`  Resolves the current environment **IF** it has been deduced.
-    * `.start_agent(config)`           Starts the Polyseer.io agent. Will use passed config or config.agent from client construction.
+    * `.current_environment ⇒ client.Environment`
+      * Resolves the current environment **IF** it has been deduced.
+    * `.start_agent(options = {}) ⇒ Polyseerio::Client`  
+      * Starts the Polyseer.io agent. Will use passed options or config.agent from client construction.
     * `.Alert`
     * `.Channel`
     * `.Environment`
