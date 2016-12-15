@@ -117,8 +117,12 @@ instance, call the required polyseerio module with an access-token.
       * `options` see polyseerio.start options from above
     * `::Enum`
       * `.Color`
+      * `.Determiner`
+      * `.Direction`
+      * `.Icon`
       * `.Icon`
       * `.Strategy`
+      * `.Subtype`
 
 ### client
 
@@ -265,7 +269,7 @@ instance, call the required polyseerio module with an access-token.
       * `.save()`
       * `.remove()`
 
-## Building Locally
+## Building
 
 To test, build, and install locally:
 
