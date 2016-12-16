@@ -16,7 +16,7 @@ module Polyseerio
           if options[:attach]
             name = Helper.resolve_name(options)
 
-            # fallback create
+            # need a fallback create procedure
             instance = client.Instance.find_by_name(name)
                              .then(proc do |reason|
                                if reason.http_code == 404
@@ -24,32 +24,26 @@ module Polyseerio
                                end
                              end).execute.value
 
+            # now attach the client to the instance.
+            # client.instance = instance // set it.
+
+            # merge this with filter_handler below?
             handler_options = options.select do |key, _|
               Polyseerio::Agent::Handler::HANDLER.key? key
             end
 
-            dork = Helper.filter_handlers handler_options
+            handler_options = Helper.filter_handlers handler_options
 
-            if dork.key? :event
-              # setup_handler('event', client)
-            end
+            # TODO: pass along ensure config, and client
+            # setup_handler = Helper::setup_with_handler Handler::HANDLER, config, client
+            setup_handler = Helper::setup_with_handler Handler::HANDLER
 
-            if dork.key? :process
-              # setup_handler('process', client)
-            end
+            # Gather the setups.
+            setups = handler_options.map {|key, _config| setup(key) }
 
-            if dork.key? :metric
-              # setup_handler('metric', client)
-            end
+            Concurrent::Promise.zip(*setups).execute
 
-            if dork.key? :fact
-              # setup_handler('fact', client)
-            end
-
-            if dork.key? :expectation
-              # setup_handler('expectation', client)
-            end
-
+            # now attach
             instance.attach.execute.value
 
             instance

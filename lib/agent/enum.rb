@@ -6,8 +6,8 @@ module Polyseerio
       end
 
       module Event
-        START = 'start'.freeze
-        STOP  = 'stop'.freeze
+        START = :start
+        STOP  = :stop
       end
 
       module Signal

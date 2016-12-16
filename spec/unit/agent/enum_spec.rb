@@ -9,11 +9,11 @@ RSpec.describe Polyseerio::Agent::Enum do
 
   describe described_class::Event do
     it 'defines START' do
-      expect(described_class::START).to eq('start')
+      expect(described_class::START).to eq(:start)
     end
 
     it 'defines STOP' do
-      expect(described_class::STOP).to eq('stop')
+      expect(described_class::STOP).to eq(:stop)
     end
   end
 

@@ -13,24 +13,26 @@ module Polyseerio
         *args
       )
         proc do |key, value|
-          if handlers.key? key
+          if handlers.key? key # TODO: consider key.to_sym w/ unit-test
             iteratee.call(handlers, key, value, *args)
           else
-            Concurrent::Promise.reject('Could not find a handler subtype:' \
-              " #{key}.")
+            # TODO: unit-test rejection
+            Concurrent::Promise.reject('Could not find a handler subtype: ' \
+              "#{key}.")
           end
         end
       end
 
       # Returns a handler function.
       private_class_method def self.create_handler(iteratee)
-        proc do |handler, type, config, **args|
-          if handler.key? type
+        proc do |handler, type, config, *args|
+          if handler.key? type # TODO: consider type.to_sym w/ unit-test
             work = config.map(&iteratee.call(handler.fetch(type), *args))
 
             Concurrent::Promise.zip(*work)
           else
-            Concurrent::Promise.reject('Could not find a handler type:' \
+            # TODO: unit-test rejection
+            Concurrent::Promise.reject('Could not find a handler type: ' \
               "#{type}.")
           end
         end
