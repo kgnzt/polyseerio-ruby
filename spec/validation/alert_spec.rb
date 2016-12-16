@@ -4,7 +4,7 @@ RSpec.describe Helpers::Validation.client do
   let(:attributes) do
     {
       name: Helpers::Validation.unique_name,
-      protocol: 'smtp',
+      protocol: Polyseerio::Enum::Protocol::SMTP,
       recipients: ['foo@bar.com']
     }
   end
