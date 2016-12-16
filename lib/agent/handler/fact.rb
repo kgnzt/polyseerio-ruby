@@ -1,6 +1,6 @@
 module Polyseerio
   module Agent
-    # Introduces fact handler.
+    # Introduce fact handlers.
     module Handler
       def self.fact
         {}

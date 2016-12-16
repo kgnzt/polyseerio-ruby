@@ -1,6 +1,6 @@
 module Polyseerio
   module Agent
-    # Introduces metric handler.
+    # Introduce metric handlers.
     module Handler
       def self.metric
         {}

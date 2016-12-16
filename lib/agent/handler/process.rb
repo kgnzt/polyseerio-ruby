@@ -1,6 +1,6 @@
 module Polyseerio
   module Agent
-    # Introduces process handler.
+    # Introduce process handlers.
     module Handler
       def self.process
         {}

@@ -2,7 +2,7 @@ require 'agent/enum'
 
 module Polyseerio
   module Agent
-    # Introduces event handler.
+    # Introduce event handlers.
     module Handler
       include Agent::Enum
 
