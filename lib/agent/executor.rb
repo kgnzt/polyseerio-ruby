@@ -25,7 +25,7 @@ module Polyseerio
                              end).execute.value
 
             handler_options = options.select do |key, _|
-              Polyseerio::Handler::HANDLER.key? key
+              Polyseerio::Agent::Handler::HANDLER.key? key
             end
 
             dork = Helper.filter_handlers handler_options

@@ -1,7 +1,9 @@
 module Polyseerio
-  # Introduces expectation handler.
-  module Handler
-    def self.expectation
+  module Agent
+    # Introduces expectation handler.
+    module Handler
+      def self.expectation
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'polyseerio'
 require 'agent/handler/index'
 
-RSpec.describe Polyseerio::Handler::HANDLER do
+RSpec.describe Polyseerio::Agent::Handler::HANDLER do
   it 'event' do
     expect(described_class).to have_key(:event)
   end
