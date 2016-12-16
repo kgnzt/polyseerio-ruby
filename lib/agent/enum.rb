@@ -7,6 +7,7 @@ module Polyseerio
 
       module Event
         START = 'start'.freeze
+        STOP  = 'stop'.freeze
       end
 
       module Signal
@@ -15,7 +16,7 @@ module Polyseerio
         SIGTERM = 'TERM'.freeze
       end
 
-      module ProcessEvent
+      module Process
         EXIT = 'exit'.freeze
       end
 

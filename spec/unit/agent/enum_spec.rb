@@ -11,6 +11,10 @@ RSpec.describe Polyseerio::Agent::Enum do
     it 'defines START' do
       expect(described_class::START).to eq('start')
     end
+
+    it 'defines STOP' do
+      expect(described_class::STOP).to eq('stop')
+    end
   end
 
   describe described_class::Signal do
@@ -27,7 +31,7 @@ RSpec.describe Polyseerio::Agent::Enum do
     end
   end
 
-  describe described_class::ProcessEvent do
+  describe described_class::Process do
     it 'defines EXIT' do
       expect(described_class::EXIT).to eq('exit')
     end
