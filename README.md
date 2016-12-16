@@ -224,6 +224,7 @@ client has been created you may use any of its resources.
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.Instance`
       * `.add_gauge(key, resolver)`
+      * `.set_fact(key, value)`
       * `.attach()`
       * `.detach()`
       * `.gauge(key, value)`

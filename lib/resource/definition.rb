@@ -107,6 +107,7 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
+            :set_fact,
             :gauge,
             :add_gauge,
             :attach,

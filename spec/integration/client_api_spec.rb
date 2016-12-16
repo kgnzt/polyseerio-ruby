@@ -189,6 +189,9 @@ RSpec.describe Polyseerio do
       expect(instance).to respond_to(:remove)
       expect(instance).to respond_to(:attach)
       expect(instance).to respond_to(:detach)
+      expect(instance).to respond_to(:gauge)
+      expect(instance).to respond_to(:add_gauge)
+      expect(instance).to respond_to(:set_fact)
     end
   end
 
