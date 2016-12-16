@@ -2,27 +2,111 @@ require 'agent/helper'
 require 'concurrent'
 
 RSpec.describe Polyseerio::Agent::Helper do
-  describe 'should_handle' do
+  describe 'reduce_handler_option' do
+    let(:config) { true }
+    let(:name) { :foo }
+    let(:acc) { {} }
+
+    it 'adds to accumular if should handle config' do
+      result = described_class.reduce_handler_option.call([name, config], acc)
+
+      expect(result).to eq(foo: true)
+    end
+
+    it 'wont add to accumular if should not handle config' do
+      result = described_class.reduce_handler_option.call([name, false], acc)
+
+      expect(result).to eq({})
+    end
+  end
+
+  describe 'filter_enabled_handler_options' do
+    let(:options) do
+      {
+        foo: true,
+        bar: false,
+        ding: {
+          enabled: false
+        },
+        dong: {
+          enabled: true,
+          alpha: 'beta'
+        }
+      }
+    end
+
+    it 'correctly reduces the options to those that are enabled' do
+      result = described_class.filter_enabled_handler_options options
+
+      expect(result).to eq(
+        foo: true,
+        dong: {
+          enabled: true,
+          alpha: 'beta'
+        }
+      )
+    end
+  end
+
+  describe 'filter_handlers' do
+    let(:options) do
+      {
+        foo: {
+          ding: true,
+          dong: {
+            enabled: false
+          }
+        },
+        bar: {
+          alpha: false,
+          beta: true,
+          fish: {
+            enabled: true,
+            kind: 'salmon'
+          }
+        }
+      }
+    end
+
+    it 'correctly reduces the options to those that are enabled' do
+      result = described_class.filter_handlers options
+
+      expect(result).to eq(
+        foo: {
+          ding: true
+        },
+        bar: {
+          beta: true,
+          fish: {
+            enabled: true,
+            kind: 'salmon'
+          }
+        }
+      )
+    end
+  end
+
+  describe 'handle?' do
     it 'returns true if the passed value is true' do
-      result = described_class.should_handle true
+      result = described_class.handle? true
 
       expect(result).to eq(true)
     end
 
     it 'returns value of enabled if hash with key' do
-      result = described_class.should_handle(enabled: true)
+      result = described_class.handle?(enabled: true)
 
       expect(result).to eq(true)
     end
 
     it 'returns false if passed hash does not have enabled' do
-      result = described_class.should_handle(foo: true)
+      result = described_class.handle?(foo: true)
 
       expect(result).to eq(false)
     end
 
     it 'returns false if something other than hash or bool passed' do
-      result = described_class.should_handle 'ding-dong'
+      result = described_class.handle? 'ding-dong'
 
       expect(result).to eq(false)
     end

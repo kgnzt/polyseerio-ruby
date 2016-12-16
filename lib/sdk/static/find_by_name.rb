@@ -1,11 +1,14 @@
 require 'enum'
+require 'sdk/helper'
 
 module Polyseerio
   module SDK
     # Static methods.
     module Static
       def self.find_by_name
-        proc do |request, resource, _, name, options = {}|
+        proc do |request, resource, copts, name, options = {}|
+          options = Polyseerio::Helper.defaults(options, copts)
+
           name = "/name/#{name}"
           eid = Helper.resolve_eid options
 

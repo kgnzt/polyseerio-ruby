@@ -1,5 +1,6 @@
 require 'sdk/helper'
 
+# TODO: Scope under agent.
 module Polyseerio
   # Contains handlers and handler map.
   module Handler

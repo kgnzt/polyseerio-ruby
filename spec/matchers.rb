@@ -2,7 +2,7 @@
 RSpec::Matchers.define :be_fulfilled do
   match(&:fulfilled?)
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     'expected that promise would be a fulfilled but was ' \
       "#{actual.state}: #{actual.reason}"
   end
@@ -12,7 +12,7 @@ end
 RSpec::Matchers.define :be_rejected do
   match(&:rejected?)
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected that promise would be a rejected but was #{actual.state}"
   end
 end

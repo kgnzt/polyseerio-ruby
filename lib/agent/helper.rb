@@ -80,8 +80,31 @@ module Polyseerio
         'ruby-instance'
       end
 
+      # Reduce handler options based on if they are enabled.
+      def self.reduce_handler_option
+        proc do |(name, config), acc|
+          acc[name] = config if handle? config
+
+          acc
+        end
+      end
+
+      # Given agent options, handlers options are returned.
+      def self.filter_enabled_handler_options(options)
+        options.each_with_object({}, &reduce_handler_option)
+      end
+
+      # Given agent options, handlers options are returned.
+      def self.filter_handlers(options)
+        options.each_with_object({}) do |(name, config), acc|
+          acc[name] = filter_enabled_handler_options config
+
+          acc
+        end
+      end
+
       # Determines if a handler configuration should be handled.
-      def self.should_handle(value)
+      def self.handle?(value)
         return value if value == true
 
         if Functional::TypeCheck::Type?(value, Hash) && (value.key? :enabled)
