@@ -8,17 +8,17 @@ module Polyseerio
 
       def self.event
         {
-          Event::START => proc do |client, instance|
+          Event::START => proc do |_config, client|
             client.Event.create(
-              name: "#{instance.name} agent has started.",
+              name: "#{client.instance.name} agent has started.",
               color: Polyseerio::Enum::Color::GREEN,
               icon: Polyseerio::Enum::Icon::CHAIN
             )
           end,
 
-          Event::STOP => proc do |client, instance|
+          Event::STOP => proc do |_config, client|
             client.Event.create(
-              name: "#{instance.name} agent has stopped.",
+              name: "#{client.instance.name} agent has stopped.",
               color: Polyseerio::Enum::Color::ORANGE,
               icon: Polyseerio::Enum::Icon::CHAIN_BROKER
             )

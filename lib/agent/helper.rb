@@ -6,17 +6,12 @@ module Polyseerio
   module Agent
     # Helper functions for Agent
     module Helper
-      # Returns an iteration function for a handler item.
-      private_class_method def self.create_handler_iteratee(
-        handlers,
-        iteratee,
-        *args
-      )
+      # Returns an iterator for a handler subtype.
+      def self.create_subtype_iterator(handlers, iteratee, *args)
         proc do |key, value|
-          if handlers.key? key # TODO: consider key.to_sym w/ unit-test
+          if handlers.key? key.to_sym # TODO: unit-test to_sym
             iteratee.call(handlers, key, value, *args)
           else
-            # TODO: unit-test rejection
             Concurrent::Promise.reject('Could not find a handler subtype: ' \
               "#{key}.")
           end
@@ -24,14 +19,19 @@ module Polyseerio
       end
 
       # Returns a handler function.
-      private_class_method def self.create_handler(iteratee)
-        proc do |handler, type, config, *args|
-          if handler.key? type # TODO: consider type.to_sym w/ unit-test
-            work = config.map(&iteratee.call(handler.fetch(type), *args))
+      def self.create_handler(iteratee)
+        proc do |map, client, config, type, *args|
+          if map.key? type.to_sym
+            if config.key? type
+              # TODO: unit-test passed args
+              work = config.fetch(type)
+                           .map(&iteratee.call(map.fetch(type), client, *args))
 
-            Concurrent::Promise.zip(*work)
+              Concurrent::Promise.zip(*work)
+            else
+              Concurrent::Promise.fulfill []
+            end
           else
-            # TODO: unit-test rejection
             Concurrent::Promise.reject('Could not find a handler type: ' \
               "#{type}.")
           end
@@ -40,19 +40,20 @@ module Polyseerio
 
       # Returns a setup handler function.
       @setup = proc do |handlers_outer, *args_outer|
-        setup_iterator = proc do |handlers, key, _value, *args|
+        setup_iterator = proc do |handlers, key, value, *args|
           handler = handlers.fetch(key)
 
           if handler.respond_to? :call
-            handler.call(*args)
+            handler.call(value, *args) # TODO: unit-test passed args
           elsif handler.key? HandlerInterface::SETUP
-            handler[HandlerInterface::SETUP].call(*args)
+            # TODO: unit-test passed args
+            handler[HandlerInterface::SETUP].call(value, *args)
           else
             Concurrent::Promise.fulfill
           end
         end
 
-        create_handler_iteratee(handlers_outer, setup_iterator, *args_outer)
+        create_subtype_iterator(handlers_outer, setup_iterator, *args_outer)
       end
 
       @teardown = proc do |handlers_outer, *args_outer|
@@ -64,7 +65,7 @@ module Polyseerio
           end
         end
 
-        create_handler_iteratee(handlers_outer, teardown_iterator, *args_outer)
+        create_subtype_iterator(handlers_outer, teardown_iterator, *args_outer)
       end
 
       # Sets up a handler type.

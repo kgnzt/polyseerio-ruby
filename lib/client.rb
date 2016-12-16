@@ -9,7 +9,8 @@ module Polyseerio
       request: nil
     }.freeze
 
-    attr_accessor :cid, :agent
+    attr_accessor :cid, :agent, :instance
+    attr_writer :instance
 
     def initialize(cid, options = {})
       options = Helper.defaults(options, INITIALIZE_DEFAULTS)
@@ -25,6 +26,7 @@ module Polyseerio
 
       @cid = cid
       @agent = nil
+      @instance = nil
       @request = options[:request]
       @agent_class = options[:agent_class]
     end

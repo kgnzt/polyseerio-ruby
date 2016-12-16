@@ -9,7 +9,7 @@ module Polyseerio
     # Agent executor functions.
     module Executor
       # Setsup a client's agent.
-      def self.setup(client, options = {}) # rubocop:disable all
+      def self.setup(client, options = {})
         options = Polyseerio::Helper.defaults(options, DEFAULT_CONFIG)
 
         Concurrent::Promise.new do
@@ -24,8 +24,7 @@ module Polyseerio
                                end
                              end).execute.value
 
-            # now attach the client to the instance.
-            # client.instance = instance // set it.
+            client.instance = instance
 
             # merge this with filter_handler below?
             handler_options = options.select do |key, _|
@@ -34,14 +33,18 @@ module Polyseerio
 
             handler_options = Helper.filter_handlers handler_options
 
-            # TODO: pass along ensure config, and client
-            # setup_handler = Helper::setup_with_handler Handler::HANDLER, config, client
-            setup_handler = Helper::setup_with_handler Handler::HANDLER
+            setup_handler = Helper.setup_with_handler(
+              Polyseerio::Agent::Handler::HANDLER,
+              client,
+              handler_options
+            )
 
             # Gather the setups.
-            setups = handler_options.map {|key, _config| setup(key) }
+            setups = handler_options.map do |key, _config|
+              setup_handler.call(key)
+            end
 
-            Concurrent::Promise.zip(*setups).execute
+            Concurrent::Promise.zip(*setups).execute.value
 
             # now attach
             instance.attach.execute.value

@@ -7,6 +7,9 @@ RSpec.describe Polyseerio::Helper do
         def self.foo
           proc { 'a' }
         end
+
+        def self.bar
+        end
       end
     end
     let(:item) { [:foo, '_'] }
@@ -20,9 +23,9 @@ RSpec.describe Polyseerio::Helper do
     end
 
     it 'wont add if module does not contain method' do
-      result = described_class.add_to_proc_map(mod, [:bar, '_'], acc)
+      result = described_class.add_to_proc_map(mod, [:zoozoo, '_'], acc)
 
-      expect(result).not_to have_key(:bar)
+      expect(result).not_to have_key(:zoozoo)
     end
 
     it 'is curried' do
@@ -32,6 +35,14 @@ RSpec.describe Polyseerio::Helper do
 
       expect(result).to have_key(:foo)
       expect(result.fetch(:foo)).to be_kind_of(Proc)
+    end
+
+    it 'wont add if the result of the call is its simply nil' do
+      accumulator = described_class.add_to_proc_map(mod)
+
+      result = accumulator.call(:bar, acc)
+
+      expect(result).not_to have_key(:bar)
     end
   end
 

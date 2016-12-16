@@ -27,6 +27,12 @@ RSpec.describe Polyseerio::Client do
       expect(client.agent).to be_nil
     end
 
+    it 'defaults the instance to nil' do
+      client = described_class.new(cid, request: {})
+
+      expect(client.instance).to be_nil
+    end
+
     it 'will attach resources passed' do
       resources = {
         Alpha: double('AlphaDouble'),
@@ -50,6 +56,18 @@ RSpec.describe Polyseerio::Client do
         ArgumentError,
         /Cannot create an instance of Client without/
       )
+    end
+  end
+
+  describe 'writers' do
+    let(:instance) { double('instance') }
+
+    it 'has an instance writer' do
+      client = described_class.new(cid, request: {})
+
+      client.instance = instance
+
+      expect(client.instance).to eq(instance)
     end
   end
 

@@ -8,6 +8,7 @@ module Polyseerio
     }.freeze
 
     # Given directory and module a map of module procs will be created.
+    # TODO: this is really a dir func map not a proc map
     def self.dir_proc_map(dir, mod)
       map = Polyseerio::Helper.dir_to_path_map dir
 
@@ -17,9 +18,14 @@ module Polyseerio
     end
 
     # Adds a proc method to an accumulator by its name.
+    # TODO: this is really a dir func map not always a proc map.
     def self.add_to_proc_map(*args)
       proc do |mod, (name, _), acc|
-        acc[name] = mod.send(name) if mod.respond_to? name
+        if mod.respond_to? name
+          result = mod.send name
+
+          acc[name] = result unless result.nil?
+        end
 
         acc
       end.curry.call(*args)
