@@ -223,11 +223,22 @@ client has been created you may use any of its resources.
     * `.find_by_id(id, options)`
     * `.find_by_name(name, options)`
     * `.new(attributes) ⇒ client.Instance`
+      * `.add_fact(key, resolver)`
+        * Add a fact.
+        * `key (symbol)`
+        * `resolver (string|number|block)`
       * `.add_gauge(key, resolver)`
-      * `.set_fact(key, value)`
+        * Add a gauge.
+        * `key (symbol)`
+        * `resolver (string|number|block)`
       * `.attach()`
+        * Starts inbound monitoring with Polyseer.io.
       * `.detach()`
+        * Terminates inbound monitoring with Polyseer.io.
+      * `.fact(key, value)`
+        * Add a one time instance fact.
       * `.gauge(key, value)`
+        * Add a one-time gauge metric.
       * `.remove()`
       * `.save()`
     * `.remove(id, options)`

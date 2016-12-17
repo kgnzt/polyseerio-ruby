@@ -3,7 +3,10 @@ module Polyseerio
     # Instance methods.
     module Method
       def self.set_fact
-        proc do ||
+        proc do |key, value|
+          self.facts ||= {}
+
+          self.facts[key] = value
         end
       end
     end
