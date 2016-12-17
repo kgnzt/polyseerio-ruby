@@ -107,12 +107,13 @@ module Polyseerio
           METHODS => [
             *SAVABLE_INSTANCE,
             *RESOURCE_INSTANCE,
-            :set_fact,
-            :gauge,
             :add_gauge,
             :attach,
             :detach,
-            :remove
+            :fact,
+            :gauge,
+            :remove,
+            :add_fact
           ]
         },
         Enum::Resource::LOGIC_BLOCK => {

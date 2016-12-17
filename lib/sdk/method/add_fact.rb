@@ -2,7 +2,7 @@ module Polyseerio
   module SDK
     # Instance methods.
     module Method
-      def self.set_fact
+      def self.add_fact
         proc do |key, value|
           self.facts ||= {}
 

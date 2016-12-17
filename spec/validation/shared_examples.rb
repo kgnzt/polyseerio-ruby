@@ -1,17 +1,21 @@
 # Ensure a resource can be created.
 RSpec.shared_examples 'creatable' do
-  it 'can create an instance' do
+  it 'can create an instance using Resource.create' do
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value
 
     expect(create_instance).to be_fulfilled
     expect(instance.name).to eq(attributes[:name])
   end
+
+  it 'can create an instance from Resource.new then instance.save' do
+    # TODO: fill out
+  end
 end
 
 # Ensure a resource can be found.
 RSpec.shared_examples 'findable' do
-  it 'can find an instance by its primary id' do
+  it 'can find an instance by its primary id, Resource.find_by_id' do
     create_instance = described_class.create(attributes)
 
     instance = create_instance.execute.value
@@ -29,7 +33,7 @@ end
 
 # Ensure a resource can be deleted.
 RSpec.shared_examples 'deletable' do
-  it 'can delete an instance by its primary id' do
+  it 'can delete an instance using its primary id, Resource.remove' do
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value
 
@@ -46,11 +50,51 @@ RSpec.shared_examples 'deletable' do
     expect(find_instance).to be_rejected
     expect(found).to be_nil
   end
+
+  it 'can delete an instance using instance.remove' do
+    create_instance = described_class.create(attributes)
+    instance = create_instance.execute.value
+
+    expect(create_instance).to be_fulfilled
+
+    remove = instance.remove()
+
+    expect(remove).to be_fulfilled
+
+    find_instance = described_class.find_by_id(instance.id)
+    found = find_instance.execute.value
+
+    expect(find_instance).to be_rejected
+    expect(found).to be_nil
+  end
 end
 
 # Ensure a resource can be updates.
 RSpec.shared_examples 'updatable' do
-  it 'can update an instance' do
+  it 'can update an instance using its primary id, Resource.update' do
+    # create an instance
+    create_instance = described_class.create(attributes)
+    instance = create_instance.execute.value
+    expect(create_instance).to be_fulfilled
+
+    new_name = Helpers::Validation.unique_name
+    update = described_class.update(instance.id, name: new_name)
+
+    updated_instance = update.execute.value
+
+    # ensure it was updated
+    expect(update).to be_fulfilled
+    expect(updated_instance.name).to eq(new_name)
+
+    # try reloading an asserting it was updated
+    reload = described_class.find_by_id(instance.id)
+    instance = reload.execute.value
+
+    expect(reload).to be_fulfilled
+    expect(instance.name).to eq(new_name)
+  end
+
+  it 'can update an instance using instance.save' do
     # create an instance
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value

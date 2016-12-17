@@ -5,9 +5,9 @@ RSpec.describe Polyseerio do
   let(:client) { Polyseerio.make(token: token) }
   let(:instance) { client.Instance.new }
 
-  it 'can set facts' do
-    instance.set_fact(:foo, 'bar')
-    instance.set_fact(:alpha, 'beta')
+  it 'can add facts (for later pushing via attach)' do
+    instance.add_fact(:foo, 'bar')
+    instance.add_fact(:alpha, 'beta')
 
     expect(instance.facts).to eq(
       foo: 'bar',
