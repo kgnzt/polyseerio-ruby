@@ -124,6 +124,12 @@ RSpec.describe Polyseerio::Resource::Factory do
 
       expect(result).to equal(false)
     end
+
+    it 'resource can be constructed without attributes' do
+      resource = described_class.create(name, request)
+
+      expect { resource.new }.not_to raise_error
+    end
   end
 
   describe 'make' do
