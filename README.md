@@ -217,32 +217,32 @@ client has been created you may use any of its resources.
 ### Instance
 
   * .Instance
-    * `.attach(options)`
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
+    * `.attach(options = {})`
+    * `.create(attributes, options = {})`
+    * `.find(query, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
     * `.new(attributes) ⇒ client.Instance`
       * `.add_fact(key, resolver)`
-        * Add a fact.
+        * Add a fact to the attach monitoring loop.
         * `key (symbol)`
         * `resolver (string|number|block)`
       * `.add_gauge(key, resolver)`
-        * Add a gauge.
+        * Add a gauge to the attach monitoring loop.
         * `key (symbol)`
         * `resolver (string|number|block)`
       * `.attach()`
-        * Starts inbound monitoring with Polyseer.io.
+        * Start inbound monitoring.
       * `.detach()`
-        * Terminates inbound monitoring with Polyseer.io.
+        * Terminate inbound monitoring.
       * `.fact(key, value)`
-        * Add a one time instance fact.
+        * Send a one off fact.
       * `.gauge(key, value)`
-        * Add a one-time gauge metric.
+        * Send a one off gauge metric.
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Logic Block
 
