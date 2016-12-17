@@ -1,11 +1,11 @@
 require 'agent/handler/interface'
 
-RSpec.describe HandlerInterface do
+RSpec.describe Polyseerio::Agent::Handler::Interface do
   it 'defines SETUP' do
-    expect(HandlerInterface::SETUP).to eq(:setup)
+    expect(described_class::SETUP).to eq(:setup)
   end
 
   it 'defines TEARDOWN' do
-    expect(HandlerInterface::TEARDOWN).to eq(:teardown)
+    expect(described_class::TEARDOWN).to eq(:teardown)
   end
 end

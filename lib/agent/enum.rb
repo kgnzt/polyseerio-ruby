@@ -2,7 +2,7 @@ module Polyseerio
   module Agent
     module Enum
       module Expectation
-        IS_ALIVE = 'is_alive'.freeze
+        IS_ALIVE = :is_alive
       end
 
       module Event
@@ -10,18 +10,25 @@ module Polyseerio
         STOP  = :stop
       end
 
+      module Fact
+        PID  = :pid
+        GID  = :gid
+      end
+
       module Signal
-        SIGHUP  = 'HUP'.freeze
-        SIGINT  = 'INT'.freeze
-        SIGTERM = 'TERM'.freeze
+        SIGHUP  = :HUP
+        SIGINT  = :INT
+        SIGTERM = :TERM
       end
 
       module Process
-        EXIT = 'exit'.freeze
+        EXIT = :exit
       end
 
       module Metric
-        MEMORY = 'memory'.freeze
+        MEMORY = :memory
+        CPU    = :cpu
+        UPTIME = :uptime
       end
     end
   end

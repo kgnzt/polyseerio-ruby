@@ -45,9 +45,9 @@ module Polyseerio
 
           if handler.respond_to? :call
             handler.call(value, *args) # TODO: unit-test passed args
-          elsif handler.key? HandlerInterface::SETUP
+          elsif handler.key? Handler::Interface::SETUP
             # TODO: unit-test passed args
-            handler[HandlerInterface::SETUP].call(value, *args)
+            handler[Handler::Interface::SETUP].call(value, *args)
           else
             Concurrent::Promise.fulfill
           end
@@ -58,8 +58,8 @@ module Polyseerio
 
       @teardown = proc do |handlers_outer, *args_outer|
         teardown_iterator = proc do |handlers, key, _value, *args|
-          if handlers.fetch(key).key? HandlerInterface::TEARDOWN
-            handlers.fetch(key).fetch(HandlerInterface::TEARDOWN).call(*args)
+          if handlers.fetch(key).key? Handler::Interface::TEARDOWN
+            handlers.fetch(key).fetch(Handler::Interface::TEARDOWN).call(*args)
           else
             Concurrent::Promise.fulfill
           end

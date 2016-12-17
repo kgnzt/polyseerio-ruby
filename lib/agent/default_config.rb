@@ -23,8 +23,14 @@ module Polyseerio
       expectation: {
         is_alive: true
       },
+      fact: {
+        pid: true,
+        gid: true
+      },
       metric: {
-        memory: true
+        memory: true,
+        cpu: true,
+        uptime: true
       },
       event: {
         start: true

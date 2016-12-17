@@ -16,13 +16,15 @@ module Polyseerio
             )
           end,
 
-          Event::STOP => proc do |_config, client|
-            client.Event.create(
-              name: "#{client.instance.name} agent has stopped.",
-              color: Polyseerio::Enum::Color::ORANGE,
-              icon: Polyseerio::Enum::Icon::CHAIN_BROKER
-            )
-          end
+          Event::STOP => {
+            Interface::TEARDOWN => proc do |_config, client|
+              client.Event.create(
+                name: "#{client.instance.name} agent has stopped.",
+                color: Polyseerio::Enum::Color::ORANGE,
+                icon: Polyseerio::Enum::Icon::CHAIN_BROKER
+              )
+            end
+          }
         }
       end
     end
