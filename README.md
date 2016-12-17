@@ -148,81 +148,81 @@ client has been created you may use any of its resources.
 ### Alert
 
   * .Alert
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
-    * `.new(attributes) ⇒ client.Alert`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
+    * `.new(attributes = {}) ⇒ client.Alert`
       * `.remove()`
       * `.save()`
-      * `.trigger(payload)`
-    * `.remove(id, options)`
-    * `.trigger(id, payload, options)`
-    * `.update(id, updates, options)`
+      * `.trigger(payload = {})`
+    * `.remove(id, options = {})`
+    * `.trigger(id, payload, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Channel
 
   * .Channel
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
-    * `.message(id, content, options)`
-    * `.new(attributes) ⇒ client.Channel`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
+    * `.message(id, content, options = {})`
+    * `.new(attributes = {}) ⇒ client.Channel`
       * `.message(content)`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Environment
 
   * .Environment
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
-    * `.message(id, content, options)`
-    * `.new(attributes) ⇒ client.Environment`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
+    * `.message(id, content, options = {})`
+    * `.new(attributes = {}) ⇒ client.Environment`
       * `.message(content)`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, payload, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, payload = {}, options = {})`
 
 ### Event
 
   * .Event
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.new(attributes) ⇒ client.Event`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.new(attributes = {}) ⇒ client.Event`
       * `.save()`
 
 ### Expectation
 
   * .Expectation
-    * `.check(id, options)`
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
-    * `.new(attributes) ⇒ client.Expectation`
+    * `.check(id, options = {})`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
+    * `.new(attributes = {}) ⇒ client.Expectation`
       * `.check()`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Instance
 
   * .Instance
     * `.attach(options = {})`
-    * `.create(attributes, options = {})`
-    * `.find(query, options = {})`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
     * `.find_by_id(id, options = {})`
     * `.find_by_name(name, options = {})`
-    * `.new(attributes) ⇒ client.Instance`
+    * `.new(attributes = {}) ⇒ client.Instance`
       * `.add_fact(key, resolver)`
         * Add a fact to the attach monitoring loop.
         * `key (symbol)`
@@ -236,9 +236,9 @@ client has been created you may use any of its resources.
       * `.detach()`
         * Terminate inbound monitoring.
       * `.fact(key, value)`
-        * Send a one off fact.
+        * Send a one-off fact.
       * `.gauge(key, value)`
-        * Send a one off gauge metric.
+        * Send a one-off gauge metric.
       * `.remove()`
       * `.save()`
     * `.remove(id, options = {})`
@@ -247,47 +247,47 @@ client has been created you may use any of its resources.
 ### Logic Block
 
   * .LogicBlock
-    * `.create(attributes, options)`
-    * `.execute(id, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.find_by_name(name, options)`
-    * `.new(attributes) ⇒ client.LogicBlock`
+    * `.create(attributes = {}, options = {})`
+    * `.execute(id, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.find_by_name(name, options = {})`
+    * `.new(attributes = {}) ⇒ client.LogicBlock`
       * `.execute()`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Member
 
   * .Member
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.new(attributes) ⇒ client.Member`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.new(attributes = {}) ⇒ client.Member`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates, options = {})`
 
 ### Settings
 
   * .Settings
-    * `.retrieve(options)`
-    * `.update(updates, options)`
+    * `.retrieve()`
+    * `.update(updates, options = {})`
 
 ### Task
 
   * .Task
-    * `.create(attributes, options)`
-    * `.find(query, options)`
-    * `.find_by_id(id, options)`
-    * `.new(attributes) ⇒ client.Task`
+    * `.create(attributes = {}, options = {})`
+    * `.find(query = {}, options = {})`
+    * `.find_by_id(id, options = {})`
+    * `.new(attributes = {}) ⇒ client.Task`
       * `.remove()`
       * `.save()`
-    * `.remove(id, options)`
-    * `.update(id, updates, options)`
+    * `.remove(id, options = {})`
+    * `.update(id, updates = {}, options = {})`
 
 ## Building
 
