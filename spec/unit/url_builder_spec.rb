@@ -14,6 +14,17 @@ RSpec.describe Polyseerio::URL do
   end
 
   describe 'get_resource_path' do
+    it 'raises when routable resource with an eid that is nil' do
+      resource = 'alerts'
+      options = { eid: nil }
+      args = [resource, options]
+
+      expect { described_class.get_resource_path(*args) }.to raise_error(
+        ArgumentError,
+        /for alerts without passing/
+      )
+    end
+
     it 'raises when routable resource without an eid' do
       resource = 'alerts'
       options = {}

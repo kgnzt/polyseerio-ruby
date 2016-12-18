@@ -32,7 +32,7 @@ module Polyseerio
       environment = ''
 
       if routable_resource? resource
-        unless options.include? :eid
+        if !options.include?(:eid) || options[:eid].nil?
           raise ArgumentError, 'Cannot get routable resource path for'\
             " #{resource} without passing an eid to options."
         end

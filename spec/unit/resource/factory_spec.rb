@@ -65,15 +65,6 @@ RSpec.describe Polyseerio::Resource::Factory do
       expect(resource).to be_a(Class)
     end
 
-    it 'defaults eid to nil' do
-      resource = described_class.create(name, request)
-
-      instance = resource.new
-      result = instance.eid
-
-      expect(result).to be_nil
-    end
-
     it 'defaults new to true' do
       resource = described_class.create(name, request)
 

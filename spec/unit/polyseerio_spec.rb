@@ -6,6 +6,7 @@ RSpec.describe Polyseerio do
       expect(described_class).to eq(
         agent: {},
         deduce: true,
+        environment: 'development',
         env: 'RAILS_ENV',
         timeout: 10_000,
         token: nil,

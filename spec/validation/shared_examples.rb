@@ -9,13 +9,30 @@ RSpec.shared_examples 'creatable' do
   end
 
   it 'can create an instance from Resource.new then instance.save' do
-    # TODO: fill out
+    # create and save an instance
+    instance = described_class.new attributes
+
+    save = instance.save
+    save_result = save.execute.value
+
+    # assert the save worked on client
+    expect(save).to be_fulfilled(instance)
+    expect(instance.id).not_to be_nil
+    expect(save_result).to be(instance)
+
+    # ensure we can find it and its correct
+    find_instance = described_class.find_by_id(instance.id)
+    found = find_instance.execute.value
+
+    expect(find_instance).to be_fulfilled
+
+    expect(found.id).to eq(instance.id)
   end
 end
 
 # Ensure a resource can be found.
 RSpec.shared_examples 'findable' do
-  it 'can find an instance by its primary id, Resource.find_by_id' do
+  it 'can find a resource by its primary id, Resource.find_by_id' do
     create_instance = described_class.create(attributes)
 
     instance = create_instance.execute.value
@@ -33,7 +50,7 @@ end
 
 # Ensure a resource can be deleted.
 RSpec.shared_examples 'deletable' do
-  it 'can delete an instance using its primary id, Resource.remove' do
+  it 'can delete a resource using its primary id, Resource.remove' do
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value
 
@@ -71,7 +88,7 @@ end
 
 # Ensure a resource can be updates.
 RSpec.shared_examples 'updatable' do
-  it 'can update an instance using its primary id, Resource.update' do
+  it 'can update a resource using its primary id, Resource.update' do
     # create an instance
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value
@@ -127,7 +144,7 @@ end
 
 # Ensure a resource can be triggered.
 RSpec.shared_examples 'triggerable' do
-  it 'can trigger an instance' do
+  it 'can trigger an instance using trigger.instance' do
     # create an instance
     create_instance = described_class.create(attributes)
     instance = create_instance.execute.value
@@ -137,6 +154,22 @@ RSpec.shared_examples 'triggerable' do
 
     # trigger resource
     trigger = instance.trigger(payload)
+    trigger.execute.value
+
+    # ensure it was one
+    expect(trigger).to be_fulfilled
+  end
+
+  it 'can trigger a Resource using Resource.trigger' do
+    # create an instance
+    create_instance = described_class.create(attributes)
+    instance = create_instance.execute.value
+    expect(create_instance).to be_fulfilled
+
+    payload = { foo: 'bar' }
+
+    # trigger resource
+    trigger = described_class.trigger(instance.id, payload)
     trigger.execute.value
 
     # ensure it was one

@@ -12,14 +12,15 @@ require 'helper'
 module Polyseerio
   # Default client options.
   DEFAULT_CLIENT_OPTIONS = {
-    agent:      {},
-    deduce:     true,
-    env:        Constant::DEFAULT_ENV,
-    timeout:    Constant::DEFAULT_TIMEOUT,
-    token:      nil,
-    token_env:  Constant::DEFAULT_TOKEN_ENV,
-    upsert_env: true,
-    version:    Constant::DEFAULT_API_VERSION
+    agent:       {},
+    deduce:      true,
+    env:         Constant::DEFAULT_ENV,
+    timeout:     Constant::DEFAULT_TIMEOUT,
+    environment: Constant::DEFAULT_ENVIRONMENT,
+    token:       nil,
+    token_env:   Constant::DEFAULT_TOKEN_ENV,
+    upsert_env:  true,
+    version:     Constant::DEFAULT_API_VERSION
   }.freeze
 
   # Required resources for constructing a client.

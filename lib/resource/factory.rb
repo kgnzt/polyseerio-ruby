@@ -2,6 +2,7 @@ require 'resource/definition'
 require 'resource/helper'
 require 'sdk/factory'
 require 'inflection'
+require 'sdk/helper'
 
 module Polyseerio
   module Resource
@@ -57,21 +58,33 @@ module Polyseerio
 
       # Determine if a resource definition represents a singleton
       # TODO: Make this its own file / class use extend?
-      def self.create(type, request, cid = '')
+      # TODO: CID should not be optional, options should not be optional
+      # TODO: unit-test this mess more
+      def self.create(type, request, cid = '', options = {})
         result = Object.const_set(to_class_name(type, cid), Class.new do
           # TODO: unit-test that this is attached
           @@resource = type # rubocop:disable all
           @@request = request # rubocop:disable all
+          @@options = options # rubocop:disable all
           attr_accessor :eid
 
           def initialize(attributes = {})
             @new = true
-            @eid = attributes[:eid] || nil
+            # TODO: unit-test this eid
+            @eid = if attributes.include? :eid
+                     attributes[:eid]
+                   else
+                     Polyseerio::SDK::Helper.resolve_eid(options)
+                   end
             @attributes = attributes
           end
 
           def resource
             @@resource
+          end
+
+          def options
+            @@options
           end
 
           def request
@@ -128,7 +141,7 @@ module Polyseerio
           resource = if defines_singleton? definition
                        {}
                      else
-                       create(type, request, cid)
+                       create(type, request, cid, options)
                      end
 
           # Add statics.
