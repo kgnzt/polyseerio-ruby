@@ -58,8 +58,12 @@ module Polyseerio
       end
 
       # Create a resource.
-      def self.create(type, request, cid, _options = {})
+      # TODO: copts are not optional
+      def self.create(type, request, cid, copts = {})
         resource = Object.const_set(to_class_name(type, cid), Class.new(Base))
+        resource.define_singleton_method(:copts) do
+          copts
+        end
 
         resource.define_singleton_method(:type) do
           type

@@ -11,9 +11,16 @@ module Polyseerio
         @eid = if attributes.include? :eid
                  attributes[:eid]
                else
-                 Polyseerio::SDK::Helper.resolve_eid(attributes)
+                 Polyseerio::SDK::Helper.resolve_eid(copts)
                end
         @attributes = attributes
+      end
+
+      # Set a property hash on the instance.
+      def override_properties(properties)
+        properties.each_with_object(self) do |(key, value), this|
+          this.send(:"#{key}=", value)
+        end
       end
 
       # Returns a copy of class attributes.

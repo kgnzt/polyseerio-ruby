@@ -13,17 +13,86 @@ RSpec.describe Polyseerio::Resource::Base do
     }
   end
   let(:instance) { described_class.new attributes }
+  let(:mod_described_class) { Class.new(described_class) }
 
-  it 'can access passed attributes' do
-    result = instance.foo
+  describe 'initialize' do
+    it 'sets the eid from passed attribute if included' do
+      instance = described_class.new eid: 'zoozoo'
 
-    expect(result).to eq 'bar'
+      result = instance.eid
+
+      expect(result).to eq 'zoozoo'
+    end
+
+    it 'resolves the eid when none passed' do
+      mod_described_class.define_singleton_method(:copts) do
+        {
+          environment: 'kangaroo'
+        }
+      end
+
+      instance = mod_described_class.new
+
+      result = instance.eid
+
+      expect(result).to eq 'kangaroo'
+    end
+
+    it 'resolves the eid when none passed' do
+      mod_described_class.define_singleton_method(:copts) do
+        {}
+      end
+
+      instance = mod_described_class.new
+
+      result = instance.eid
+
+      expect(result).to eq 'development' # default
+    end
   end
 
-  it 'set passed attributes' do
-    instance.foo = 'bongo'
+  describe 'attribute setter and getters' do
+    it 'can access passed attributes' do
+      result = instance.foo
 
-    expect(instance.foo).to eq 'bongo'
+      expect(result).to eq 'bar'
+    end
+
+    it 'set passed attributes' do
+      instance.foo = 'bongo'
+
+      expect(instance.foo).to eq 'bongo'
+    end
+
+    it 'returns nil for attributes that are not set' do
+      result = instance.zoozoo
+
+      expect(result).to be_nil
+    end
+  end
+
+  describe 'override_properties' do
+    let(:properties) do
+      {
+        foo: 'orange',
+        dork: 'apple',
+        cork: 21
+      }
+    end
+
+    it 'correctly sets each attribute' do
+      instance.override_properties properties
+
+      # should not be changed
+      expect(instance.id).to eq id
+      expect(instance.eid).to eq eid
+      expect(instance.ping).to eq 'pong'
+
+      # should have been updated
+      expect(instance.foo).to eq 'orange'
+      expect(instance.dork).to eq 'apple'
+      expect(instance.cork).to eq 21
+    end
   end
 
   describe 'properties' do
@@ -35,17 +104,44 @@ RSpec.describe Polyseerio::Resource::Base do
   end
 
   describe 'type' do
-    it '' do
+    it 'returns class.type' do
+      mod_described_class.define_singleton_method(:type) do
+        'alpha-beta'
+      end
+
+      instance = mod_described_class.new attributes
+
+      result = instance.type
+
+      expect(result).to eq('alpha-beta')
     end
   end
 
   describe 'copts' do
-    it '' do
+    it 'returns class.ctops' do
+      mod_described_class.define_singleton_method(:copts) do
+        'alpha-beta'
+      end
+
+      instance = mod_described_class.new attributes
+
+      result = instance.copts
+
+      expect(result).to eq('alpha-beta')
     end
   end
 
   describe 'request' do
-    it '' do
+    it 'returns class.request' do
+      mod_described_class.define_singleton_method(:request) do
+        'alpha-beta'
+      end
+
+      instance = mod_described_class.new attributes
+
+      result = instance.request
+
+      expect(result).to eq('alpha-beta')
     end
   end
 
@@ -65,7 +161,7 @@ RSpec.describe Polyseerio::Resource::Base do
 
   describe 'new?' do
     it 'returns false when id present' do
-      instance = described_class.new(id: 100)
+      instance = described_class.new(id: 100, eid: 'zoo')
 
       result = instance.new?
 
