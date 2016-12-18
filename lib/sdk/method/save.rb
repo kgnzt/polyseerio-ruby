@@ -11,7 +11,7 @@ module Polyseerio
           uri = URL.get_resource_path(
             instance.type,
             eid: instance.eid,
-            id: instance.i
+            id: instance.id
           )
 
           if instance.new?

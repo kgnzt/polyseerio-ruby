@@ -40,7 +40,11 @@ module Polyseerio
         environment = format('environments/%s/', options[:eid])
       end
 
-      id = options.include?(:id) ? format('/%s', options[:id]) : ''
+      id = if options.include?(:id) && !options[:id].nil?
+             format('/%s', options[:id])
+           else
+             ''
+           end
 
       format('/%s%s%s', environment, resource, id)
     end

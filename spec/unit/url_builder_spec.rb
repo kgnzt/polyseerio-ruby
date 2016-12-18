@@ -60,6 +60,15 @@ RSpec.describe Polyseerio::URL do
 
       expect(result).to eq('/environments/test/alerts/3')
     end
+
+    it 'returns the correct path for resources when id is nil' do
+      resource = 'alerts'
+      options = { eid: 'test', id: nil }
+
+      result = described_class.get_resource_path(resource, options)
+
+      expect(result).to eq('/environments/test/alerts')
+    end
   end
 
   describe 'get_base_url' do
