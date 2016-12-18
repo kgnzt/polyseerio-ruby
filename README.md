@@ -39,48 +39,19 @@ Example: (Quick start)
     include 'polyseerio'
 
     client = Polyseerio.start
-
-Example: (Configured quick start)
-
-    include 'polyseerio'
-
-    client = Polyseerio.start(
-      token: 'secret-token, 
-      environment: 'production',
-      env: 'RAILS_ENV',
-      agent: {
-        name: 'my-instance',
-        group: 'instances',
-        metric: {
-          memory: true,
-          cpu: false
-        }
-      }
-    )
+    client.instance.fact('foo', 'bar').execute.value
 
 Example: (SDK)
 
     include 'polyseerio'
 
     client = Polyseerio.make
-
-    event = client.Event.create(
-      name: 'example-event', 
-      color: Polyseerio::Enum::Color::RED
-    ).execute.value
+    client.Event.create(name: 'Testing').execute.value
 
 ## Design
 
 All Polyseer.io SDK's make use of Promises for async calls. Promises allow for 
 delaying and chaining async work.
-
-Example:
-
-    get_event = client.Event.find_by_name('some-name')
-
-    // do something else
-
-    get_event.execute.then{ |event| puts event.name }
 
   * Provides direct platform calls as well as a Polyseer.io Ruby agent.
   * All client SDK calls return a Concurrent::Promise.
