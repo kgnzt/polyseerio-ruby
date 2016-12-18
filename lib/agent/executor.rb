@@ -18,6 +18,7 @@ module Polyseerio
             name = Helper.resolve_name(options)
 
             # Resolve the instance.
+            # TODO: better handle failure to upsert.
             instance = Resource::Routine.upsert(
               client.Instance,
               name: name

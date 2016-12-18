@@ -6,7 +6,7 @@ require 'validation/shared_context'
 RSpec.describe Helpers::Validation.client do
   include_context 'validation environment'
 
-  it 'can start an agent' do
+  it 'has correct default behavir' do
     promise = client.start_agent
 
     promise.execute.value
