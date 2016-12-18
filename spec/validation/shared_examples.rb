@@ -124,3 +124,22 @@ RSpec.shared_examples 'updatable' do
     expect(found.id).to eq(instance.id)
   end
 end
+
+# Ensure a resource can be triggered.
+RSpec.shared_examples 'triggerable' do
+  it 'can trigger an instance' do
+    # create an instance
+    create_instance = described_class.create(attributes)
+    instance = create_instance.execute.value
+    expect(create_instance).to be_fulfilled
+
+    payload = { foo: 'bar' }
+
+    # trigger resource
+    trigger = instance.trigger(payload)
+    trigger.execute.value
+
+    # ensure it was one
+    expect(trigger).to be_fulfilled
+  end
+end
