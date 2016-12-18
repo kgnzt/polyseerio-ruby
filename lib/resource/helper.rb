@@ -4,6 +4,13 @@ module Polyseerio
     module Helper
       EID_REGEX = Regexp.new('/environments/([\da-z\.-]+)/')
 
+      # Forward self as first argument. Used for method procs.
+      def self.forward_self(func)
+        proc do |*args|
+          func.call(self, *args)
+        end
+      end
+
       # Given a request path an eid is returned or nil
       def self.get_eid_from_resource_path(path)
         result = EID_REGEX.match path

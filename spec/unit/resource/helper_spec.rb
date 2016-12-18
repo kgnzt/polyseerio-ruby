@@ -1,6 +1,40 @@
 require 'resource/helper'
 
 RSpec.describe Polyseerio::Resource::Helper do
+  describe 'forward_self' do
+    let(:class_double) { Class.new }
+    let(:func) { double('func') }
+    let(:arg_one) { double('arg_one') }
+    let(:arg_two) { double('arg_two') }
+    let(:result_double) { double('result') }
+    let(:method) { :foo }
+
+    it 'returns the result of the passed func when called' do
+      allow(func).to receive(:call).and_return result_double
+
+      forwarded_func = described_class.forward_self(func)
+
+      result = forwarded_func.call(arg_one, arg_two)
+
+      expect(result).to equal(result_double)
+    end
+
+    it 'correctly forwards self to passed function with args' do
+      allow(func).to receive(:call)
+      method = described_class.forward_self(func)
+
+      class_double.class_eval do
+        define_method(:foo, &method)
+      end
+
+      instance = class_double.new
+
+      instance.foo(arg_one, arg_two)
+
+      expect(func).to have_received(:call).with(instance, arg_one, arg_two)
+    end
+  end
+
   describe 'get_eid_from_resource_path' do
     it 'returns nil if no eid present in path' do
       path = '/members/22'

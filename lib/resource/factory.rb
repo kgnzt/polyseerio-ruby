@@ -1,4 +1,5 @@
 require 'resource/definition'
+require 'resource/helper'
 require 'sdk/factory'
 require 'inflection'
 
@@ -24,8 +25,7 @@ module Polyseerio
       def self.add_method(*args)
         proc do |(name, method), resource|
           resource.class_eval do
-            # TODO: add forward_this aka forward resource? not sure
-            define_method(name, &method)
+            define_method(name, &Helper.forward_self(method))
           end
         end.curry.call(*args)
       end
@@ -74,6 +74,10 @@ module Polyseerio
             @@resource
           end
 
+          def request
+            @@request
+          end
+
           def new?
             id.nil?
           end
@@ -97,12 +101,6 @@ module Polyseerio
           # TODO: unit-test
           def type
             self.class.type
-          end
-
-          private
-
-          def request
-            @@request
           end
 
           attr_accessor :new, :attributes

@@ -92,6 +92,16 @@ RSpec.describe Polyseerio::Resource::Factory do
       expect(result).to eq(name)
     end
 
+    it 'can access request' do
+      resource = described_class.create(name, request)
+
+      instance = resource.new
+
+      result = instance.request
+
+      expect(result).to eq(request)
+    end
+
     it 'will use attributes for method missing' do
       resource = described_class.create(name, request)
 
@@ -172,8 +182,23 @@ RSpec.describe Polyseerio::Resource::Factory do
   end
 
   describe 'add_method' do
+    it 'fowards the instance to the proc' do
+      method = proc { |instance| instance.name }
+      name = 'foo'
+
+      described_class.add_method([name, method], resource_double)
+
+      resource_double.class_eval do
+        define_method(:foo, proc { 'alpha' })
+      end
+
+      instance = resource_double.new
+
+      expect(instance.foo).to eql('alpha')
+    end
+
     it 'adds a named instance method to passed Class' do
-      method = proc { |x| x * 2 }
+      method = proc { |_, x| x * 2 }
       name = 'foo'
 
       described_class.add_method([name, method], resource_double)

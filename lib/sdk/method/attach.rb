@@ -5,11 +5,15 @@ module Polyseerio
     # Instance methods.
     module Method
       def self.attach
-        proc do ||
-          uri = URL.get_resource_path(type, eid: eid, id: id)
+        proc do |instance|
+          uri = URL.get_resource_path(
+            instance.type,
+            eid: instance.eid,
+            id: instance.id
+          )
 
           Concurrent::Promise.new do
-            heartbeat_thread = Thread.new(request) do |req|
+            heartbeat_thread = Thread.new(instance.request) do |req|
               loop do
                 req.post("#{uri}/heartbeat", {}).execute.value
                 sleep(5)
