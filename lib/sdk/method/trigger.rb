@@ -1,3 +1,5 @@
+require 'sdk/helper'
+
 module Polyseerio
   module SDK
     # Instance methods.
@@ -5,11 +7,7 @@ module Polyseerio
       def self.trigger
         proc do |instance, payload = {}|
           # raise if the instance has not been saved yet...
-          uri = URL.get_resource_path(
-            instance.type,
-            eid: instance.eid,
-            id: instance.id
-          )
+          uri = Helper.instance_to_uri instance
 
           instance.request.post("#{uri}/trigger", payload)
         end

@@ -1,16 +1,13 @@
+require 'sdk/helper'
 require 'concurrent'
 
 module Polyseerio
   module SDK
-    # Instance methods.
+    # Introduce methods.
     module Method
       def self.attach
         proc do |instance|
-          uri = URL.get_resource_path(
-            instance.type,
-            eid: instance.eid,
-            id: instance.id
-          )
+          uri = Helper.instance_to_uri instance
 
           Concurrent::Promise.new do
             heartbeat_thread = Thread.new(instance.request) do |req|

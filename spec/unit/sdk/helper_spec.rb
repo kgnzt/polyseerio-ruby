@@ -1,6 +1,25 @@
 require 'sdk/helper'
 
 RSpec.describe Polyseerio::SDK::Helper do
+  describe 'instance_to_uri' do
+    let(:instance) { double('instance') }
+    let(:id) { 13 }
+    let(:eid) { 'testing' }
+    let(:type) { 'events' }
+
+    before(:each) do
+      allow(instance).to receive(:id).and_return id
+      allow(instance).to receive(:eid).and_return eid
+      allow(instance).to receive(:type).and_return type
+    end
+
+    it 'is a shorthand for building instance uri' do
+      result = described_class.instance_to_uri instance
+
+      expect(result).to eq('/environments/testing/events/13')
+    end
+  end
+
   describe 'accumulate_procs' do
     let(:type) { 'foo' }
     let(:map) do

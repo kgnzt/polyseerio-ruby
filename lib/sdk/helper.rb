@@ -1,10 +1,20 @@
 require 'constant'
 require 'helper'
+require 'url_builder'
 
 module Polyseerio
   module SDK
     # SDK helpers.
     module Helper
+      # Takes an instance and returns a uri.
+      def self.instance_to_uri(instance)
+        URL.get_resource_path(
+          instance.type,
+          eid: instance.eid,
+          id: instance.id
+        )
+      end
+
       # Accumulates a function type from a map into an accumulator.
       def self.accumulate_procs(*args)
         proc do |type, map, name, acc|
