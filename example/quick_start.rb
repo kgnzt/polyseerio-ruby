@@ -1,5 +1,5 @@
 require 'polyseerio'
 
-client = Polyseerio.start.execute.value
+client = Polyseerio.make environment: 'testing'
 
-puts client
+client.Event.create(name: 'foo').execute.value
