@@ -87,7 +87,7 @@ module Polyseerio
     rest_resource = RestClient::Resource.new(
       base_url,
       headers: headers,
-      timeout: options[:timeout]
+      timeout: Helper.ms_to_seconds(options[:timeout])
     )
 
     # Create a request instance that uses middleware.

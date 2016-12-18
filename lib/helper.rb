@@ -7,6 +7,11 @@ module Polyseerio
       exclude: ['index'].freeze
     }.freeze
 
+    # Simple conversion to seconds from ms.
+    def self.ms_to_seconds(ms)
+      ms / 1000.0
+    end
+
     # Given directory and module a map of module procs will be created.
     # TODO: this is really a dir func map not a proc map
     def self.dir_proc_map(dir, mod)

@@ -1,6 +1,14 @@
 require 'helper'
 
 RSpec.describe Polyseerio::Helper do
+  describe 'ms_to_seconds' do
+    it 'returns the correct value' do
+      result = described_class.ms_to_seconds 550
+
+      expect(result).to eq 0.55
+    end
+  end
+
   describe 'add_to_proc_map' do
     let(:mod) do
       Class.new do
