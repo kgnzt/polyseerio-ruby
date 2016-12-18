@@ -3,7 +3,10 @@ module Polyseerio
     # Instance methods.
     module Method
       def self.add_gauge
-        proc do ||
+        proc do |key, value|
+          self.gauges ||= {}
+
+          self.gauges[key] = value
         end
       end
     end

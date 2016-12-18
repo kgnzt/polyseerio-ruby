@@ -9,9 +9,9 @@ module Polyseerio
           uri = URL.get_resource_path(type, eid: eid, id: id)
 
           Concurrent::Promise.new do
-            heartbeat_thread = Thread.new do
+            heartbeat_thread = Thread.new(request) do |req|
               loop do
-                request.post("#{uri}/heartbeat", {}).execute.value
+                req.post("#{uri}/heartbeat", {}).execute.value
                 sleep(5)
               end
             end

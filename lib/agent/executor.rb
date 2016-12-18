@@ -1,5 +1,6 @@
 require 'concurrent'
 require 'helper'
+require 'resource/routine'
 require 'agent/handler/index'
 require 'agent/helper'
 require 'agent/default_config'
@@ -16,13 +17,10 @@ module Polyseerio
           if options[:attach]
             name = Helper.resolve_name(options)
 
-            # need a fallback create procedure
-            instance = client.Instance.find_by_name(name)
-                             .then(proc do |reason|
-                               if reason.http_code == 404
-                                 return client.Instance.create(name: name)
-                               end
-                             end).execute.value
+            instance = Resource::Routine.upsert(
+              client.Instance,
+              name: name
+            ).execute.value
 
             client.instance = instance
 
