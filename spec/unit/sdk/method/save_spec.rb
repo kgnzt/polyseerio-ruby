@@ -6,7 +6,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
   let(:type) { 'alerts' }
   let(:eid) { 'testing' }
   let(:id) { 13 }
-  let(:attributes) do
+  let(:properties) do
     {
       ping: 'pong',
       king: 'kong'
@@ -18,7 +18,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
     allow(instance).to receive(:id).and_return id
     allow(instance).to receive(:eid).and_return eid
     allow(instance).to receive(:type).and_return type
-    allow(instance).to receive(:attributes).and_return attributes
+    allow(instance).to receive(:properties).and_return properties
     allow(instance).to receive(:request).and_return request
   end
 
@@ -31,7 +31,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
     expect(request).to have_received :post
   end
 
-  it 'passes the correct uri and attributes to post' do
+  it 'passes the correct uri and properties to post' do
     allow(instance).to receive(:new?).and_return true
     allow(request).to receive(:post)
 
@@ -39,7 +39,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
 
     expect(request).to have_received(:post).with(
       '/environments/testing/alerts/13',
-      attributes
+      properties
     )
   end
 
@@ -61,7 +61,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
     expect(request).to have_received :put
   end
 
-  it 'passes the correct uri and attributes to put' do
+  it 'passes the correct uri and properties to put' do
     allow(instance).to receive(:id).and_return nil
     allow(instance).to receive(:new?).and_return false
     allow(request).to receive(:put)
@@ -70,7 +70,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
 
     expect(request).to have_received(:put).with(
       '/environments/testing/alerts',
-      attributes
+      properties
     )
   end
 

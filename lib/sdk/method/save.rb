@@ -9,9 +9,9 @@ module Polyseerio
           uri = Helper.instance_to_uri instance
 
           if instance.new?
-            instance.request.post(uri, instance.attributes)
+            instance.request.post(uri, instance.properties)
           else
-            instance.request.put(uri, instance.attributes)
+            instance.request.put(uri, instance.properties)
           end
         end
       end

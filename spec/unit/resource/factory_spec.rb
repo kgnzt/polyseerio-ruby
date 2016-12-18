@@ -43,6 +43,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     let(:name) { @generate.call }
+    let(:cid) { 12 }
     let(:request) { double('request') }
     let(:attributes) do
       {
@@ -54,37 +55,27 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'generates a class with the correct name' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
-      expect(resource.name).to eq('Test1')
+      expect(resource.name).to eq('Test112')
     end
 
-    it 'generates a class with the correct name' do
-      resource = described_class.create(name, request)
+    it 'returns a Class' do
+      resource = described_class.create(name, request, cid)
 
       expect(resource).to be_a(Class)
     end
 
     it 'defaults new to true' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       result = resource.new
 
       expect(result.new?).to equal(true)
     end
 
-    it 'correctly has a resource method' do
-      resource = described_class.create(name, request)
-
-      instance = resource.new
-
-      result = instance.resource
-
-      expect(result).to eq(name)
-    end
-
     it 'can access request' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       instance = resource.new
 
@@ -94,7 +85,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'will use attributes for method missing' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       instance = resource.new attributes
 
@@ -105,7 +96,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'can update attributes' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       instance = resource.new attributes
 
@@ -117,7 +108,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'if there is an id passed the instance is not new' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       instance = resource.new id: 100
 
@@ -127,7 +118,7 @@ RSpec.describe Polyseerio::Resource::Factory do
     end
 
     it 'resource can be constructed without attributes' do
-      resource = described_class.create(name, request)
+      resource = described_class.create(name, request, cid)
 
       expect { resource.new }.not_to raise_error
     end

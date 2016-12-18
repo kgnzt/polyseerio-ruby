@@ -1,5 +1,6 @@
 require 'resource/definition'
 require 'resource/helper'
+require 'resource/base'
 require 'sdk/factory'
 require 'inflection'
 require 'sdk/helper'
@@ -56,75 +57,23 @@ module Polyseerio
         "#{name}#{cid}"
       end
 
-      # Determine if a resource definition represents a singleton
-      # TODO: Make this its own file / class use extend?
-      # TODO: CID should not be optional, options should not be optional
-      # TODO: unit-test this mess more
-      def self.create(type, request, cid = '', options = {})
-        result = Object.const_set(to_class_name(type, cid), Class.new do
-          # TODO: unit-test that this is attached
-          @@resource = type # rubocop:disable all
-          @@request = request # rubocop:disable all
-          @@options = options # rubocop:disable all
-          attr_accessor :eid
+      # Create a resource.
+      def self.create(type, request, cid, _options = {})
+        resource = Object.const_set(to_class_name(type, cid), Class.new(Base))
 
-          def initialize(attributes = {})
-            @new = true
-            # TODO: unit-test this eid
-            @eid = if attributes.include? :eid
-                     attributes[:eid]
-                   else
-                     Polyseerio::SDK::Helper.resolve_eid(options)
-                   end
-            @attributes = attributes
-          end
-
-          def resource
-            @@resource
-          end
-
-          def options
-            @@options
-          end
-
-          def request
-            @@request
-          end
-
-          def new?
-            id.nil?
-          end
-
-          def method_missing(name, *args) # rubocop:disable all
-            # Setter.
-            if name =~ /^(\w+)=$/
-              name = :"#{$1}" # rubocop:disable all
-
-              @attributes[:"#{$1}"] = args[0] # rubocop:disable all
-            end
-
-            # Getter.
-            @attributes.fetch(name, nil)
-          end
-
-          def respond_to_missing?(_method_name)
-            true
-          end
-
-          # TODO: unit-test
-          def type
-            self.class.type
-          end
-
-          attr_accessor :new, :attributes
-        end)
-
-        # TODO: unit-test
-        result.define_singleton_method(:type) do
+        resource.define_singleton_method(:type) do
           type
         end
 
-        result
+        resource.define_singleton_method(:request) do
+          request
+        end
+
+        resource.define_singleton_method(:cid) do
+          cid
+        end
+
+        resource
       end
 
       # Create a resource.
