@@ -17,34 +17,30 @@ module Polyseerio
           if options[:attach]
             name = Helper.resolve_name(options)
 
+            # Resolve the instance.
             instance = Resource::Routine.upsert(
               client.Instance,
               name: name
             ).execute.value
 
+            # Set the client's instance.
             client.instance = instance
 
-            # merge this with filter_handler below?
-            handler_options = options.select do |key, _|
-              Polyseerio::Agent::Handler::HANDLER.key? key
-            end
-
-            handler_options = Helper.filter_handlers handler_options
-
+            # Create a setup handler.
+            handler_options = Helper.extract_handler_options options
             setup_handler = Helper.setup_with_handler(
-              Polyseerio::Agent::Handler::HANDLER,
+              Polyseerio::Agent::Handler::MAP,
               client,
               handler_options
             )
 
-            # Gather the setups.
-            setups = handler_options.map do |key, _config|
-              setup_handler.call(key)
-            end
+            # Gather setup operations.
+            setups = handler_options.map { |key, _| setup_handler.call(key) }
 
+            # Perform setups.
             Concurrent::Promise.zip(*setups).execute.value
 
-            # now attach
+            # Start monitoring.
             instance.attach.execute.value
 
             instance

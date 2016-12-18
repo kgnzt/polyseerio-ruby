@@ -1,5 +1,6 @@
 require 'functional'
 require 'concurrent'
+require 'agent/handler/index'
 require 'agent/handler/interface'
 
 module Polyseerio
@@ -92,7 +93,7 @@ module Polyseerio
         end
       end
 
-      # Given agent options, handlers options are returned.
+      # Given handler options, enabled subtype options are returned.
       def self.filter_enabled_handler_options(options)
         options.each_with_object({}, &reduce_handler_option)
       end
@@ -104,6 +105,14 @@ module Polyseerio
 
           acc
         end
+      end
+
+      # Extracts handler options and then filters them based on if they
+      # are enabled or not. TODO: unit-test or integration-test
+      def self.extract_handler_options(options)
+        options = Handler.extract_options options
+
+        filter_handlers options
       end
 
       # Determines if a handler configuration should be handled.
