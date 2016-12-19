@@ -19,6 +19,11 @@ module Polyseerio
                     end
           else
             instance.request.put(uri, instance.properties)
+                    .then do |result|
+                      instance.override_properties(result.properties)
+
+                      instance
+                    end
           end
         end
       end

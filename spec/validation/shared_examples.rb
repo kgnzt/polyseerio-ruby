@@ -25,7 +25,6 @@ RSpec.shared_examples 'creatable' do
     found = find_instance.execute.value
 
     expect(find_instance).to be_fulfilled
-
     expect(found.id).to eq(instance.id)
   end
 end
@@ -128,8 +127,9 @@ RSpec.shared_examples 'updatable' do
 
     # save it
     save_instance = found.save
-    save_instance.execute.value
+    result = save_instance.execute.value
     expect(save_instance).to be_fulfilled
+    expect(result == found).to be true # we should get our instance back
 
     # load it gain
     find_again = described_class.find_by_id(instance.id)

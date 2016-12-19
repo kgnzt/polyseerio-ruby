@@ -53,7 +53,7 @@ RSpec.describe Polyseerio::SDK::Method.save do
       )
     end
 
-    it 'returns itself when saved' do
+    it 'returns the passed instance when saved' do
       allow(instance).to receive(:new?).and_return true
       allow(request).to receive(:post).and_return(
         Concurrent::Promise.fulfill(response)
@@ -68,9 +68,11 @@ RSpec.describe Polyseerio::SDK::Method.save do
   describe 'saving existing instances' do
     it 'makes a put request when not new' do
       allow(instance).to receive(:new?).and_return false
-      allow(request).to receive(:put)
+      allow(request).to receive(:put).and_return(
+        Concurrent::Promise.fulfill(response)
+      )
 
-      described_class.call(instance)
+      described_class.call(instance).execute.value
 
       expect(request).to have_received :put
     end
@@ -78,9 +80,11 @@ RSpec.describe Polyseerio::SDK::Method.save do
     it 'passes the correct uri and properties to put' do
       allow(instance).to receive(:id).and_return nil
       allow(instance).to receive(:new?).and_return false
-      allow(request).to receive(:put)
+      allow(request).to receive(:put).and_return(
+        Concurrent::Promise.fulfill(response)
+      )
 
-      described_class.call(instance)
+      described_class.call(instance).execute.value
 
       expect(request).to have_received(:put).with(
         '/environments/testing/alerts',
@@ -88,13 +92,15 @@ RSpec.describe Polyseerio::SDK::Method.save do
       )
     end
 
-    it 'returns the result of put' do
+    it 'returns the passed instance when saved' do
       allow(instance).to receive(:new?).and_return false
-      allow(request).to receive(:put).and_return result_double
+      allow(request).to receive(:put).and_return(
+        Concurrent::Promise.fulfill(response)
+      )
 
-      result = described_class.call(instance)
+      result = described_class.call(instance).execute.value
 
-      expect(result).to be result_double
+      expect(result).to be instance
     end
   end
 end
