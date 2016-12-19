@@ -18,7 +18,7 @@ module Polyseerio
                 .then(proc do |reason|
                   raise reason if reason.http_code != 404
 
-                  resource.create(name: name).execute.value
+                  resource.create(attributes).execute.value
                 end)
       end
     end

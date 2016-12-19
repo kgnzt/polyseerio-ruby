@@ -38,6 +38,7 @@ RSpec.describe Polyseerio::Resource::Routine do
       upsert.execute.value
 
       expect(upsert).to be_fulfilled_with result_double
+      expect(resource).to have_received(:create).with attributes
     end
 
     it 'when find_by_name rejects non 404 it rejects' do
