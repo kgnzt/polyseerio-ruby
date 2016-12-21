@@ -52,10 +52,12 @@ module Polyseerio
   }.freeze
 
   # Create a client and start it's agent.
-  def self.start(*args)
-    client = make(*args)
+  def self.start(options = {})
+    options = Helper.defaults(options, DEFAULT_CLIENT_OPTIONS)
 
-    client.start_agent
+    client = make(options)
+
+    client.start_agent(options[:agent])
   end
 
   @make_call_count = 0
