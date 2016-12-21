@@ -104,6 +104,33 @@ client has been created you may use any of its resources.
     * `.current_environment ⇒ client.Environment`
       * Resolves the current environment **IF** it has been deduced.
     * `.start_agent(options = {}) ⇒ Polyseerio::Client`  
+      * `options`
+        - `.attach`
+        - `.attach_strategy`
+        - `.name` instance name (will be used as a unique id)
+        - `.description` a description of this instance
+        - `.group` what group this instance belongs to
+        - `.direction` the monitoring direction (inbound) // force this
+        - `.subtype` the instance subtype: periodic or long_running.
+        - `.expectation` will be upserted for this instance
+          - `.is_alive` create an expectation that this process is alive
+        - `.fact`
+          - `.engine` the current ruby engine
+          - `.gid` the group if othe process is running under
+          - `.launch_arguments` command used to launch the instance
+          - `.pid` the id of the process
+          - `.platform` the operating platform of
+          - `.ruby_version` the version of ruby being used
+          - `.uid` user id the process is running as
+        - `.metric`
+          - `.cpu` track user and system cpu usage
+          - `.memory` track memory usage
+          - `.uptime` track process uptime
+        - `.event`
+          - `.start` event notice when agent starts
+          - `.stop` event notice when agent stops
+        - `.process_event`
+          - `.exit` event notice on process exit
       * Starts the Polyseer.io agent. Will use passed options or config.agent from client construction.
     * `.Alert`
     * `.Channel`
