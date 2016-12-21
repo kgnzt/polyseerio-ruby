@@ -12,7 +12,14 @@ module Polyseerio
           Concurrent::Promise.new do
             heartbeat_thread = Thread.new(instance.request) do |req|
               loop do
-                req.post("#{uri}/heartbeat", {}).execute.value
+                facts = instance._facts;
+
+                payload = {
+                  facts: facts
+                }
+
+                result = req.post("#{uri}/heartbeat", payload).execute.value
+
                 sleep(5)
               end
             end
