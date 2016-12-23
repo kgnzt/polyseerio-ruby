@@ -89,14 +89,14 @@ client has been created you may use any of its resources.
       * Create a client.
       * `options (Hash)` see Polyseerio.start options.
     * `::Enum`
-      * `.Color`
-      * `.Determiner`
-      * `.Direction`
-      * `.Icon`
-      * `.Icon`
-      * `.Strategy`
-      * `.Subtype`
-      * `.Type`
+      * `::Color (Hash)` platform color values
+      * `::Determiner (Hash)` expectation deteriner types
+      * `::Direction (Hash)` instance direction types
+      * `::Icon (Hash)` platform icon types
+      * `::Protocol (Hash)` alert protocol types
+      * `::Strategy (Hash)` instance attachment strategies
+      * `::Subtype (Hash)` instance subtypes
+      * `::Type (Hash)` resource types
 
 ### Polyseerio::Client
 
