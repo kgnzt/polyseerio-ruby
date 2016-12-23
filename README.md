@@ -110,44 +110,34 @@ client has been created you may use any of its resources.
     * `.current_environment ⇒ client.Environment`
       * Resolves the current environment **IF** it has been deduced.
     * `.start_agent(options = {}) ⇒ Polyseerio::Client`  
+      * Starts the Polyseer.io agent for this client.
       * `options`
-        - `.attach`
-        - `.attach_strategy`
-        - `.name` instance name (will be used as a unique id)
-        - `.description` a description of this instance
-        - `.group` what group this instance belongs to
-        - `.direction` the monitoring direction (inbound) // force this
-        - `.subtype` the instance subtype: periodic or long_running.
+        - `.attach (Boolean)`
+        - `.attach_strategy (Symbol)`
+        - `.name (String)` instance name (will be used as a unique id)
+        - `.description (String)` a description of this instance
+        - `.group (String)` what group this instance belongs to
+        - `.direction (String)` the monitoring direction (inbound) // force this
+        - `.subtype (Polyseerio::Enum::Subtype)` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance
-          - `.is_alive` create an expectation that this process is alive
+          - `.is_alive (Boolean)` create an expectation that this process is alive
         - `.fact`
-          - `.engine` the current ruby engine
-          - `.gid` the group if othe process is running under
-          - `.launch_arguments` command used to launch the instance
-          - `.pid` the id of the process
-          - `.platform` the operating platform of
-          - `.ruby_version` the version of ruby being used
-          - `.uid` user id the process is running as
+          - `.engine (Boolean)` the current ruby engine
+          - `.gid (Boolean)` the group if othe process is running under
+          - `.launch_arguments (Boolean)` command used to launch the instance
+          - `.pid (Boolean)` the id of the process
+          - `.platform (Boolean)` the operating platform of
+          - `.ruby_version (Boolean)` the version of ruby being used
+          - `.uid (Boolean)` user id the process is running as
         - `.metric`
-          - `.cpu` track user and system cpu usage
-          - `.memory` track memory usage
-          - `.uptime` track process uptime
+          - `.cpu (Boolean)` track user and system cpu usage
+          - `.memory (Boolean)` track memory usage
+          - `.uptime (Boolean)` track process uptime
         - `.event`
-          - `.start` event notice when agent starts
-          - `.stop` event notice when agent stops
+          - `.start (Boolean)` event notice when agent starts
+          - `.stop (Boolean)` event notice when agent stops
         - `.process_event`
-          - `.exit` event notice on process exit
-      * Starts the Polyseer.io agent. Will use passed options or config.agent from client construction.
-    * `.Alert`
-    * `.Channel`
-    * `.Environment`
-    * `.Event`
-    * `.Expectation`
-    * `.Instance`
-    * `.LogicBlock`
-    * `.Member`
-    * `.Settings`
-    * `.Task`
+          - `.exit (Boolean)` event notice on process exit
     
 ### Alert
 
