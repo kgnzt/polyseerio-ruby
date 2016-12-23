@@ -4,9 +4,10 @@ module Polyseerio
     module Method
       def self.add_fact
         proc do |instance, key, value|
-          instance.facts ||= {}
+          # TODO: should be something other than facts
+          instance._facts ||= {}
 
-          instance.facts[key] = value
+          instance._facts[key] = value
         end
       end
     end

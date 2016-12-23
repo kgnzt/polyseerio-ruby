@@ -18,12 +18,32 @@ RSpec.describe Polyseerio::Agent::Enum do
   end
 
   describe described_class::Fact do
-    it 'defines PID' do
-      expect(described_class::PID).to eq(:pid)
+    it 'defines ENGINE' do
+      expect(described_class::ENGINE).to eq(:engine)
     end
 
     it 'defines GID' do
       expect(described_class::GID).to eq(:gid)
+    end
+
+    it 'defines PID' do
+      expect(described_class::PID).to eq(:pid)
+    end
+
+    it 'defines PLATFORM' do
+      expect(described_class::PLATFORM).to eq(:platform)
+    end
+
+    it 'defines RUBY_VERSION' do
+      expect(described_class::RUBY_VERSION).to eq(:ruby_version)
+    end
+
+    it 'defines LAUNCH_ARGUMENTS' do
+      expect(described_class::LAUNCH_ARGUMENTS).to eq(:launch_arguments)
+    end
+
+    it 'defines UID' do
+      expect(described_class::UID).to eq(:uid)
     end
   end
 

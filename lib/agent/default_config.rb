@@ -24,8 +24,13 @@ module Polyseerio
         is_alive: true
       },
       fact: {
-        pid: true,
-        gid: true
+        Enum::Fact::ENGINE => true,
+        Enum::Fact::GID => true,
+        Enum::Fact::LAUNCH_ARGUMENTS => true,
+        Enum::Fact::PID => true,
+        Enum::Fact::PLATFORM => true,
+        Enum::Fact::RUBY_VERSION => true,
+        Enum::Fact::UID => true
       },
       metric: {
         memory: true,

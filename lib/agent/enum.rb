@@ -11,8 +11,13 @@ module Polyseerio
       end
 
       module Fact
-        PID  = :pid
-        GID  = :gid
+        ENGINE           = :engine
+        GID              = :gid
+        LAUNCH_ARGUMENTS = :launch_arguments
+        PID              = :pid
+        PLATFORM         = :platform
+        RUBY_VERSION     = :ruby_version
+        UID              = :uid
       end
 
       module Signal
