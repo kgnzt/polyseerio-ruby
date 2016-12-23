@@ -4,6 +4,12 @@
 
 The official Polyseer.io SDK for Ruby. Detailed API information can be found at (https://polyseer.io/documentation).
 
+## About
+
+Polyseer.io is an Integrated Development Platform that instantly
+provides teams with the resources needed to build, support, and maintain world 
+class software products.
+
 ## Requirements
   - Ruby
   - gem
@@ -63,7 +69,7 @@ delaying and chaining async work.
 
 ## Example
 
-Examples are available in /example
+Be sure to check out the examples in /example.
 
 ## SDK Resources
 
@@ -74,20 +80,20 @@ client has been created you may use any of its resources.
 ### Polyseerio
 
   * Polyseerio
-    * .`start(options = {}) ⇒ Polyseerio::Client`
-      * Create a client and start an Agent.
-      * `options (Hash)`
-        - `:env`        environment variable that holds the current environment
-        - `:token`      an api token
-        - `:token_env`  if no token is provided, this environment variable will be checked
-        - `:agent`      a hash that will be used when starting this client's agent
-        - `:upsert_env` if an environment cannot be found it will be created
-        - `:version`    api version to use
-        - `:timeout`    integer containing number of ms to wait for server responses
-        - `:deduce`     if the environment should be deduced when not supplied
     * .`make(options = {}) ⇒ Polyseerio::Client`
       * Create a client.
       * `options (Hash)` see Polyseerio.start options.
+        - `:deduce (Boolean)` if the environment should be deduced when not supplied
+        - `:env (String)` environment variable that holds the current environment
+        - `:timeout (Integer)` integer containing number of ms to wait for server responses
+        - `:token (String)` an api token
+        - `:token_env (String)` if no token is provided, this environment variable will be checked
+        - `:upsert_env (Boolean)` if an environment cannot be found it will be created
+        - `:version (String)` api version to use
+    * .`start(options = {}) ⇒ Polyseerio::Client`
+      * Create a client and start an Agent.
+      * `options (Hash)`
+        - `:agent (Hash)` agent options (see client.start_agent options)
     * `::Enum`
       * `::Color (Hash)` platform color values
       * `::Determiner (Hash)` expectation deteriner types
