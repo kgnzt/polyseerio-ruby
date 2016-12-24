@@ -10,32 +10,22 @@ module Polyseerio
           uri = Helper.instance_to_uri instance
 
           Concurrent::Promise.new do
-            heartbeat_thread = Thread.new(instance.request) do |req|
-              loop do
-                payload = {}
-
-                if instance.respond_to? :_facts
-                  payload[:facts] = instance._facts
-
-                  instance._facts = Helper.remove_non_resolving_values(
-                    instance._facts
-                  )
+            heartbeat_thread = Thread.new(instance) do |inst|
+              begin
+                loop do
+                  payload = {}
+  
+                  inst.request.post("#{uri}/heartbeat", payload).execute.value
+                  puts 'd'
+  
+                  sleep(5)
                 end
-
-                if instance.respond_to? :_gauges
-                  payload[:metrics] = {}
-                  payload[:metrics][:gauges] = instance._gauges
-
-                  instance._gauges = Helper.remove_non_resolving_values(
-                    instance._gauges
-                  )
-                end
-
-                req.post("#{uri}/heartbeat", payload).execute.value
-
-                sleep(5)
+              rescue => err
+                puts err
               end
             end
+
+            heartbeat_thread.join
 
             heartbeat_thread
           end
