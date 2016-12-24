@@ -329,3 +329,8 @@ Requires the environment to have a root level access-token defined as:
 ### All
 
     make test
+
+## Debugging
+
+Set the environment variable POLYSEERIO_LOG_LEVEL to debug in order to get
+detailed logging information.
