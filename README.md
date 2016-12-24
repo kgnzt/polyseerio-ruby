@@ -26,14 +26,15 @@ To add to your project Gemfile, insert:
 
 ## Example
 
-Examples are available in /example
+Be sure to check out the examples in /example.
 
 ## Environment Variables
 
 Certain values can be set in environment variables:
 
-  * POLYSEERIO_TOKEN access-token used for API calls
-  * RAILS_ENV        the current environment
+  * POLYSEERIO_TOKEN     access-token used for API calls
+  * RAILS_ENV            the current environment
+  * POLYSEERIO_LOG_LEVEL SDK logging level
 
 ## Usage
 

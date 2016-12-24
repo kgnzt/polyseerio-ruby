@@ -13,6 +13,11 @@ module Polyseerio
 
       # Given a request path an eid is returned or nil
       def self.get_eid_from_resource_path(path)
+        # TODO: consolidate with regex?
+        if path.include? '/environments/name/'
+          return path.split('/environments/name/').last
+        end
+
         result = EID_REGEX.match path
 
         return result if result.nil?
