@@ -10,9 +10,7 @@ module Polyseerio
       # that are blocks / procs / anything callable aka resolvable.
       def self.remove_non_resolving_values(hash)
         hash.each_with_object({}) do |(key, value), acc|
-          if value.respond_to? :call
-            acc[key] = value
-          end
+          acc[key] = value if value.respond_to? :call
 
           acc
         end

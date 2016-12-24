@@ -4,9 +4,9 @@ module Polyseerio
     module Method
       def self.add_gauge
         proc do |instance, key, value|
-          instance.gauges ||= {}
+          instance._gauges ||= {}
 
-          instance.gauges[key] = value
+          instance._gauges[key] = value
         end
       end
     end

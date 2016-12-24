@@ -17,7 +17,18 @@ module Polyseerio
                 if instance.respond_to? :_facts
                   payload[:facts] = instance._facts
 
-                  instance._facts = Helper.remove_non_resolving_values instance._facts
+                  instance._facts = Helper.remove_non_resolving_values(
+                    instance._facts
+                  )
+                end
+
+                if instance.respond_to? :_gauges
+                  payload[:metrics] = {}
+                  payload[:metrics][:gauges] = instance._gauges
+
+                  instance._gauges = Helper.remove_non_resolving_values(
+                    instance._gauges
+                  )
                 end
 
                 req.post("#{uri}/heartbeat", payload).execute.value
