@@ -12,11 +12,13 @@ module Polyseerio
           Concurrent::Promise.new do
             heartbeat_thread = Thread.new(instance.request) do |req|
               loop do
-                facts = instance._facts
+                payload = {}
 
-                payload = {
-                  facts: facts
-                }
+                if instance.respond_to? :_facts
+                  payload[:facts] = instance._facts
+
+                  instance._facts = Helper.remove_non_resolving_values instance._facts
+                end
 
                 req.post("#{uri}/heartbeat", payload).execute.value
 

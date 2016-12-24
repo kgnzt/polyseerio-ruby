@@ -6,6 +6,18 @@ module Polyseerio
   module SDK
     # SDK helpers.
     module Helper
+      # Takes a hash and returns a new one that only contains values
+      # that are blocks / procs / anything callable aka resolvable.
+      def self.remove_non_resolving_values(hash)
+        hash.each_with_object({}) do |(key, value), acc|
+          if value.respond_to? :call
+            acc[key] = value
+          end
+
+          acc
+        end
+      end
+
       # Takes an instance and returns a uri.
       def self.instance_to_uri(instance)
         URL.get_resource_path(
