@@ -3,7 +3,7 @@ require 'polyseerio'
 # Add a Polyseerio initializer.
 module Polyseerio
   class << self
-    @polyseerio ||= Polyseerio.start(environment: 'testing').then(proc do |reason|
+    @polyseerio ||= Polyseerio.start(environment: 'test').then(proc do |reason|
       puts reason
     end).execute.value
 
