@@ -27,6 +27,10 @@ RSpec.describe Polyseerio::Constant do
     expect(described_class::DEFAULT_ENVIRONMENT).to eq('development')
   end
 
+  it 'defines DEFAULT_HEARTBEAT_DELAY' do
+    expect(described_class::DEFAULT_HEARTBEAT_DELAY).to eq(30_000)
+  end
+
   it 'defines DEFAULT_TIMEOUT' do
     expect(described_class::DEFAULT_TIMEOUT).to eq(10_000)
   end

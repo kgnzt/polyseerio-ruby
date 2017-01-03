@@ -48,6 +48,16 @@ module Polyseerio
         id.nil?
       end
 
+      # TODO: move towards this
+      def get(key, default = nil)
+        @attributes.fetch(key, default)
+      end
+
+      # TODO: move towards this
+      def set(key, value)
+        @attributes[key] = value
+      end
+
       def method_missing(name, *args) # rubocop:disable all
         # Setter.
         if name =~ /^(\w+)=$/
@@ -60,8 +70,8 @@ module Polyseerio
         @attributes.fetch(name, nil)
       end
 
-      def respond_to_missing?(_method_name)
-        true
+      def respond_to_missing?(method_name)
+        !methods.include(method_name)
       end
 
       private

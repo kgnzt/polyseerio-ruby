@@ -24,6 +24,8 @@ module Polyseerio
         proc do |map, client, config, type, *args|
           if map.key? type.to_sym
             if config.key? type # to_sym?
+              Polyseerio.log 'debug', "Performing handler work for: #{type}."
+
               # TODO: unit-test passed args
               work = config.fetch(type)
                            .map(&iteratee.call(map.fetch(type), client, *args))
@@ -42,6 +44,8 @@ module Polyseerio
       # Returns a setup handler function.
       @setup = proc do |handlers_outer, *args_outer|
         setup_iterator = proc do |handlers, key, value, *args|
+          Polyseerio.log 'debug', "Setting up handler for: #{key}."
+
           handler = handlers.fetch(key)
 
           if handler.respond_to? :call
@@ -59,6 +63,8 @@ module Polyseerio
 
       @teardown = proc do |handlers_outer, *args_outer|
         teardown_iterator = proc do |handlers, key, _value, *args|
+          Polyseerio.log 'debug', "Tearing down handler for: #{key}."
+
           if handlers.fetch(key).key? Handler::Interface::TEARDOWN
             handlers.fetch(key).fetch(Handler::Interface::TEARDOWN).call(*args)
           else

@@ -1,5 +1,6 @@
 require 'sdk/helper'
 require 'concurrent'
+require 'constant'
 
 module Polyseerio
   module SDK
@@ -7,20 +8,29 @@ module Polyseerio
     module Method
       def self.attach
         proc do |instance|
+          options = Polyseerio::Helper.defaults(
+            {},
+            delay: Constant::DEFAULT_HEARTBEAT_DELAY
+          )
+
           uri = Helper.instance_to_uri instance
 
+          options[:delay] = Polyseerio::Helper.ms_to_seconds options[:delay]
+
           Concurrent::Promise.new do
-            heartbeat_thread = Thread.new(instance.request) do |req|
-              loop do
-                facts = instance._facts;
+            heartbeat_thread = Thread.new(instance, options) do |inst, opts|
+              begin
+                loop do
+                  payload = {}
 
-                payload = {
-                  facts: facts
-                }
+                  Polyseerio.log 'debug', 'Sending heartbeat.'
+                  inst.request.post("#{uri}/heartbeat", payload).execute.value
 
-                result = req.post("#{uri}/heartbeat", payload).execute.value
-
-                sleep(5)
+                  sleep(opts[:delay])
+                end
+              rescue => err
+                Polyseerio.log 'error', 'Heartbeat failed.'
+                Polyseerio.log 'error', err.message
               end
             end
 

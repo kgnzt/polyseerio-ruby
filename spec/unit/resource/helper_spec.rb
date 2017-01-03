@@ -67,6 +67,14 @@ RSpec.describe Polyseerio::Resource::Helper do
 
       expect(result).to eq('validation-testing')
     end
+
+    it 'returns correct eid when environment name resource path used' do
+      path = '/polyseer/v1/environments/name/validation-testing'
+
+      result = described_class.get_eid_from_resource_path path
+
+      expect(result).to eq('validation-testing')
+    end
   end
 
   describe 'resource_collection?' do

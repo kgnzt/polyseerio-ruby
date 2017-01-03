@@ -12,7 +12,7 @@ module Polyseerio
 
         statics = statics.each_with_object({}, &accumulator)
 
-        # curry request,  resource, and options
+        # curry request, resource, and options
         statics.each_with_object(statics) do |(name, static), hash|
           if static.arity > 3
             hash[name] = static.curry.call(request, resource, options)
@@ -27,7 +27,11 @@ module Polyseerio
     module Method
       # Generates method (instance) functions.
       def self.factory(_request, _resource, methods = [], _options = {})
-        methods.each_with_object({}, &Helper.accumulate_procs('method', MAP))
+        accumulator = Helper.accumulate_procs('method', MAP)
+
+        methods = methods.each_with_object({}, &accumulator)
+
+        methods
       end
     end
   end

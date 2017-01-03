@@ -1,6 +1,26 @@
 require 'sdk/helper'
 
 RSpec.describe Polyseerio::SDK::Helper do
+  describe 'remove_non_resolving_values' do
+    let(:hash) do
+      {
+        foo: 'beta',
+        size: 22,
+        king: proc { |kong| kong }
+      }
+    end
+
+    it 'removes all non resolable hash values' do
+      result = described_class.remove_non_resolving_values hash
+
+      expect(result.size).to eq(1)
+      expect(result).to have_key(:king)
+
+      expect(result).not_to have_key(:foo)
+      expect(result).not_to have_key(:size)
+    end
+  end
+
   describe 'instance_to_uri' do
     let(:instance) { double('instance') }
     let(:id) { 13 }

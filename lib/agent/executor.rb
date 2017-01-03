@@ -11,6 +11,8 @@ module Polyseerio
     module Executor
       # Setsup a client's agent.
       def self.setup(client, options = {})
+        Polyseerio.log 'debug', 'Setting up client agent.'
+
         options = Polyseerio::Helper.defaults(options, DEFAULT_CONFIG)
 
         Concurrent::Promise.new do
@@ -42,6 +44,7 @@ module Polyseerio
             Concurrent::Promise.zip(*setups).execute.value
 
             # Start monitoring.
+            Polyseerio.log 'debug', 'Attaching instance to Polyseer.io'
             instance.attach.execute.value
 
             instance

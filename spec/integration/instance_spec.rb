@@ -9,7 +9,7 @@ RSpec.describe Polyseerio do
     instance.add_fact(:foo, 'bar')
     instance.add_fact(:alpha, 'beta')
 
-    expect(instance.facts).to eq(
+    expect(instance._facts).to eq(
       foo: 'bar',
       alpha: 'beta'
     )

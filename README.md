@@ -4,6 +4,12 @@
 
 The official Polyseer.io SDK for Ruby. Detailed API information can be found at (https://polyseer.io/documentation).
 
+## About
+
+Polyseer.io is an Integrated Development Platform that instantly
+provides teams with the resources needed to build, support, and maintain world 
+class software products.
+
 ## Requirements
   - Ruby
   - gem
@@ -20,14 +26,15 @@ To add to your project Gemfile, insert:
 
 ## Example
 
-Examples are available in /example
+Be sure to check out the examples in /example.
 
 ## Environment Variables
 
 Certain values can be set in environment variables:
 
-  * POLYSEERIO_TOKEN access-token used for API calls
-  * RAILS_ENV        the current environment
+  * POLYSEERIO_TOKEN     access-token used for API calls
+  * RAILS_ENV            the current environment
+  * POLYSEERIO_LOG_LEVEL SDK logging level
 
 ## Usage
 
@@ -63,7 +70,7 @@ delaying and chaining async work.
 
 ## Example
 
-Examples are available in /example
+Be sure to check out the examples in /example.
 
 ## SDK Resources
 
@@ -74,29 +81,29 @@ client has been created you may use any of its resources.
 ### Polyseerio
 
   * Polyseerio
+    * .`make(options = {}) ⇒ Polyseerio::Client`
+      * Create a client.
+      * `options (Hash)` see Polyseerio.start options.
+        - `:deduce (Boolean)` if the environment should be deduced when not supplied
+        - `:env (String)` environment variable that holds the current environment
+        - `:timeout (Integer)` integer containing number of ms to wait for server responses
+        - `:token (String)` an api token
+        - `:token_env (String)` if no token is provided, this environment variable will be checked
+        - `:upsert_env (Boolean)` if an environment cannot be found it will be created
+        - `:version (String)` api version to use
     * .`start(options = {}) ⇒ Polyseerio::Client`
       * Create a client and start an Agent.
       * `options (Hash)`
-        - `:env`        environment variable that holds the current environment
-        - `:token`      an api token
-        - `:token_env`  if no token is provided, this environment variable will be checked
-        - `:upsert_env` if an environment cannot be found it will be created
-        - `:version`    api version to use
-        - `:timeout`    integer containing number of ms to wait for server responses
-        - `:deduce`     if the environment should be deduced when not supplied
-    * .`make(options = {}) ⇒ Polyseerio::Client`
-      * Create a client.
-      * `options (Hash)` see Polyseerio.start options, plus the additional below can be passed
-        - `:agent`      a hash that will be used when starting this client's agent
+        - `:agent (Hash)` agent options (see client.start_agent options)
     * `::Enum`
-      * `.Color`
-      * `.Determiner`
-      * `.Direction`
-      * `.Icon`
-      * `.Icon`
-      * `.Strategy`
-      * `.Subtype`
-      * `.Type`
+      * `::Color (Hash)` platform color values
+      * `::Determiner (Hash)` expectation deteriner types
+      * `::Direction (Hash)` instance direction types
+      * `::Icon (Hash)` platform icon types
+      * `::Protocol (Hash)` alert protocol types
+      * `::Strategy (Hash)` instance attachment strategies
+      * `::Subtype (Hash)` instance subtypes
+      * `::Type (Hash)` resource types
 
 ### Polyseerio::Client
 
@@ -104,44 +111,34 @@ client has been created you may use any of its resources.
     * `.current_environment ⇒ client.Environment`
       * Resolves the current environment **IF** it has been deduced.
     * `.start_agent(options = {}) ⇒ Polyseerio::Client`  
+      * Starts the Polyseer.io agent for this client.
       * `options`
-        - `.attach`
-        - `.attach_strategy`
-        - `.name` instance name (will be used as a unique id)
-        - `.description` a description of this instance
-        - `.group` what group this instance belongs to
-        - `.direction` the monitoring direction (inbound) // force this
-        - `.subtype` the instance subtype: periodic or long_running.
+        - `.attach (Boolean)`
+        - `.attach_strategy (Symbol)`
+        - `.name (String)` instance name (will be used as a unique id)
+        - `.description (String)` a description of this instance
+        - `.group (String)` what group this instance belongs to
+        - `.direction (String)` the monitoring direction (inbound) // force this
+        - `.subtype (Polyseerio::Enum::Subtype)` the instance subtype: periodic or long_running.
         - `.expectation` will be upserted for this instance
-          - `.is_alive` create an expectation that this process is alive
+          - `.is_alive (Boolean)` create an expectation that this process is alive
         - `.fact`
-          - `.engine` the current ruby engine
-          - `.gid` the group if othe process is running under
-          - `.launch_arguments` command used to launch the instance
-          - `.pid` the id of the process
-          - `.platform` the operating platform of
-          - `.ruby_version` the version of ruby being used
-          - `.uid` user id the process is running as
+          - `.engine (Boolean)` the current ruby engine
+          - `.gid (Boolean)` the group if othe process is running under
+          - `.launch_arguments (Boolean)` command used to launch the instance
+          - `.pid (Boolean)` the id of the process
+          - `.platform (Boolean)` the operating platform of
+          - `.ruby_version (Boolean)` the version of ruby being used
+          - `.uid (Boolean)` user id the process is running as
         - `.metric`
-          - `.cpu` track user and system cpu usage
-          - `.memory` track memory usage
-          - `.uptime` track process uptime
+          - `.cpu (Boolean)` track user and system cpu usage
+          - `.memory (Boolean)` track memory usage
+          - `.uptime (Boolean)` track process uptime
         - `.event`
-          - `.start` event notice when agent starts
-          - `.stop` event notice when agent stops
+          - `.start (Boolean)` event notice when agent starts
+          - `.stop (Boolean)` event notice when agent stops
         - `.process_event`
-          - `.exit` event notice on process exit
-      * Starts the Polyseer.io agent. Will use passed options or config.agent from client construction.
-    * `.Alert`
-    * `.Channel`
-    * `.Environment`
-    * `.Event`
-    * `.Expectation`
-    * `.Instance`
-    * `.LogicBlock`
-    * `.Member`
-    * `.Settings`
-    * `.Task`
+          - `.exit (Boolean)` event notice on process exit
     
 ### Alert
 
@@ -332,3 +329,8 @@ Requires the environment to have a root level access-token defined as:
 ### All
 
     make test
+
+## Debugging
+
+Set the environment variable POLYSEERIO_LOG_LEVEL to debug in order to get
+detailed logging information.

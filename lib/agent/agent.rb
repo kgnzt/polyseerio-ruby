@@ -12,6 +12,8 @@ module Polyseerio
 
       # Starts the agent.
       def start(*args)
+        Polyseerio.log 'debug', 'Starting agent.'
+
         Executor.setup(client, *args)
                 .then do |instance|
                   @instance = instance

@@ -1,3 +1,5 @@
+require 'matchers'
+
 # Ensure a resource can be created.
 RSpec.shared_examples 'creatable' do
   it 'can create an instance using Resource.create' do
@@ -16,7 +18,7 @@ RSpec.shared_examples 'creatable' do
     save_result = save.execute.value
 
     # assert the save worked on client
-    expect(save).to be_fulfilled(instance)
+    expect(save).to be_fulfilled_with(instance)
     expect(instance.id).not_to be_nil
     expect(save_result).to be(instance)
 
