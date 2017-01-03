@@ -1,7 +1,6 @@
 require 'polyseerio'
-include Polyseerio::Enum
 
-# Clients are configurable, see docs for all options.
+# Create a client that has some custom configuration.
 client = Polyseerio.make(
   env: 'RUBY_ENV',
   token: 'my-secret-access-token',
@@ -9,9 +8,12 @@ client = Polyseerio.make(
   timeout: 5000
 )
 
-client.Instance.find_by_name(name: 'my-instance')
+# We can now make SDK calls using our configured client instance.
+client.Instance.find_by_name('my-instance')
       .then(proc do |reason|
-        puts "Could not find instance: #{reason.response}."
+        puts "Could not find instance: #{reason.http_code} -- #{reason.response}."
       end) do |instance|
+        puts "Found instance: #{instance.id}. Updating instance facts."
+
         instance.fact('start_timestamp', Date.today.to_time.to_i)
       end.execute.value

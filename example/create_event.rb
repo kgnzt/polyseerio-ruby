@@ -1,5 +1,6 @@
 require 'polyseerio'
 
+# Imports Color and Icon.
 include Polyseerio::Enum
 
 # First we will Create a client thats default behavior is to place resources 
@@ -17,9 +18,8 @@ client.Event.create(
   icon: Icon::CHECK
 ).then do |event|
   puts "Success event #{event.id} has been created."
-end.execute.rescue do |error|
-  puts "Something went wrong while creating a success event."
-  puts error
+end.execute.rescue do |reason|
+  puts "Something went wrong while creating a success event: #{reason}"
 end.value
 
 # Like before we can create a promise.
@@ -37,7 +37,6 @@ emit_danger_event = client.Event.create(
 # Not let's execute the danger event promise.
 danger_event = emit_danger_event.then do |event|
   puts "Danger event #{event.id} has been created."
-end.execute.rescue do |error|
-  puts "Something went wrong while creating a danger event."
-  puts error
+end.execute.rescue do |reason|
+  puts "Something went wrong while creating a danger event: #{reason}"
 end.value
