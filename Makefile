@@ -40,9 +40,13 @@ publish:
 	$(eval GEM = $(shell ls polyseerio-*.gem | head -n 1))
 	gem push $(GEM)
 
+install_gem:
+	$(eval GEM = $(shell ls polyseerio-*.gem | head -n 1))
+	gem install $(GEM)
+
 build:
 	rm -f polyseerio-*.gem
 	gem build polyseerio.gemspec
 	gem install polyseerio-*.gem
 
-.PHONY: install lint unit-test integration-test validation-test build
+.PHONY: install lint unit-test integration-test validation-test build publish install_gem
