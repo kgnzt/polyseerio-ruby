@@ -1,4 +1,5 @@
 BUILD_ENV?=development
+GEM=$(ls polyseerio-*.gem | head -n 1)
 
 all: install test build
 
@@ -34,6 +35,10 @@ else
 endif
 
 test: lint unit-test integration-test validation-test
+
+publish:
+	$(eval GEM = $(shell ls polyseerio-*.gem | head -n 1))
+	gem push $(GEM)
 
 build:
 	rm -f polyseerio-*.gem
