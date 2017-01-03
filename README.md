@@ -80,14 +80,14 @@ client has been created you may use any of its resources.
         - `:env`        environment variable that holds the current environment
         - `:token`      an api token
         - `:token_env`  if no token is provided, this environment variable will be checked
-        - `:agent`      a hash that will be used when starting this client's agent
         - `:upsert_env` if an environment cannot be found it will be created
         - `:version`    api version to use
         - `:timeout`    integer containing number of ms to wait for server responses
         - `:deduce`     if the environment should be deduced when not supplied
     * .`make(options = {}) ⇒ Polyseerio::Client`
       * Create a client.
-      * `options (Hash)` see Polyseerio.start options.
+      * `options (Hash)` see Polyseerio.start options, plus the additional below can be passed
+        - `:agent`      a hash that will be used when starting this client's agent
     * `::Enum`
       * `.Color`
       * `.Determiner`

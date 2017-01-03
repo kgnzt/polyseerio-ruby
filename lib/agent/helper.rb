@@ -23,7 +23,7 @@ module Polyseerio
       def self.create_handler(iteratee)
         proc do |map, client, config, type, *args|
           if map.key? type.to_sym
-            if config.key? type
+            if config.key? type # to_sym?
               # TODO: unit-test passed args
               work = config.fetch(type)
                            .map(&iteratee.call(map.fetch(type), client, *args))
